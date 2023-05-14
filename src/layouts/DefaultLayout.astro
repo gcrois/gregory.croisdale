@@ -1,0 +1,28 @@
+---
+import BaseHead from '@components/layout/BaseHead.astro';
+import Sidebar from '@components/layout/Sidebar.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	classList?: string;
+	pageTitle?: string;
+}
+
+const { title, description, classList, pageTitle } = Astro.props;
+---
+
+<html lang='en'>
+<BaseHead title={title} description={description} />
+<body>
+	<div class="main">
+		<div class="sidebar">
+			<Sidebar />
+		</div>
+		
+		<div class="content">
+			<slot />
+		</div>
+	</div>
+</body>
+</html>
