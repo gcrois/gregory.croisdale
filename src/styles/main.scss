@@ -1,68 +1,124 @@
+$base-color: #82A6B4;
+$bright-color: #DDD1B3;
+$brighter-color: #E0D099;
+$dark-color: #484844;
+$red-color: #86453B;
+
+// transparent versions:
+$transpant: rgba(0, 0, 0, 0);
+$t-amount: 50%;
+$base-color-t: mix($transpant, $base-color, $t-amount);
+$bright-color-t: mix($transpant, $bright-color, $t-amount);
+$brighter-color-t: mix($transpant, $brighter-color, $t-amount);
+$dark-color-t: mix($transpant, $dark-color, $t-amount);
+$red-color-t: mix($transpant, $red-color, $t-amount);
+
 * {
-    font-family: 'Roboto', sans-serif;
+    color: $dark-color;
+    font-family: aktiv-grotesk-condensed, sans-serif;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
 }
 
 body {
-    padding: 0;
-    margin: 0;
+    overflow-x: hidden;
 }
 
 .main {
     display: flex;
     flex-direction: row;
     justify-content: center;
-
+    
     width: 100vw;
-    height: 100vh;
+    height: fit-content;
+    min-height: 100vh;
 
-    background-color: red;
+    overflow-y: auto;
 }
 
 .sidebar {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
 
-    min-width: 240px;
-    width: 360px;
-    height: 100vh;
+    min-width: fit-content;
+    
+    padding: 16px;
 
-    background-color: blue;
+    background-color: $brighter-color;
+}
+
+.sidebar-content {
+    max-width: 256px;
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
 }
 
 .content {
     display: flex;
     flex-direction: row;
+    
+    width: 1024px;
+    min-height: fit-content;
+    
+    overflow: visible;
+    
+    background-color: $bright-color;
+}
 
-    width: 720px;
-    height: 100vh;
+.text {
+    padding: 0;
+}
 
-    background-color: green;
+.navbar {
+    position: relative;
+    background-color: blue;
+    display: block;
+    width: 100%;
+}
+
+.sticky {
+    position: fixed;
+    width: inherit;
+    z-index: 1;
+
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0);
+}
+
+.sticky-bar {
+    position: fixed;
+    background-color: red;
 }
 
 @media screen 
-    and (max-device-width: 600px)
+and (max-device-width: 600px)
 {
     .main {
         justify-content: flex-start;
         flex-direction: column;
-
-        min-width: 200px;
+        
+        min-width: fit-content;
     }
 
-    .content {
-        background-color: pink;
-
-        min-width: 200px;
-        width: 100vw;
+    .main > * {
+        width: auto;
         height: auto;
     }
 
     .sidebar {
-        background-color: yellow;
+        align-items: center;
+    }
 
-        min-width: 200px;
-        width: 100vw;
-        height: auto;
+    .sidebar-content {
+        max-width: 100%;
+        align-items: center;
     }
 }

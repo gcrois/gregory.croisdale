@@ -1,0 +1,23 @@
+.subheader-text {
+    font-size: 18px;
+    display: block;
+    text-overflow: ellipsis;
+    text-align: left;
+    max-width: auto;
+    width: 100%;
+}
+
+@media screen 
+and (max-device-width: 600px) {
+    .subheader-text {
+        text-align: center;
+    }
+}
+
+.header-text {
+    font-size: 32px;
+    
+    font-family: aktiv-grotesk-condensed, sans-serif;
+    font-weight: 200;
+    font-style: normal;
+}

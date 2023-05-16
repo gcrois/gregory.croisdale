@@ -1,8 +1,9 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '@layouts/DefaultLayout.astro';
 
 // make an array of numbers from 0 to 20
-const numbers = Array.from(Array(20).keys());
+const allBlogPosts = await getCollection('blog');
 ---
 
 <Layout
@@ -12,8 +13,11 @@ const numbers = Array.from(Array(20).keys());
 >
     <main>
         <section id='about'>
-            {numbers.map((number) => (
-                <p>{number}</p>
+            {allBlogPosts.map((post) => (
+                <div>
+                    <h2>{post.data.title}</h2>
+                    <p>{post.data.description}</p>
+                </div>
             ))}
         </section>
     </main>

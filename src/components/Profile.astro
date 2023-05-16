@@ -1,0 +1,16 @@
+---
+interface Props {
+    src: string;
+    alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+<style>
+.me {
+    width: 256px;
+    border-radius: 16px;
+}
+</style>
+
+<a href="/"><image class="me" src={src} alt={alt} /></a>
