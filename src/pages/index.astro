@@ -1,24 +1,73 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/DefaultLayout.astro';
+import ContentCard from '@components/ContentCard.astro';
 
 // make an array of numbers from 0 to 20
 const allBlogPosts = await getCollection('blog');
+const allResearchPosts = await getCollection('research');
 ---
+
+<style>
+#main {
+    width: 100%;
+    padding: 1rem;
+}
+
+#main > * {
+    margin-bottom: 1rem;
+}
+
+.section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem; /* Adjust as needed */
+}
+
+@media screen 
+and (max-device-width: 600px)
+{
+    /* make sure you center! */
+    .section-grid {
+        justify-items: center;
+    }
+}
+
+hr {
+    margin: 0 1rem;
+}
+</style>
 
 <Layout
     title='Home'
     pageTitle='Gregory | Home'
     description='Gregory Croisdale'
 >
-    <main>
-        <section id='about'>
-            {allBlogPosts.map((post) => (
-                <div>
-                    <h2>{post.data.title}</h2>
-                    <p>{post.data.description}</p>
-                </div>
-            ))}
+    <main id="main">
+        <section class='section' id='about'>
+            Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan studying Human-Computer Interaction.
+        </section>
+        
+        <hr/>
+        
+        <section class='section' id='blog'>
+            <h1>Blog</h1>
+            <div class='section-grid'>
+                {allBlogPosts.map((post) => (
+                    <ContentCard post={post} />
+                ))}
+            </div>
+        </section>
+
+        <hr/>
+
+        <section class='section' id='research'>
+            <h1>Research</h1>
+            <div class='section-grid'>
+                {allResearchPosts.map((post) => (
+                    <ContentCard post={post} />
+                ))}
+            </div>
         </section>
     </main>
 </Layout>

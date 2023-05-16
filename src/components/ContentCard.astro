@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	post: CollectionEntry<"blog">;
+}
+
+const { post }: Props = Astro.props;
+---
+
+<style>
+.content-card {
+    background: #f8f8f8; /* Change as needed */
+    aspect-ratio: 1 / 1; /* This will keep the item as a square */
+
+    border-radius: 12px;
+    padding: 12px;
+    max-width: 400px;
+    max-height: 400px;
+}
+</style>
+
+<div class="content-card" style={`background-image: url("${post.data.image}");`}>
+    {post.data.title}
+    <br/>
+    {post.data.date}
+    <br/>
+    {post.data.description}
+    <br/>
+</div>

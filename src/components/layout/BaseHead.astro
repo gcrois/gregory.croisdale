@@ -2,14 +2,9 @@
 interface Props {
 	title: string;
 	description: string;
-	// ogImage?: URL;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
-// if (Astro.props.ogImage === undefined) {
-// 	Astro.props.ogImage = new URL('/v1/generate/og/default.svg', Astro.url);
-// }
 
 const { title, description } = Astro.props;
 
@@ -50,6 +45,6 @@ import "@styles/main.scss";
 	
 	<!-- fonts -->
 	<link rel="stylesheet" href="https://use.typekit.net/xcm6zhb.css">
-		
+
 	<slot />
 </head>
