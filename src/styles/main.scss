@@ -45,10 +45,8 @@ body {
     flex-direction: column;
     align-items: left;
 
-    min-width: fit-content;
+    max-width:min-content;
     
-    padding: 16px;
-
     background-color: $brighter-color;
 }
 
@@ -56,6 +54,8 @@ body {
     max-width: 256px;
     display: flex;
     flex-direction: column;
+
+    padding: 16px;
 
     gap: 12px;
 }
@@ -114,6 +114,7 @@ and (max-device-width: 600px)
     }
 
     .sidebar {
+        max-width: 100%;
         align-items: center;
     }
 

@@ -4,9 +4,6 @@ import Sidebar from '@components/layout/Sidebar.astro';
 import Navbar from '@components/layout/Navbar.astro';
 
 // @ts-ignore
-import Profile from "@components/Profile.astro";
-import H1 from "@components/HeaderText.astro";
-import H2 from "@components/SubheaderText.astro";
 
 interface Props {
 	title: string;
@@ -22,20 +19,7 @@ const { title, description, classList, pageTitle } = Astro.props;
 <BaseHead title={title} description={description} />
 <body>
 	<div class="main">
-		<Sidebar>
-				<Profile src="/images/me.jpg" alt="Gregory and his dog, Linux, at the beach"/>
-				<div class="sidebar-content">
-					<H1>Gregory Croisdale</H1>
-					<H2>He / Him / His</H2>
-					<H2>PhD Student</H2>
-					<H2>Human-Computer Interaction Researcher</H2>
-					<H2>University of Michigan</H2>
-					<H2>Ann Arbor, Michigan</H2>
-				</div>
-				<Navbar>
-					hi
-				</Navbar>
-		</Sidebar>
+		<Sidebar/>
 		
 		<div class="content">
 			<slot />

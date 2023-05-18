@@ -2,9 +2,48 @@
 interface Props {
 }
 
+import Profile from "@components/Profile.astro";
+import H1 from "@components/HeaderText.astro";
+import H2 from "@components/SubheaderText.astro";
+
 import "@styles/main.scss";
 ---
 
+<style>
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+    }
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: blue;
+    color: white;
+    display: inline;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.profile-container {
+    padding: 1rem;
+}
+
+</style>
+
 <div class="sidebar">
-    <slot />
+    <div class="profile-container">
+        <Profile src="/images/me.jpg" alt="Gregory and his dog, Linux, at the beach"/>
+    </div>
+
+    <div class="sidebar-content">
+        <H1>Gregory Croisdale</H1>
+        <H2>He / Him / His</H2>
+        <H2>University of Michigan</H2>
+        <H2>PhD Student / Resident Rapscallion</H2>
+        <H2>Human-Computer Interaction Researcher</H2>
+    </div>
+    <div class="navbar">
+        I'm a navbar and I'm here to say, I'm a navbar in a major way.
+    </div>
 </div>

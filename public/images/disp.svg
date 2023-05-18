@@ -1,0 +1,126 @@
+<svg class="front" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <style>
+        * {
+            color: #333;
+            line-height: 1.25;
+            font-size: 24px;
+            font-family: "Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"
+        }
+
+        #main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #main:before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            z-index: -1;
+
+            --u: 5px;
+            --c1: #fbf9fe;
+            --c2: #02b6e7;
+            --c3: #00274C;
+            --gp: 50%/ calc(var(--u) * 16.9) calc(var(--u) * 12.8);
+
+            <!-- thanks to @josetxu! https://codepen.io/josetxu -->
+            background:
+                conic-gradient(from 122deg at 50% 85.15%, var(--c2) 0 58deg, var(--c3) 0 116deg, #fff0 0 100%) var(--gp),
+                conic-gradient(from 122deg at 50% 72.5%, var(--c1) 0 116deg, #fff0 0 100%) var(--gp),
+                conic-gradient(from 59deg at 82.85% 50%, var(--c3) 0 64deg, #fff0 0 100%) var(--gp),
+                conic-gradient(from 58deg at 66.87% 50%, var(--c1) 0 64deg, var(--c2) 0 130deg, #fff0 0 100%) var(--gp),
+                conic-gradient(from 238deg at 17.15% 50%, var(--c2) 0 64deg, #fff0 0 100%) var(--gp),
+                conic-gradient(from 172deg at 33.13% 50%, var(--c3) 0 66deg, var(--c1) 0 130deg, #fff0 0 100%) var(--gp),
+                linear-gradient(98deg, var(--c3) 0 15%, #fff0 calc(15% + 1px) 100%) var(--gp),
+                linear-gradient(-98deg, var(--c2) 0 15%, #fff0 calc(15% + 1px) 100%) var(--gp),
+                conic-gradient(from -58deg at 50.25% 14.85%, var(--c3) 0 58deg, var(--c2) 0 116deg, #fff0 0 100%) var(--gp),
+                conic-gradient(from -58deg at 50% 28.125%, var(--c1) 0 116deg, #fff0 0 100%) var(--gp),
+                linear-gradient(90deg, var(--c2) 0 50%, var(--c3) 0 100%) var(--gp);
+
+            background-repeat: repeat;
+
+            transform-origin: center;
+
+            animation: scroll 5s linear infinite, rotate 360s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                background-position: 0px 50%;
+            }
+            100% {
+                background-position: calc(var(--u) * 16.9) 50%;
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(0.9);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        .visible {
+            background: #f5f5f5D0;
+            backdrop-filter: blur(6px);
+            text-align: center;
+            padding: 1em;
+            border-radius: 1em;
+            transition: 0.3s;
+        }
+
+        .visible:hover {
+            background: rgba(255,255,255,1);
+        }
+
+        .typing-demo {
+            width: 34.5ch;
+            animation: typing 2s steps(30), blink .5s step-end infinite alternate;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+        }
+                
+        @keyframes blink {
+            50% {
+                border-color: transparent
+            }
+        }
+
+        .name {
+            font-size: 2em;
+            font-weight: bold;
+        }
+    </style>
+
+    <foreignObject x="0" y="0" width="100%" height="100%">
+        <div id="main" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="visible">
+                <div class="name">Gregory Croisdale</div>
+                <div class="typing-demo">
+                    PhD Student @ The University of Michigan
+                </div>
+            </div>
+        </div>
+    </foreignObject>
+</svg>
