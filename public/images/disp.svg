@@ -1,10 +1,38 @@
-<svg class="front" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<svg class="front" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xhtml="http://www.w3.org/1999/xhtml" overflow="visible">
     <style>
         * {
             color: #333;
             line-height: 1.25;
-            font-size: 24px;
+            font-size: min(24px, calc(100vw / 40));
             font-family: "Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"
+        }
+
+        #body {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            overflow: visible;
+            background: linear-gradient(-45deg, #FF8200, #FFCB05, #FFFFFF);
+            background-size: 400% 400%;
+            animation: gradient 5s ease infinite;
+            height: 100vh;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         #main {
@@ -14,16 +42,20 @@
             align-items: center;
             justify-content: center;
 
-            width: 100%;
-            height: 100%;
+            width: min(90vw, 90vh);
+            height: min(90vw, 90vh);
+            border-radius: min(90vw, 90vh);
 
-            z-index: -1;
+            overflow: visible;
 
-            --u: 5px;
+            z-index: 1;
+
+            --u: calc(min(90vw, 90vh) / 100);
             --c1: #fbf9fe;
             --c2: #02b6e7;
             --c3: #00274C;
             --gp: 50%/ calc(var(--u) * 16.9) calc(var(--u) * 12.8);
+            --spin-speed: 300s;
 
             <!-- thanks to @josetxu! https://codepen.io/josetxu -->
             background:
@@ -43,7 +75,7 @@
 
             transform-origin: center;
 
-            animation: scroll 5s linear infinite, rotate 360s linear infinite;
+            animation: scroll 5s linear infinite, rotate var(--spin-speed) linear infinite;
         }
 
         @keyframes scroll {
@@ -60,7 +92,7 @@
                 transform: rotate(0deg) scale(1);
             }
             50% {
-                transform: rotate(180deg) scale(0.9);
+                transform: rotate(180deg) scale(0.5);
             }
             100% {
                 transform: rotate(360deg) scale(1);
@@ -72,7 +104,7 @@
                 transform: rotate(0deg) scale(1);
             }
             50% {
-                transform: rotate(-180deg) scale(1.5);
+                transform: rotate(-180deg) scale(2);
             }
             100% {
                 transform: rotate(-360deg) scale(1);
@@ -86,8 +118,20 @@
             padding: 1em;
             border-radius: 1em;
             transition: 0.3s;
-            animation: antirotate 360s linear infinite;
+            animation: antirotate var(--spin-speed) linear infinite, zoom-in 1s ease-in;
             transform-origin: center;
+        }
+
+        @keyframes zoom-in {
+            0% {
+                transform: rotate(0deg) scale(0);
+            }
+            80% {
+                transform: rotate(-1deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(-2deg) scale(1);
+            }
         }
 
         .visible:hover {
@@ -120,12 +164,14 @@
         }
     </style>
 
-    <foreignObject x="0" y="0" width="100%" height="100%">
-        <div id="main" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="visible">
-                <div class="name">Gregory Croisdale</div>
-                <div class="typing-demo">
-                    PhD Student @ The University of Michigan
+    <foreignObject x="0" y="0" width="100%" height="100%" overflow="visible">
+        <div id="body" xmlns="http://www.w3.org/1999/xhtml" overflow="visible">
+            <div id="main" overflow="visible">
+                <div class="visible">
+                    <div class="name">Gregory Croisdale</div>
+                    <div class="typing-demo">
+                        PhD Student @ The University of Michigan
+                    </div>
                 </div>
             </div>
         </div>
