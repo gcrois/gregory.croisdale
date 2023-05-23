@@ -3,6 +3,8 @@ interface Props {
     classes: string;
 }
 
+import NavItem from "@components/NavItem.astro";
+
 const { classes }: Props = Astro.props;
 ---
 <style lang="scss">
@@ -21,26 +23,16 @@ const { classes }: Props = Astro.props;
     align-content: center;
     flex-wrap: wrap;
 
-    background-color: blue;
-}
+    padding: 0.25rem;
 
-.navbar > * {
-    display: inline-block;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid black;
-    background-color: white;
-}
-
-.navbar > *:hover {
-    filter: brightness(1.2);
+    background-color: var(--dark-color);
 }
 </style>
 
 <nav class={"navbar " + classes}>
     <slot/>
-    <div>Home</div>
-    <div>Blog</div>
-    <div>Research</div>
-    <div>Resume</div>
+    <NavItem href="/#">Home</NavItem>
+    <NavItem href="/#blog">Blog</NavItem>
+    <NavItem href="/#research">Research</NavItem>
+    <NavItem href="/cv.pdf">CV</NavItem>
 </nav>

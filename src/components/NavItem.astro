@@ -1,0 +1,25 @@
+---
+interface Props {
+    href: string;
+}
+
+const { href }: Props = Astro.props;
+---
+
+<style>
+.navbarItem{
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.navbarItem:hover{
+    background-color: #f2f2f2;
+}
+</style>
+
+<a href={href} class="navbarItem">
+    <slot/>
+</a>

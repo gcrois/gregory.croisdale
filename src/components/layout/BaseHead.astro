@@ -5,6 +5,7 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = "/images/me.jpg";
 
 const { title, description } = Astro.props;
 
@@ -16,27 +17,21 @@ import "@styles/main.scss";
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
 	<meta name='generator' content={Astro.generator} />
 	
-	<link
-	rel='alternate'
-	href='https://brutal.elian.codes/blog.xml'
-	type='application/rss+xml'
-	/>
-	
-	<meta name='title' content={`Gregory | ${title}`} />
+	<meta name='title' content={`Gregory Croisdale | ${title}`} />
 	<meta name='description' content={description} />
 	
 	<meta property='og:type' content='website' />
 	<meta property='og:url' content={canonicalURL} />
 	<meta property='og:title' content={title} />
 	<meta property='og:description' content={description} />
-	<!-- <meta property='og:image' content={ogImage} /> -->
+	<meta property='og:image' content={ogImage} />
 	
 	
 	<meta property='twitter:card' content='summary_large_image' />
 	<meta property='twitter:url' content={canonicalURL} />
 	<meta property='twitter:title' content={title} />
 	<meta property='twitter:description' content={description} />
-	<!-- <meta property='twitter:image' content={ogImage} /> -->
+	<meta property='twitter:image' content={ogImage} />
 	
 	<link rel='canonical' href={canonicalURL} />
 	<link rel='icon' type='image/svg' href='/favicon.svg' />
