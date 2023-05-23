@@ -5,13 +5,13 @@ $dark-color: #484844;
 $red-color: #86453B;
 
 // transparent versions:
-$transpant: rgba(0, 0, 0, 0);
+$transparent: rgba(0, 0, 0, 0);
 $t-amount: 50%;
-$base-color-t: mix($transpant, $base-color, $t-amount);
-$bright-color-t: mix($transpant, $bright-color, $t-amount);
-$brighter-color-t: mix($transpant, $brighter-color, $t-amount);
-$dark-color-t: mix($transpant, $dark-color, $t-amount);
-$red-color-t: mix($transpant, $red-color, $t-amount);
+$base-color-t: mix($transparent, $base-color, $t-amount);
+$bright-color-t: mix($transparent, $bright-color, $t-amount);
+$brighter-color-t: mix($transparent, $brighter-color, $t-amount);
+$dark-color-t: mix($transparent, $dark-color, $t-amount);
+$red-color-t: mix($transparent, $red-color, $t-amount);
 
 // mobile width
 $mobile-width: calc(512px + 128px);

@@ -8,6 +8,7 @@ import H2 from "@components/SubheaderText.astro";
 
 import "@styles/main.scss";
 import "@styles/variables.scss";
+import Navbar from "@components/Navbar.astro";
 ---
 
 <style lang="scss">
@@ -16,39 +17,11 @@ import "@styles/variables.scss";
     flex-direction: column;
 }
 
-.navbar {
-    position: sticky;
-    top: 0;
-    background-color: blue;
-    color: white;
-    display: inline;
-    max-width: 100%;
-    word-wrap: break-word;
-}
-
-.desktop {
-    display: inline;
-}
-
-.mobile {
-    display: none;
-}
-
 .profile-container {
     padding: 1rem;
 }
-
-@media screen
-and (max-device-width: calc(512px + 128px)) {
-    .desktop {
-        display: none;
-    }
-    .mobile {
-        display: inline;
-    }
-}
-
 </style>
+
 <div class="sidebar">
     <div class="profile-container">
         <Profile src="/images/me.jpg" alt="Gregory and his dog, Linux, at the beach"/>
@@ -61,10 +34,7 @@ and (max-device-width: calc(512px + 128px)) {
         <H2>PhD Student / Resident Rapscallion</H2>
         <H2>Human-Computer Interaction Researcher</H2>
     </div>
-    <nav class="navbar desktop">
-        Desktop
-    </nav>
+    <hr class="desktop" style="margin-bottom: 1em;"/>
+    <Navbar classes="desktop"/>
 </div>
-<nav class="navbar mobile">
-    Mobile
-</nav>
+<Navbar classes="mobile"/>
