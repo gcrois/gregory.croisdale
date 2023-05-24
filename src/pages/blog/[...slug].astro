@@ -9,7 +9,6 @@ export async function getStaticPaths() {
         ...blogEntries.map(entry => ({
         params: { slug: entry.slug }, props: { entry },
         })),
-        { params: { slug: '/' }, props: { data: { title: "heww0" }}},
     ];
 }
 // 2. When it's time to render, you can get the entry directly from the prop
