@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+// accept all normal props
+interface Props extends HTMLAttributes<'section'> {
+    id: string;
+}
+
+// @ts-ignore
+const passedProps = {id: undefined, ...Astro.props}
+
+import "@styles/main.scss";
+---
+<style>
+[id]::before {
+    content: '';
+    display: block;
+    height: calc(-1 * var(--anchor-offset));
+    margin-top: calc(1 * var(--anchor-offset));
+    visibility: hidden;
+}
+</style>
+
+<section {...passedProps}>
+    <a class="section-anchor" id={Astro.props.id}/>
+    <slot/>
+</section>
