@@ -1,8 +1,10 @@
 ---
 interface Props {
     href: string;
+    newTab?: boolean;
 }
 
+const newTab = Astro.props.newTab ?? false;
 const { href }: Props = Astro.props;
 ---
 
@@ -20,6 +22,11 @@ const { href }: Props = Astro.props;
 }
 </style>
 
-<a href={href} class="navbarItem">
+<a
+    href={href}
+    target={newTab ? "_blank" : undefined}
+    rel={newTab ? "noopener noreferrer" : undefined}
+    class="navbarItem"
+>
     <slot/>
 </a>

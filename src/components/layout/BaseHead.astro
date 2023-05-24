@@ -2,10 +2,11 @@
 interface Props {
 	title: string;
 	description: string;
+	ogImage?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImage = "/images/me.jpg";
+const ogImage = (Astro.props.ogImage) ? Astro.props.ogImage : "/images/me.jpg";
 
 const { title, description } = Astro.props;
 
@@ -22,7 +23,7 @@ import "@styles/main.scss";
 	
 	<meta property='og:type' content='website' />
 	<meta property='og:url' content={canonicalURL} />
-	<meta property='og:title' content={title} />
+	<meta property='og:title' content=`Gregory Croisdale | ${title}` />
 	<meta property='og:description' content={description} />
 	<meta property='og:image' content={ogImage} />
 	

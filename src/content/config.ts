@@ -6,7 +6,10 @@ interface Cardable {
     description: string;
     date: string;
     tags: string[];
+
     image?: string;
+    link?: string;
+    newTab?: boolean;
 }
 
 const schema = z.object({
@@ -16,6 +19,8 @@ const schema = z.object({
     tags: z.array(z.string()),
 
     image: z.string().default("/images/me.jpg"),
+    link: z.string().default(""),
+    newTab: z.boolean().default(false),
 });
 
 const blogCollection = defineCollection({

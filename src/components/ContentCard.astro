@@ -6,25 +6,48 @@ interface Props {
 }
 
 const { post }: Props = Astro.props;
+const link = (post.data.link == "") ? `${post.collection}/${post.slug}` : post.data.link;
 ---
 
 <style>
 .content-card {
-    background: #f8f8f8; /* Change as needed */
     aspect-ratio: 1 / 1; /* This will keep the item as a square */
+    display: block;
 
     border-radius: 12px;
     padding: 12px;
     max-width: 400px;
     max-height: 400px;
+
+    text-decoration: none;
+}
+
+.content-card:hover {
+    filter: brightness(1.1);
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+hr {
+    margin: 0.5em 0.5em;
 }
 </style>
 
-<div class="content-card" style={`background-image: url("${post.data.image}");`}>
-    {post.data.title}
-    <br/>
+<a
+    href={link}
+
+    target={post.data.newTab ? "_blank" : undefined}
+    rel={post.data.newTab ? "noopener noreferrer" : undefined}
+
+    class="content-card"
+    style={`background-image: url("${post.data.image}");`}
+>
+    <h2>{post.data.title}</h2>
     {post.data.date}
-    <br/>
+    <hr/>
     {post.data.description}
     <br/>
-</div>
+</a>

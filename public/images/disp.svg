@@ -1,4 +1,10 @@
 <svg class="front" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xhtml="http://www.w3.org/1999/xhtml" overflow="visible">
+    <!--
+        hello, nosy person :) this is an SVG I wrote by hand to test some of
+        the limits of SVG foreign objects (especially animating and interaction)
+
+        let me know if you have any questions!
+    -->
     <style>
         * {
             color: #333;

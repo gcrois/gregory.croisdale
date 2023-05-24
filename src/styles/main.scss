@@ -87,6 +87,14 @@ hr {
     background-color: red;
 }
 
+hr {
+    border: none;
+    height: 2px;
+    /* Set the hr color */
+    color: #333;  /* old IE */
+    background-color: #333;  /* Modern Browsers */
+}
+
 /* desktop */
 @media screen
 and (min-width: $mobile-width)
