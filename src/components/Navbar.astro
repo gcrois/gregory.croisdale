@@ -28,11 +28,11 @@ const { classes }: Props = Astro.props;
 
     z-index: 10;
 
-    background-color: var(--dark-color);
+    background-color: var(--red-color);
 }
 </style>
 
-<nav class={"navbar " + classes}>
+<nav class={"navbar shadow " + classes}>
     <slot/>
     <NavItem href="/#">Home</NavItem>
     <NavItem href="/#blog">Blog</NavItem>

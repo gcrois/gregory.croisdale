@@ -7,3 +7,9 @@ tags: ["Frontend", "Astro"]
 ---
 
 Here is some text! I hope you enjoy it.
+
+Oh... You wanted more text? Ok...
+
+# here is a section
+
+here is some content for that section

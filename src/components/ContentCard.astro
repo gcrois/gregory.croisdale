@@ -20,10 +20,17 @@ const link = (post.data.link == "") ? `${post.collection}/${post.slug}` : post.d
     max-height: 400px;
 
     text-decoration: none;
+
+    background: var(--red-color);
 }
 
 .content-card:hover {
     filter: brightness(1.1);
+}
+
+.card-desc, .card-desc > h2 {
+    margin: 0;
+    padding: 0;
 }
 
 h2 {
@@ -42,12 +49,13 @@ hr {
     target={post.data.newTab ? "_blank" : undefined}
     rel={post.data.newTab ? "noopener noreferrer" : undefined}
 
-    class="content-card"
-    style={`background-image: url("${post.data.image}");`}
+    class="content-card shadow hovshadow"
 >
-    <h2>{post.data.title}</h2>
-    {post.data.date}
-    <hr/>
-    {post.data.description}
-    <br/>
+    <span class="card-desc">
+        <h2>{post.data.title}</h2>
+        {post.data.date}
+        <hr/>
+        {post.data.description}
+        <br/>
+    </span>
 </a>

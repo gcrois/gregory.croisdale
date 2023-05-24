@@ -1,7 +1,7 @@
 @import "variables";
 
 * {
-    color: $dark-color;
+    color: var(--dark-color);
     font-family: aktiv-grotesk-condensed, sans-serif;
 }
 
@@ -15,6 +15,7 @@ body, html {
     margin: 0;
     height: 100%;
     scroll-behavior: smooth;
+    background-color: var(--base-color);
 }
 
 body {
@@ -40,7 +41,7 @@ body {
 
     max-width: min-content;
     
-    background-color: $brighter-color;
+    background-color: var(--brighter-color);
 }
 
 .sidebar-content {
@@ -48,21 +49,23 @@ body {
     display: flex;
     flex-direction: column;
 
-    padding: 16px;
+    padding: 0 12px 12px 12px;
 
     gap: 12px;
 }
 
 .content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     
-    width: 1024px;
     min-height: fit-content;
     
     overflow: visible;
+
+    width: 100%;
+    padding: 1rem;
     
-    background-color: $bright-color;
+    background-color: var(--base-color);
 }
 
 .text {
@@ -84,12 +87,36 @@ body {
     background-color: red;
 }
 
+.shadow {
+    box-shadow:
+    0 1px 1px hsl(0deg 0% 0% / 0.075),
+    0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 4px 4px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075),
+    0 16px 16px hsl(0deg 0% 0% / 0.075)
+  ;
+}
+
+.hovshadow:hover {
+    box-shadow:
+    0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 4px 4px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075),
+    0 16px 16px hsl(0deg 0% 0% / 0.075),
+    0 32px 32px hsl(0deg 0% 0% / 0.075)
+  ;
+}
+
 hr {
     border: none;
     height: 2px;
     /* Set the hr color */
     color: #333;  /* old IE */
     background-color: #333;  /* Modern Browsers */
+}
+
+.content > * {
+    margin-bottom: 1rem;
 }
 
 /* desktop */
@@ -141,6 +168,7 @@ and (max-width: $mobile-width)
 
     .content {
         flex-grow: 1;
+        min-height: 100vh;
     }
 
     :root {
