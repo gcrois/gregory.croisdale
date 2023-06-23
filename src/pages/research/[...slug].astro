@@ -14,6 +14,17 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
+<!-- If this has a link set, just redirect to it. Otherwise, render the page normally. -->
+<Fragment set:html={
+  (entry.data.link == "") ?
+    ''
+  :
+    `<meta
+      http-equiv="Refresh"
+      content="0;
+      URL=${entry.data.link}
+    "/>`
+}/>
 
 <Layout
     title={entry.data.title}

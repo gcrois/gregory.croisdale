@@ -13,11 +13,12 @@ Additionally, taking inspiration from <a href="https://cade.site/blog/">Cade Bro
 
 # Requirements
 
-1. My posts must be able to be written in markdown.
-2. Absolutely no JavaScript can required in the frontend.
-3. The DOM needs to be human-comprehensible.
-4. Collections of content must be easily created and maintained.
-5. Everything needs to be <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a>.
+1. The site must be statically generated.
+2. My posts must be able to be written in markdown.
+3. Absolutely no JavaScript can required in the frontend.
+4. The DOM needs to be human-comprehensible.
+5. Collections of content must be easily created and maintained.
+6. Everything needs to be <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a>.
 
 # Stack
 
