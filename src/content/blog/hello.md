@@ -6,10 +6,21 @@ description: "Welcome to my website! Here's a little bit about how I built it."
 tags: ["Frontend", "Astro"]
 ---
 
-Here is some text! I hope you enjoy it.
+# Inspiration
+My all-time favorite academic website is <a href="https://faculty.washington.edu/ajko">Amy Ko's</a>.
 
-Oh... You wanted more text? Ok...
+Additionally, taking inspiration from <a href="https://cade.site/blog/">Cade Brown</a>, 
 
-# here is a section
+# Requirements
 
-here is some content for that section
+1. My posts must be able to be written in markdown.
+2. Absolutely no JavaScript can required in the frontend.
+3. The DOM needs to be human-comprehensible.
+4. Collections of content must be easily created and maintained.
+5. Everything needs to be <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FOSS</a>.
+
+# Stack
+
+With all of these requirements considered,
+
+# Implementation

@@ -14,6 +14,7 @@ const allResearchPosts = await getCollection('research');
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     gap: 1rem; /* Adjust as needed */
+    margin-bottom: 20px;
 }
 
 @media screen 
@@ -33,9 +34,12 @@ and (max-device-width: 768px)
     description="Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan studying Human-Computer Interaction with Anhong Guo and Xu Wang"
 >
     <main id="main">
-        <section class='section' id='about'>
-            Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan studying Human-Computer Interaction with <a target="_blank" href="https://guoanhong.com/">Anhong Guo</a> and <a target="_blank" href="https://web.eecs.umich.edu/~xwanghci/">Xu Wang</a>.
-        </section>
+        <Section class='section' id='about'>
+            <h1>About</h1>
+            Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan studying Human-Computer Interaction with <a target="_blank" href="https://guoanhong.com/">Anhong Guo</a> and <a target="_blank" href="https://web.eecs.umich.edu/~xwanghci/">Xu Wang</a>. My research is focused around educational technology and improving access to state-of-the-art technology.
+            <br/><br/>
+            I'm also a huge philosophy, art, music, and food nerd. I dabble in 3d Modeling (<a href="https://www.blender.org/">Blender</a> is my all-time favorite piece of software), violin, ukulele, and overambituous book-purchasing.
+        </Section>
         
         <hr/>
         
@@ -43,15 +47,6 @@ and (max-device-width: 768px)
             <h1>Blog</h1>
             <div class='section-grid'>
                 {allBlogPosts.map((post) => (
-                    <ContentCard post={post} />
-                    <ContentCard post={post} />
-                    <ContentCard post={post} />
-                    <ContentCard post={post} />
-                    <ContentCard post={post} />
-                    <ContentCard post={post} />
-                    <ContentCard post={post} />
-                    <ContentCard post={post} />
-                    <ContentCard post={post} />
                     <ContentCard post={post} />
                 ))}
             </div>
