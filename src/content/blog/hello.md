@@ -8,7 +8,7 @@ tags: ["Frontend", "Astro"]
 
 # Introduction
 
-There comes a time in every (attempted) career academic's life when their affiliations exceeds the page limit of a default html page 12pt font. With my particular 
+There comes a time in every (attempted) career academic's life when their affiliations exceeds the page limit of a default html page 12pt font. For me, that time has come.
 
 # Inspiration
 
