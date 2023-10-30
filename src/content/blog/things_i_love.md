@@ -4,12 +4,65 @@ date: "June 23, 2023"
 
 description: "A comprehensive list of things I love."
 tags: ["Art", "Music", "Movies"]
+
+
 ---
 
-Here is some text! I hope you enjoy it.
-
-Oh... You wanted more text? Ok...
-
-# here is a section
-
-here is some content for that section
+1. [Eyes as Big as Plates](https://eyesasbigasplates.com/){:target="_blank"}
+2. [The Mystery Fax Machine Orchestra](https://mysteryfaxmachineorchestra.bandcamp.com/)
+3. [Wheatfield: A Confrontation](https://en.wikipedia.org/wiki/Wheatfield_%E2%80%93_A_Confrontation)
+4. [Eternal Sunshine of the Spotless Mind](https://www.imdb.com/title/tt0338013/)
+5. [About Time](https://www.imdb.com/title/tt2194499/)
+6. [Girl with the Flaxen Hair](https://en.wikipedia.org/wiki/Preludes_(Debussy)#Book_I)
+7. [Suite Bergamasque I](https://en.wikipedia.org/wiki/Suite_bergamasque)
+8. [Symphonie Pathétique](https://en.wikipedia.org/wiki/Symphony_No._6_(Tchaikovsky))
+9. [The Minute Hour](https://theminutehour.bandcamp.com/)
+10. [Little Inferno](https://tomorrowcorporation.com/littleinferno)
+11. [Britney Spears](https://www.britneyspears.com/)
+12. [Moonrise Kingdom](https://www.imdb.com/title/tt1748122/)
+13. [Over the Garden Wall](https://www.imdb.com/title/tt3718778/)
+14. [How to with John Wilson](https://www.imdb.com/title/tt10399406/)
+15. [Special Books by Special Kids](https://sbsk.org/)
+16. [Nick Lutsko](https://nicklutsko.bandcamp.com/)
+17. [Joe Pera Talks to You](https://www.adultswim.com/videos/joe-pera-talks-with-you)
+18. [I’m Thinking of Ending Things](https://www.imdb.com/title/tt7939766/)
+19. [Noam Pikelny](https://www.noampikelny.com/)
+20. [Rufus Wainwright](https://rufuswainwright.com/)
+21. [The Creation of Man](https://en.wikipedia.org/wiki/The_Creation_of_Adam)
+22. [Whiplash](https://www.imdb.com/title/tt2582802/)
+23. [Blessed are the Cheesemakers](https://www.goodreads.com/book/show/398855.Blessed_Are_the_Cheesemakers)
+24. [Everything Everywhere All At Once](https://www.imdb.com/title/tt13677328/)
+25. [The Missing Scarf](https://vimeo.com/107395141)
+26. [Fleabag](https://www.imdb.com/title/tt5687612/)
+27. [Sleep with One Eye Open](https://open.spotify.com/album/1LzpFtpnWqL4Pm7PgHjgyH)
+28. [Gerardo Nigenda](https://art.state.gov/personnel/gerardo_nigenda/)
+29. [Wikipedia](https://www.wikipedia.org/)
+30. [Space](https://www.nasa.gov/)
+31. [Beach Boys](https://www.thebeachboys.com/)
+32. [SAD Light](https://www.mayoclinic.org/diseases-conditions/seasonal-affective-disorder/in-depth/seasonal-affective-disorder-treatment/art-20048298)
+33. [OK Go](https://okgo.net/)
+34. [Don Hertzfeldt](https://www.bitterfilms.com/)
+35. [Ôi Tình Yêu Thật Điêu](https://www.youtube.com/watch?v=QnBe3dRv5aQ)
+36. [Vladimir Ashkenazy Rach 2](https://www.youtube.com/watch?v=rEGOihjqO9w)
+37. [Deep Conversations with Strangers](https://www.npr.org/2021/09/01/1027680631/deep-conversations-with-strangers-improve-well-being-study)
+38. [Maniac](https://www.imdb.com/title/tt5580146/)
+39. [Onfim](https://en.wikipedia.org/wiki/Onfim)
+40. [Dirt](https://www.imdb.com/title/tt0281470/)
+41. [I Think You Should Leave](https://www.imdb.com/title/tt10050772/)
+42. [Depths of Wikipedia](https://en.wikipedia.org/wiki/Depths_of_Wikipedia)
+43. [The Interview of My Mom at 17](https://www.youtube.com/watch?v=7XDWxAr5sYU)
+44. [Yesterday’s Print on Twitter](https://twitter.com/yesterdaysprint)
+45. [Familiarity, This Girl, Love of Mine](https://open.spotify.com/album/1LV45QTzvd8S2PhDMoqQWS)
+46. [Wind Chimes](https://en.wikipedia.org/wiki/Wind_chime)
+47. [Paranoid Android, 15 Step](https://open.spotify.com/track/2nTsKOXIVGDf2iPeVQO2Gm)
+48. [Rhapsody in Blue (Fantasia 2000)](https://www.imdb.com/title/tt0120910/)
+49. [Bo Burnham Inside](https://www.netflix.com/title/81289483)
+50. [radio.garden](http://radio.garden/)
+51. [How to Make Jorts](https://www.youtube.com/watch?v=Sx3ORAO1Y6s)
+52. [Shakey Graves Audiotree Live](https://www.youtube.com/watch?v=eUkSTnUK_T0)
+53. [Frog and Toad](https://en.wikipedia.org/wiki/Frog_and_Toad)
+55. [Bojack Horseman](https://www.imdb.com/title/tt3398228/)
+56. [The Tay Bridge Disaster](https://www.poetryfoundation.org/poems/45828/the-tay-bridge-disaster)
+57. [Frog Fractions](https://twinbeard.com/frog-fractions/)
+58. [Karel Thole](https://en.wikipedia.org/wiki/Karel_Thole)
+59. [Kurt Vonnegut's Advice](https://bookhaven.stanford.edu/2022/05/kurt-vonneguts-advice-to-students-dance-home-after-school-make-a-face-in-your-mashed-potatoes-pretend-youre-count-dracula/)
