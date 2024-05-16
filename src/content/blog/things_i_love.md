@@ -1,6 +1,7 @@
 ---
 title: "Things I Love"
-date: "June 23, 2023"
+# date: "June 23, 2023"
+date: "2023-06-23"
 
 description: "A comprehensive list of things I love."
 tags: ["Art", "Music", "Movies"]
@@ -8,7 +9,7 @@ tags: ["Art", "Music", "Movies"]
 
 ---
 
-1. [Eyes as Big as Plates](https://eyesasbigasplates.com/){:target="_blank"}
+1. [Eyes as Big as Plates](https://eyesasbigasplates.com/)
 2. [The Mystery Fax Machine Orchestra](https://mysteryfaxmachineorchestra.bandcamp.com/)
 3. [Wheatfield: A Confrontation](https://en.wikipedia.org/wiki/Wheatfield_%E2%80%93_A_Confrontation)
 4. [Eternal Sunshine of the Spotless Mind](https://www.imdb.com/title/tt0338013/)

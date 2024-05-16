@@ -1,8 +1,9 @@
 ---
 title: "Salutations, world!"
-date: "March 23, 2023"
+# date: "March 23, 2023"
+date: "2023-03-23"
 
-description: "Welcome to my website! Here's a little bit about how I built it."
+description: "Welcome to my website! Here's a little bit about how I built it without any JavaScript in the frontend."
 tags: ["Frontend", "Astro"]
 ---
 

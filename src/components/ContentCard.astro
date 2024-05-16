@@ -1,11 +1,21 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { dateToParts, stringToDate } from 'src/utils/date';
 
 interface Props {
 	post: CollectionEntry<"blog"> | CollectionEntry<"research">;
+    dateFunc?: (date: Date) => string;
 }
 
-const { post }: Props = Astro.props;
+const {
+    post,
+    dateFunc = (date: Date) =>  {
+        const { month, day, year } = dateToParts(date);
+
+        return `${month} ${day}, ${year}`;
+    }
+}: Props = Astro.props;
+
 const link = (post.data.link == "") ? `${post.collection}/${post.slug}` : post.data.link;
 ---
 
@@ -64,7 +74,12 @@ hr {
     >
         <span class="card-desc">
             <h2><Fragment set:html={post.data.title}/></h2>
-            <Fragment set:html={post.data.date}/>
+            <Fragment set:html={dateFunc(stringToDate(post.data.date))}/>
+            { post.data.venue && (
+                <Fragment>
+                    | <Fragment set:html={post.data.venue}/>
+                </Fragment>
+            )}
             <hr/>
             <Fragment set:html={post.data.description}/>
             <br/>

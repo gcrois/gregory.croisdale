@@ -23,17 +23,19 @@ const schema = {
     newTab: z.boolean().default(false),
 };
 
+const blogSchema = {...schema};
+const researchSchema = {
+    ...schema,
+    authors: z.array(z.string()),
+    venue: z.string(),
+};
+
 const blogCollection = defineCollection({
-    schema: z.object({
-        ...schema,
-    }),
+    schema: z.object(blogSchema),
 });
 
 const researchCollection = defineCollection({
-    schema: z.object({
-        ...schema,
-        authors: z.array(z.string()),
-    }),
+    schema: z.object(researchSchema),
 });
 
 export const collections = {
