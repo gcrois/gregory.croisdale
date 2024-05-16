@@ -62,7 +62,14 @@ h2 {
 hr {
     margin: 0.5em 0.5em;
 }
+.heads-up {
+    font-size: 0.8em;
+    color: var(--text-color);
+    text-wrap: nowrap;
+    margin-top: 4px;
+}
 </style>
+
 <div class="content-card-container">
     <a
         href={link}
@@ -82,6 +89,7 @@ hr {
             )}
             <hr/>
             <Fragment set:html={post.data.description}/>
+            { post.data.newTab && <div class="heads-up">(external page)</div>}
             <br/>
         </span>
     </a>
