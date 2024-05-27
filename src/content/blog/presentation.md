@@ -1,7 +1,6 @@
 ---
 title: "Building my own Presentation Application"
-# date: "March 16, 2024"
-date: "2024-03-16"
+date: "2024-05-17"
 
 description: "A realtime presentation application with shared states using Yjs and React."
 
