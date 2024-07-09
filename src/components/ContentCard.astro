@@ -12,7 +12,10 @@ const {
     dateFunc = (date: Date) =>  {
         const { month, day, year } = dateToParts(date);
 
-        return `${month} ${day}, ${year}`;
+        // remove leading zero from day
+        const dayStr = day.toString().replace(/^0+/, '');
+
+        return `${month} ${dayStr}, ${year}`;
     }
 }: Props = Astro.props;
 
