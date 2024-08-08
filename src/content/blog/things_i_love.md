@@ -1,11 +1,9 @@
 ---
 title: "Things I Love"
-# date: "June 23, 2023"
 date: "2023-06-23"
 
 description: "A comprehensive list of things I love."
 tags: ["Art", "Music", "Movies"]
-
 
 ---
 
