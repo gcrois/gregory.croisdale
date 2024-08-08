@@ -22,3 +22,5 @@ pnpm-debug.log*
 
 # design doc
 PersonalWebsite.ai
+
+.history/
