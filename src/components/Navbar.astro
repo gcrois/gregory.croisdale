@@ -34,8 +34,9 @@ const { classes }: Props = Astro.props;
 
 <nav class={"navbar shadow " + classes}>
     <slot/>
-    <NavItem href="/#">Home</NavItem>
+    <!-- <NavItem href="/#">Home</NavItem> -->
     <NavItem href="/#blog">Blog</NavItem>
     <NavItem href="/#research">Research</NavItem>
     <NavItem href="/cv.pdf" newTab={true}>CV</NavItem>
+    <NavItem href="/utils">Utils</NavItem>
 </nav>

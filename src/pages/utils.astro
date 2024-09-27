@@ -1,0 +1,53 @@
+---
+import Layout from '@layouts/DefaultLayout.astro';
+import Section from '@components/Section.astro';
+
+import {QRCodeSVG} from 'qrcode.react';
+import QRCodeGenerator from 'src/utils/qrcode';
+import PasswordGenerator from 'src/utils/password';
+---
+
+<style>
+
+.section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem; /* Adjust as needed */
+    margin-bottom: 20px;
+}
+
+@media screen 
+and (max-device-width: 768px)
+{
+    /* make sure you center! */
+    .section-grid {
+        justify-items: center;
+    }
+}
+
+</style>
+
+<Layout
+    title='Utils'
+    pageTitle='Gregory | Utils'
+    description="Here is a live QR Code generator and a password generator :)"
+>
+    <main id="main">
+        <Section class='section' id='description'>
+            Here is a live QR Code generator and a password generator :)
+        </Section>
+
+
+        <hr/>
+
+        <Section class='section' id='qrcode'>
+            <QRCodeGenerator client:only/>
+        </Section>
+
+        <hr/>
+
+        <Section class='section' id='password'>
+            <PasswordGenerator client:only/>
+        </Section>
+    </main>
+</Layout>
