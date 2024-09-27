@@ -1,42 +1,59 @@
 import React, { useState } from 'react';
 import RandExp from 'randexp';
+import { generate } from 'random-words';
+
+const regexOptions = [
+  {
+    value: 'strong',
+    regex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=.{12,})[A-Za-z\\d@#$%^&+=!]{12,32}$',
+    label: 'Strong Password',
+    description: 'At least 12 characters, max 32. Includes uppercase, lowercase, number, and special character.'
+  },
+  {
+    value: 'very-strong',
+    regex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=.{16,})[A-Za-z\\d@#$%^&+=!]{16,64}$',
+    label: 'Very Strong Password',
+    description: 'At least 16 characters, max 64. Includes uppercase, lowercase, number, and special character.'
+  },
+  {
+    value: 'memorable',
+    regex: '^($word){3}\\d{2,4}[@#$%^&+=!]{1,2}$', // Use custom $word token here
+    label: 'Memorable Password',
+    description: '3 random words, followed by 2-4 digits and 1-2 special characters.'
+  },
+  {
+    value: 'pin',
+    regex: '\\d{6}',
+    label: 'PIN',
+    description: '6-digit PIN number.'
+  },
+];
+
+// Function to replace custom tokens after the base password is generated
+const transformCustomTokens = (generatedString: string): string => {
+  // Replace each occurrence of $word with a random capitalized word
+  return generatedString.replace(/word/g, () => {
+    const word = generate({ exactly: 1, maxLength: 12 })[0];
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  });
+};
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState('');
-  const [currentRegex, setCurrentRegex] = useState('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=.{12,})[A-Za-z\\d@#$%^&+=!]{12,64}$');
+  const [currentRegex, setCurrentRegex] = useState(regexOptions[0].regex);
   const [selectedOption, setSelectedOption] = useState('strong');
-
-  const regexOptions = [
-    {
-      value: 'strong',
-      regex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=.{12,})[A-Za-z\\d@#$%^&+=!]{12,64}$',
-      label: 'Strong Password',
-      description: 'At least 12 characters, max 64. Includes uppercase, lowercase, number, and special character.'
-    },
-    {
-      value: 'very-strong',
-      regex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=.{16,})[A-Za-z\\d@#$%^&+=!]{16,128}$',
-      label: 'Very Strong Password',
-      description: 'At least 16 characters, max 128. Includes uppercase, lowercase, number, and special character.'
-    },
-    {
-      value: 'memorable',
-      regex: '^([A-Z][a-z]{6,12}){3}\\d{2,4}[@#$%^&+=!]{1,2}$',
-      label: 'Memorable Password',
-      description: '3 capitalized words (6-12 chars each), followed by 2-4 digits and 1-2 special characters.'
-    },
-    {
-      value: 'pin',
-      regex: '\\d{6}',
-      label: 'PIN',
-      description: '6-digit PIN number.'
-    },
-  ];
 
   const generatePassword = () => {
     try {
+      // Generate the base string using RandExp
       const randexp = new RandExp(new RegExp(currentRegex));
-      setPassword(randexp.gen());
+      let basePassword = randexp.gen();
+      
+      // Apply custom transformations to the generated base string
+      const transformedPassword = transformCustomTokens(basePassword);
+      
+      // Set the final password
+      setPassword(transformedPassword);
     } catch (error) {
       setPassword('Invalid regex pattern');
     }
@@ -49,8 +66,8 @@ const PasswordGenerator = () => {
 
   const handleOptionChange = (e) => {
     const selected = regexOptions.find(option => option.value === e.target.value);
-    setSelectedOption(selected.value);
-    setCurrentRegex(selected.regex);
+    setSelectedOption(selected?.value || 'custom');
+    setCurrentRegex(selected?.regex || '');
   };
 
   return (

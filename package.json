@@ -18,6 +18,7 @@
     "astro": "^2.5.5",
     "qrcode.react": "^4.0.1",
     "randexp": "^0.5.3",
+    "random-words": "^2.0.1",
     "react": "^19.0.0-beta",
     "react-dom": "^19.0.0-beta",
     "sanitize-filename": "^1.6.3",
