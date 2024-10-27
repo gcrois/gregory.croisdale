@@ -1,6 +1,5 @@
 ---
-interface Props {
-}
+interface Props {}
 
 import Profile from "@components/Profile.astro";
 import H1 from "@components/HeaderText.astro";
@@ -12,33 +11,35 @@ import Navbar from "@components/Navbar.astro";
 ---
 
 <style lang="scss">
-.sidebar {
-    display: flex;
-    flex-direction: column;
-}
+	.sidebar {
+		display: flex;
+		flex-direction: column;
+	}
 
-.profile-container {
-    padding: 1rem;
-}
+	.profile-container {
+		padding: 1rem;
+	}
 
-hr {
-    margin: 0 1rem;
-}
+	hr {
+		margin: 0 1rem;
+	}
 </style>
 
 <div class="sidebar">
-    <div class="profile-container">
-        <Profile src="/images/me.jpg" alt="Gregory and his dog, Linux, at the beach"/>
-    </div>
+	<div class="profile-container">
+		<Profile
+			src="/images/me.jpg"
+			alt="Gregory and his dog, Linux, at the beach"
+		/>
+	</div>
 
-    <div class="sidebar-content">
-        <H1>Gregory Croisdale</H1>
-        <H2>He / Him / His</H2>
-        <H2>University of Michigan</H2>
-        <H2>PhD Student / Resident Rapscallion</H2>
-        <H2>Human-Computer Interaction Researcher</H2>
-    </div>
-    <hr class="desktop" style="margin-bottom: 1em;"/>
-    <Navbar classes="desktop"/>
+	<div class="sidebar-content">
+		<H1>Gregory Croisdale</H1>
+		<H2>He / Him / His</H2>
+		<H2>University of Michigan</H2>
+		<H2>PhD Student / Resident Rapscallion</H2>
+		<H2>Human-Computer Interaction Researcher</H2>
+	</div>
+	<Navbar classes="desktop" />
 </div>
-<Navbar classes="mobile"/>
+<Navbar classes="mobile" />

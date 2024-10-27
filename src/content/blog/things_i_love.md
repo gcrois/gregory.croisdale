@@ -1,10 +1,10 @@
 ---
 title: "Things I Love"
 date: "2023-06-23"
+image: "/images/blog/onfim.jpg"
 
 description: "A comprehensive list of things I love."
 tags: ["Art", "Music", "Movies"]
-
 ---
 
 1. [Eyes as Big as Plates](https://eyesasbigasplates.com/)
@@ -12,9 +12,9 @@ tags: ["Art", "Music", "Movies"]
 3. [Wheatfield: A Confrontation](https://en.wikipedia.org/wiki/Wheatfield_%E2%80%93_A_Confrontation)
 4. [Eternal Sunshine of the Spotless Mind](https://www.imdb.com/title/tt0338013/)
 5. [About Time](https://www.imdb.com/title/tt2194499/)
-6. [Girl with the Flaxen Hair](https://en.wikipedia.org/wiki/Preludes_(Debussy)#Book_I)
+6. [Girl with the Flaxen Hair](<https://en.wikipedia.org/wiki/Preludes_(Debussy)#Book_I>)
 7. [Suite Bergamasque I](https://en.wikipedia.org/wiki/Suite_bergamasque)
-8. [Symphonie Pathétique](https://en.wikipedia.org/wiki/Symphony_No._6_(Tchaikovsky))
+8. [Symphonie Pathétique](<https://en.wikipedia.org/wiki/Symphony_No._6_(Tchaikovsky)>)
 9. [The Minute Hour](https://theminutehour.bandcamp.com/)
 10. [Little Inferno](https://tomorrowcorporation.com/littleinferno)
 11. [Britney Spears](https://www.britneyspears.com/)
@@ -60,8 +60,8 @@ tags: ["Art", "Music", "Movies"]
 51. [How to Make Jorts](https://www.youtube.com/watch?v=Sx3ORAO1Y6s)
 52. [Shakey Graves Audiotree Live](https://www.youtube.com/watch?v=t5R81LPVEBQ&t=2177s&pp=ygUXYXVkaW90cmVlIHNoYWtleSBncmF2ZXM%3D)
 53. [Frog and Toad](https://en.wikipedia.org/wiki/Frog_and_Toad)
-55. [Bojack Horseman](https://www.imdb.com/title/tt3398228/)
-56. [The Tay Bridge Disaster](https://www.poetryfoundation.org/poems/45828/the-tay-bridge-disaster)
-57. [Frog Fractions](http://twinbeard.com/frog-fractions/)
-58. [Karel Thole](https://en.wikipedia.org/wiki/Karel_Thole)
-59. [Kurt Vonnegut's Advice](https://bookhaven.stanford.edu/2022/05/kurt-vonneguts-advice-to-students-dance-home-after-school-make-a-face-in-your-mashed-potatoes-pretend-youre-count-dracula/)
+54. [Bojack Horseman](https://www.imdb.com/title/tt3398228/)
+55. [The Tay Bridge Disaster](https://www.poetryfoundation.org/poems/45828/the-tay-bridge-disaster)
+56. [Frog Fractions](http://twinbeard.com/frog-fractions/)
+57. [Karel Thole](https://en.wikipedia.org/wiki/Karel_Thole)
+58. [Kurt Vonnegut's Advice](https://bookhaven.stanford.edu/2022/05/kurt-vonneguts-advice-to-students-dance-home-after-school-make-a-face-in-your-mashed-potatoes-pretend-youre-count-dracula/)

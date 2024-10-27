@@ -1,0 +1,37 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { ImgHTMLAttributes } from "react";
+
+interface Props extends Partial<ImgHTMLAttributes<any> & ImageMetadata> {
+	imagePath: string;
+	altText: string;
+	source?: string;
+}
+
+const { imagePath, altText, source } = Astro.props;
+const props = { ...Astro.props };
+const fullImagePath = `/src/assets${imagePath}`;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	"/src/assets/images/**/*.{jpeg,jpg,png,gif}"
+);
+if (!images[fullImagePath]) {
+	console.error(images);
+	throw new Error(
+		`"${fullImagePath}" does not exist in glob: "src/assets/images/*.{jpeg,jpg,png,gif}"`
+	);
+}
+---
+
+<style lang="scss">
+	.source {
+		font-size: 0.8rem;
+		font-style: italic;
+		margin-top: 0.5rem;
+	}
+</style>
+
+<div class="dynamic-image">
+	<Image src={images[fullImagePath]()} alt={altText} {...props} />
+	{source && <div class="source">Source: {source}</div>}
+</div>

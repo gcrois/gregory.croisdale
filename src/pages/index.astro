@@ -1,80 +1,98 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '@layouts/DefaultLayout.astro';
-import ContentCard from '@components/ContentCard.astro';
-import Section from '@components/Section.astro';
-import { dateToParts } from 'src/utils/date';
+import { getCollection } from "astro:content";
+import Layout from "@layouts/DefaultLayout.astro";
+import ContentCard from "@components/ContentCard.astro";
+import Section from "@components/Section.astro";
+import { dateToParts } from "src/utils/date";
 
-const allBlogPosts = await getCollection('blog');
-const allResearchPosts = await getCollection('research');
+const allBlogPosts = await getCollection("blog");
+const allResearchPosts = await getCollection("research");
 ---
 
-<style>
+<style lang="scss">
+	.section-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+		margin: 0.5rem 0;
 
-.section-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: 1rem; /* Adjust as needed */
-    margin-bottom: 20px;
-}
+		@media screen and (max-width: 768px) {
+			grid-template-columns: 1fr;
+			padding: 0 1rem;
+			justify-items: center;
+		}
+	}
 
-@media screen 
-and (max-device-width: 768px)
-{
-    /* make sure you center! */
-    .section-grid {
-        justify-items: center;
-    }
-}
-
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 </style>
 
 <Layout
-    title='Home'
-    pageTitle='Gregory | Home'
-    description="Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan studying Human-Computer Interaction."
+	title="Home"
+	pageTitle="Gregory | Home"
+	description="Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan studying Human-Computer Interaction."
 >
-    <main id="main">
-        <Section class='section' id='about'>
-            <h1>About</h1>
-            Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan studying Human-Computer Interaction. My research is focused around improving communication mechanisms between Humans and AI to support common good.
-            <br/><br/>
-            I'm also a huge philosophy, art, music, and food nerd. I dabble in 3d Modeling (<a href="https://www.blender.org/">Blender</a> is my all-time favorite piece of software), violin, ukulele, and overambituous book-purchasing.
-        </Section>
-        
-        <hr/>
-        
-        <Section class='section' id='blog'>
-            <h1>Blog</h1>
-            <div class='section-grid'>
-                {
-                allBlogPosts
-                    .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-                    .map((post) => (
-                        <ContentCard post={post} />
-                    ))
-                }
-            </div>
-        </Section>
+	<main id="main">
+		<Section id="about">
+			<h1>About</h1>
+			Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan
+			studying Human-Computer Interaction. My research is focused around improving
+			communication mechanisms between Humans and AI to support common good.
+			<br /><br />
+			I'm also a huge philosophy, art, music, and food nerd. I dabble in 3d
+			Modeling (<a href="https://www.blender.org/">Blender</a> is my all-time
+			favorite piece of software), violin, ukulele, and overambituous book-purchasing.
+		</Section>
 
-        <hr/>
+		<hr />
 
-        <Section class='section' id='research'>
-            <h1>Research</h1>
-            <div class='section-grid'>
-                {allResearchPosts
-                    .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-                    .map((post) => (
-                        <ContentCard
-                            dateFunc={(date) => {
-                                const { month, year } = dateToParts(date);
+		<Section id="blog">
+			<h1>Blog</h1>
+			<div class="section-grid">
+				{
+					allBlogPosts
+						.sort(
+							(a, b) =>
+								new Date(b.data.date).getTime() -
+								new Date(a.data.date).getTime()
+						)
+						.map((post) => <ContentCard post={post} />)
+				}
+			</div>
+		</Section>
 
-                                return `${month} ${year}`
-                            }}
-                            post={post}
-                        />
-                ))}
-            </div>
-        </Section>
-    </main>
+		<hr />
+
+		<Section id="research">
+			<h1>Research</h1>
+			<div class="section-grid">
+				{
+					allResearchPosts
+						.sort(
+							(a, b) =>
+								new Date(b.data.date).getTime() -
+								new Date(a.data.date).getTime()
+						)
+						.map((post) => (
+							<ContentCard
+								dateFunc={(date) => {
+									const { month, year } = dateToParts(date);
+
+									return `${month} ${year}`;
+								}}
+								post={post}
+							/>
+						))
+				}
+			</div>
+		</Section>
+	</main>
 </Layout>

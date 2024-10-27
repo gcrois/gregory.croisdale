@@ -1,12 +1,8 @@
-/*
-{"Night":"090A0E","Davy's gray":"4E4D53","Rufous":"9E251A","Asparagus":"719437","Dun":"E7D3BA"}
-*/
-
-$base-color: #D8E6EA;
-$bright-color: #C1DBE3;
-$brighter-color: #F6FEAA;
+$base-color: #d8e6ea;
+$bright-color: #c1dbe3;
+$brighter-color: #f6feaa;
 $dark-color: #373737;
-$red-color: #FCB495;
+$red-color: #fcb495;
 
 // transparent versions:
 $transparent: rgba(0, 0, 0, 0);
@@ -20,10 +16,22 @@ $red-color-t: mix($transparent, $red-color, $t-amount);
 // mobile width
 $mobile-width: calc(512px + 128px);
 
+$card-radius: 12px;
+$transition-speed: 200ms;
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg:
+	0 2px 2px hsl(0deg 0% 0% / 0.075),
+	0 4px 4px hsl(0deg 0% 0% / 0.075),
+	0 8px 8px hsl(0deg 0% 0% / 0.075),
+	0 16px 16px hsl(0deg 0% 0% / 0.075);
+
 :root {
-    --base-color: #{$base-color};
-    --bright-color: #{$bright-color};
-    --brighter-color: #{$brighter-color};
-    --dark-color: #{$dark-color};
-    --red-color: #{$red-color};
+	--base-color: #{$base-color};
+	--bright-color: #{$bright-color};
+	--brighter-color: #{$brighter-color};
+	--dark-color: #{$dark-color};
+	--red-color: #{$red-color};
+	--card-radius: #{$card-radius};
+	--transition-speed: #{$transition-speed};
 }

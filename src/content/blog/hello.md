@@ -1,6 +1,6 @@
 ---
 title: "Salutations, world!"
-# date: "March 23, 2023"
+image: "/images/blog/meta.png"
 date: "2023-03-23"
 
 description: "Welcome to my website! Here's a little bit about how I built it without any JavaScript in the frontend."
@@ -33,6 +33,7 @@ I want clean markdown that I can read and edit in a text editor, and I want to b
 # Stack
 
 With all of these requirements considered, I am using the following stack:
+
 1. [Astro](https://astro.build/) for static site generation
 2. [Svelte](https://svelte.dev/) for component-based frontend development
 3. [Sass](https://sass-lang.com/) for CSS preprocessing
@@ -43,7 +44,7 @@ And of course, I'll be using my long-time favorite text editor, [Microsoft Word 
 
 # Implementation
 
-I've had a bare-bones version up for an embarassingly long time, but now, *I will actually start consistently writing content!* <sup><a href="https://xkcd.com/285/">[citation needed]</a></sup>.
+I've had a bare-bones version up for an embarassingly long time, but now, _I will actually start consistently writing content!_ <sup><a href="https://xkcd.com/285/">[citation needed]</a></sup>.
 
 In classic Gregory fashion, I will leave implementation details to add to this post later. But just imagine they're really cool and that you're super impressed.
 

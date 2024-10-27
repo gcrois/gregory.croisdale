@@ -1,6 +1,6 @@
 ---
-import BaseHead from '@components/layout/BaseHead.astro';
-import Sidebar from '@components/layout/Sidebar.astro';
+import BaseHead from "@components/layout/BaseHead.astro";
+import Sidebar from "@components/layout/Sidebar.astro";
 
 import "@styles/noise.scss";
 
@@ -14,12 +14,12 @@ interface Props {
 const { title, description, classList, pageTitle } = Astro.props;
 ---
 
-<html lang='en'>
-<BaseHead title={title} description={description} />
-<body class="main">
-	<Sidebar/>
-	<div class="content">
-		<slot />
-	</div>
-</body>
+<html lang="en">
+	<BaseHead title={title} description={description} />
+	<body class="main">
+		<Sidebar />
+		<div class="content">
+			<slot />
+		</div>
+	</body>
 </html>

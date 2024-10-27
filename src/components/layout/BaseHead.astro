@@ -6,7 +6,7 @@ interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImage = (Astro.props.ogImage) ? Astro.props.ogImage : "/images/me.jpg";
+const ogImage = Astro.props.ogImage ? Astro.props.ogImage : "/images/me.jpg";
 
 const { title, description } = Astro.props;
 
@@ -14,33 +14,32 @@ import "@styles/main.scss";
 ---
 
 <head>
-	<meta charset='utf-8' />
-	<meta name='viewport' content='width=device-width, initial-scale=1' />
-	<meta name='generator' content={Astro.generator} />
-	
-	<meta name='title' content={`Gregory Croisdale | ${title}`} />
-	<meta name='description' content={description} />
-	
-	<meta property='og:type' content='website' />
-	<meta property='og:url' content={canonicalURL} />
-	<meta property='og:title' content=`Gregory Croisdale | ${title}` />
-	<meta property='og:description' content={description} />
-	<meta property='og:image' content={ogImage} />
-	
-	
-	<meta property='twitter:card' content='summary_large_image' />
-	<meta property='twitter:url' content={canonicalURL} />
-	<meta property='twitter:title' content={title} />
-	<meta property='twitter:description' content={description} />
-	<meta property='twitter:image' content={ogImage} />
-	
-	<link rel='canonical' href={canonicalURL} />
-	<link rel='icon' type='image/svg' href='/favicon.svg' />
-	
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="generator" content={Astro.generator} />
+
+	<meta name="title" content={`Gregory Croisdale | ${title}`} />
+	<meta name="description" content={description} />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={canonicalURL} />
+	<meta property="og:title" content=`Gregory Croisdale | ${title}` />
+	<meta property="og:description" content={description} />
+	<meta property="og:image" content={ogImage} />
+
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:url" content={canonicalURL} />
+	<meta property="twitter:title" content={title} />
+	<meta property="twitter:description" content={description} />
+	<meta property="twitter:image" content={ogImage} />
+
+	<link rel="canonical" href={canonicalURL} />
+	<link rel="icon" type="image/svg" href="/favicon.svg" />
+
 	<title>Gregory | {title}</title>
-	
+
 	<!-- fonts -->
-	<link rel="stylesheet" href="https://use.typekit.net/xcm6zhb.css">
+	<link rel="stylesheet" href="https://use.typekit.net/xcm6zhb.css" />
 
 	<slot />
 </head>

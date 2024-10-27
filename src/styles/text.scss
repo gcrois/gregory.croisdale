@@ -1,25 +1,24 @@
 @import "variables";
 
 .subheader-text {
-    font-size: 18px;
-    display: block;
-    text-overflow: ellipsis;
-    text-align: left;
-    max-width: auto;
-    width: 100%;
+	font-size: 18px;
+	display: block;
+	text-overflow: ellipsis;
+	text-align: left;
+	max-width: auto;
+	width: 100%;
 }
 
-@media screen 
-and (max-width: $mobile-width) {
-    .subheader-text {
-        text-align: center;
-    }
+@media screen and (max-width: $mobile-width) {
+	.subheader-text {
+		text-align: center;
+	}
 }
 
 .header-text {
-    font-size: 32px;
-    
-    font-family: aktiv-grotesk-condensed, sans-serif;
-    font-weight: 400;
-    font-style: normal;
+	font-size: 32px;
+
+	font-family: aktiv-grotesk-condensed, sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }

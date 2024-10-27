@@ -1,99 +1,306 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { dateToParts, stringToDate } from 'src/utils/date';
+import type { CollectionEntry } from "astro:content";
+import { dateToParts, stringToDate } from "src/utils/date";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { MdComputer } from "react-icons/md";
+import DynamicImage from "./DynamicImage.astro";
 
 interface Props {
 	post: CollectionEntry<"blog"> | CollectionEntry<"research">;
-    dateFunc?: (date: Date) => string;
+	dateFunc?: (date: Date) => string;
 }
 
 const {
-    post,
-    dateFunc = (date: Date) =>  {
-        const { month, day, year } = dateToParts(date);
-
-        // remove leading zero from day
-        const dayStr = day.toString().replace(/^0+/, '');
-
-        return `${month} ${dayStr}, ${year}`;
-    }
+	post,
+	dateFunc = (date: Date) => {
+		const { month, day, year } = dateToParts(date);
+		const dayStr = day.toString().replace(/^0+/, "");
+		return `${month} ${dayStr}, ${year}`;
+	},
 }: Props = Astro.props;
-
-const link = (post.data.link == "") ? `${post.collection}/${post.slug}` : post.data.link;
+const link =
+	post.data.link == "" ? `${post.collection}/${post.slug}` : post.data.link;
+const domain = post.data.newTab ? new URL(link).hostname : null;
 ---
 
-<style>
-.content-card-container {
-    justify-self: stretch;
-    
-    display: flex;
-    flex-direction: row;
+<style lang="scss">
+	.content-card-container {
+		justify-self: stretch;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		min-width: 100%;
+	}
 
-    justify-content: center;
-    min-width: 100%;
-}
+	.content-card {
+		display: flex;
+		flex-direction: column;
+		border-radius: 16px;
+		width: 100%;
+		text-decoration: none;
+		background: white;
+		transition: all 0.2s ease;
+		position: relative;
+		overflow: hidden;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-.content-card {
-    aspect-ratio: 1 / 1;
-    display: block;
+		&:hover {
+			transform: translateY(-2px);
+			box-shadow: var(--shadow-lg);
+		}
+	}
 
-    border-radius: 12px;
-    padding: 12px;
+	.external-icon {
+		position: absolute;
+		top: 0.6rem;
+		right: 0.6rem;
+		background: rgba(255, 255, 255, 0.9);
+		border: 2px solid var(--dark-color);
+		padding: 0.2rem;
+		border-radius: 4px;
+		color: var(--dark-color);
+		backdrop-filter: blur(4px);
+		z-index: 1;
+		height: 1rem;
+	}
 
-    max-width: 512px;
-    width: 100%;
-    
-    text-decoration: none;
+	.image-container {
+		width: 100%;
+		height: 260px;
+		background-color: var(--dark-color);
+		overflow: hidden;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-    background: var(--red-color);
-}
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
 
-.content-card:hover {
-    filter: brightness(1.1);
-}
+		.default-icon {
+			color: var(--bright-color);
+			opacity: 0.2;
+			width: 96px;
+			height: 96px;
+		}
+	}
+	.card-desc {
+		display: flex;
+		flex-direction: column;
+		padding: 1rem; // Reduced padding
+		height: 100%;
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0.95),
+			white
+		);
+	}
 
-.card-desc, .card-desc > h2 {
-    margin: 0;
-    padding: 0;
-}
+	.tags {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		margin-bottom: 0.5rem;
+	}
 
-h2 {
-    margin: 0;
-    padding: 0;
-}
+	.tag {
+		color: var(--dark-color);
+		font-size: 0.75rem;
+		font-weight: 500;
+		background-color: var(--bright-color);
+		padding: 0.25rem 0.75rem;
+		border-radius: 1rem;
+		transition: all 0.2s ease;
+	}
 
-hr {
-    margin: 0.5em 0.5em;
-}
-.heads-up {
-    font-size: 0.8em;
-    color: var(--text-color);
-    text-wrap: nowrap;
-    margin-top: 4px;
-}
+	.card-title {
+		font-size: 1.2rem; // Slightly smaller
+		line-height: 1.4;
+		margin: 0 0 0.25rem 0; // Reduced margin
+		font-weight: 600;
+		color: var(--dark-color);
+	}
+
+	.meta-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.8rem;
+		color: var(--dark-color);
+		opacity: 0.8;
+		margin-bottom: 0.5rem;
+		flex-wrap: wrap; // Allow wrapping for long author lists
+	}
+
+	.authors {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		&:not(:empty) {
+			&::before {
+				content: "•";
+				opacity: 0.5;
+			}
+		}
+	}
+
+	.author {
+		color: var(--dark-color);
+		opacity: 0.8;
+	}
+
+	.meta-separator {
+		color: var(--dark-color);
+		opacity: 0.5;
+	}
+
+	.card-description {
+		font-size: 0.9rem; // Slightly smaller
+		line-height: 1.4;
+		color: var(--dark-color);
+		opacity: 0.9;
+		margin-bottom: 0.75rem; // Reduced margin
+		display: -webkit-box;
+		-webkit-line-clamp: 3; // Limit to 3 lines
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.card-footer {
+		margin-top: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem; // Reduced gap
+	}
+
+	.read-more {
+		color: #0066ff;
+		font-size: 0.8rem;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+
+		&::after {
+			content: "→";
+			transition: transform 0.2s ease;
+		}
+	}
+
+	.content-card:hover .read-more::after {
+		transform: translateX(4px);
+	}
+
+	.heads-up {
+		font-size: 0.7rem; // Smaller
+		color: var(--dark-color);
+		opacity: 0.7;
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.external-link-icon {
+		color: var(--dark-color);
+		opacity: 0.7;
+		margin-right: 0.25rem;
+	}
+
+	.card-image {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
 </style>
 
 <div class="content-card-container">
-    <a
-        href={link}
-
-        target={post.data.newTab ? "_blank" : undefined}
-        rel={post.data.newTab ? "noopener noreferrer" : undefined}
-
-        class="content-card shadow hovshadow"
-    >
-        <span class="card-desc">
-            <h2><Fragment set:html={post.data.title}/></h2>
-            <Fragment set:html={dateFunc(stringToDate(post.data.date))}/>
-            { post.data.venue && (
-                <Fragment>
-                    | <Fragment set:html={post.data.venue}/>
-                </Fragment>
-            )}
-            <hr/>
-            <Fragment set:html={post.data.description}/>
-            { post.data.newTab && <div class="heads-up">(opens in external page)</div>}
-            <br/>
-        </span>
-    </a>
+	<a
+		href={link}
+		target={post.data.newTab ? "_blank" : undefined}
+		rel={post.data.newTab ? "noopener noreferrer" : undefined}
+		class="content-card"
+	>
+		{
+			post.data.newTab && (
+				<div class="external-icon">
+					<FaExternalLinkAlt size={16} />
+				</div>
+			)
+		}
+		<div class="image-container">
+			{
+				post.data.image === "/images/me.jpg" ? (
+					<MdComputer className="default-icon" color="white" />
+				) : (
+					<DynamicImage
+						imagePath={post.data.image}
+						altText="Post thumbnail"
+						className="card-image"
+					/>
+				)
+			}
+		</div>
+		<span class="card-desc">
+			<div class="tags">
+				{
+					post.data.tags.map((tag: string) => (
+						<span class="tag">{tag}</span>
+					))
+				}
+			</div>
+			<h2 class="card-title"><Fragment set:html={post.data.title} /></h2>
+			<div class="meta-row">
+				<time
+					><Fragment
+						set:html={dateFunc(stringToDate(post.data.date))}
+					/></time
+				>
+				{
+					post.data.venue && (
+						<>
+							<span class="meta-separator">|</span>
+							<span>
+								<Fragment set:html={post.data.venue} />
+							</span>
+						</>
+					)
+				}
+				{
+					post.data.authors && (
+						<div class="authors">
+							{post.data.authors.map(
+								(author: string, index: number) => (
+									<>
+										{index > 0 && ", "}
+										<span class="author">{author}</span>
+									</>
+								)
+							)}
+						</div>
+					)
+				}
+			</div>
+			<p class="card-description">
+				<Fragment set:html={post.data.description} />
+			</p>
+			<div class="card-footer">
+				<span class="read-more">Read more</span>
+				{
+					post.data.newTab && (
+						<div class="heads-up">
+							<FaExternalLinkAlt
+								size={12}
+								className="external-link-icon"
+							/>
+							Opens at {domain}
+						</div>
+					)
+				}
+			</div>
+		</span>
+	</a>
 </div>

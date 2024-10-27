@@ -1,19 +1,30 @@
 ---
+import DynamicImage from "./DynamicImage.astro";
+
 interface Props {
-    src: string;
-    alt: string;
+	src: string;
+	alt: string;
 }
 
 const { src, alt } = Astro.props;
 ---
+
 <style>
-.me {
-    width: 256px;
-    height: 256px;
-    border-radius: 16px;
-}
+	.me {
+		width: 256px;
+		height: 256px;
+		border-radius: 16px;
+	}
 </style>
 
 <a href="/">
-    <image class="me" src={src} alt={alt}/>
+	<DynamicImage
+		imagePath={src}
+		altText={alt}
+		className="me"
+		loading="eager"
+		decoding="sync"
+		width={512}
+		height={512}
+	/>
 </a>
