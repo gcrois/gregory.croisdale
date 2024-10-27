@@ -4,16 +4,9 @@ date: "2020-05-01"
 venue: "EURēCA"
 authors:
     [
-        "Matthew I. Swindall",
+        "Brooks M. Leftwich",
         "Gregory Croisdale",
-        "Chase C. Hunter",
-        "Ben Keener",
-        "Alex C. Williams",
-        "James H. Brusuelas",
-        "Nita Krevans",
-        "Melissa Sellew",
-        "Lucy Fortson",
-        "John F. Wallin",
+        "Khoa T. Dang",
     ]
 
 description: "With the CSCTW Group, we explored Game Design choices to encourage perspective changing in study of the Civil Rights movement in Montgomery, Alabama."

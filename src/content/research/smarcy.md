@@ -6,7 +6,7 @@ authors:
         "Yi Wu",
         "Luis Alonso González Villalobos",
         "Zhenning Yang",
-        "Gregory Thomas Croisdale",
+        "Gregory Croisdale",
         "Çağdaş Karataş",
         "Jian Liu",
     ]

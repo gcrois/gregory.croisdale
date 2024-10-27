@@ -137,20 +137,21 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 
 	.authors {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem;
-
-		&:not(:empty) {
-			&::before {
-				content: "•";
-				opacity: 0.5;
-			}
-		}
 	}
 
 	.author {
 		color: var(--dark-color);
 		opacity: 0.8;
+
+		&.author-greg {
+			// emphasize my name!
+			font-weight: 600;
+			display: inline-block;
+			opacity: 1;
+		}
 	}
 
 	.meta-separator {
@@ -275,8 +276,9 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 							{post.data.authors.map(
 								(author: string, index: number) => (
 									<>
-										{index > 0 && ", "}
-										<span class="author">{author}</span>
+										<span class={"author" + (author == "Gregory Croisdale" ? " author-greg" : "")}>
+											<Fragment set:html={author} />
+										</span>
 									</>
 								)
 							)}
