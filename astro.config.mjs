@@ -5,5 +5,13 @@ export default defineConfig({
   site: 'https://g.regory.dev',
   base: '',
   integrations: [react()],
-  experimental: { assets: true },
+  vite: {
+    css: {
+        preprocessorOptions: {
+            scss: {
+                api: "modern-compiler"
+            }
+        }
+    }
+  }
 });

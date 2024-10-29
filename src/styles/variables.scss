@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $base-color: #d8e6ea;
 $bright-color: #c1dbe3;
 $brighter-color: #f6feaa;
@@ -7,11 +9,11 @@ $red-color: #fcb495;
 // transparent versions:
 $transparent: rgba(0, 0, 0, 0);
 $t-amount: 50%;
-$base-color-t: mix($transparent, $base-color, $t-amount);
-$bright-color-t: mix($transparent, $bright-color, $t-amount);
-$brighter-color-t: mix($transparent, $brighter-color, $t-amount);
-$dark-color-t: mix($transparent, $dark-color, $t-amount);
-$red-color-t: mix($transparent, $red-color, $t-amount);
+$base-color-t: color.mix($transparent, $base-color, $t-amount);
+$bright-color-t: color.mix($transparent, $bright-color, $t-amount);
+$brighter-color-t: color.mix($transparent, $brighter-color, $t-amount);
+$dark-color-t: color.mix($transparent, $dark-color, $t-amount);
+$red-color-t: color.mix($transparent, $red-color, $t-amount);
 
 // mobile width
 $mobile-width: calc(512px + 128px);

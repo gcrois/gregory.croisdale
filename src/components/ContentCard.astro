@@ -276,7 +276,14 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 							{post.data.authors.map(
 								(author: string, index: number) => (
 									<>
-										<span class={"author" + (author == "Gregory Croisdale" ? " author-greg" : "")}>
+										<span
+											class={
+												"author" +
+												(author == "Gregory Croisdale"
+													? " author-greg"
+													: "")
+											}
+										>
 											<Fragment set:html={author} />
 										</span>
 									</>
