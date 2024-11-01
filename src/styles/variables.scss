@@ -1,39 +1,146 @@
-@use "sass:color";
+// @use "sass:color";
+// @use "sass:math";
 
-$base-color: #d8e6ea;
-$bright-color: #c1dbe3;
-$brighter-color: #f6feaa;
-$dark-color: #373737;
-$red-color: #fcb495;
+// // Core brand colors (original values)
+// $base-color: #d8e6ea;
+// $bright-color: #c1dbe3;
+// $brighter-color: #f6feaa;
+// $dark-color: #373737;
+// $red-color: #fcb495;
 
-// transparent versions:
-$transparent: rgba(0, 0, 0, 0);
-$t-amount: 50%;
-$base-color-t: color.mix($transparent, $base-color, $t-amount);
-$bright-color-t: color.mix($transparent, $bright-color, $t-amount);
-$brighter-color-t: color.mix($transparent, $brighter-color, $t-amount);
-$dark-color-t: color.mix($transparent, $dark-color, $t-amount);
-$red-color-t: color.mix($transparent, $red-color, $t-amount);
+// // Function to create color variations
+// @function create-color-variant($color, $lightness-adjustment) {
+//   @return color.adjust($color, $lightness: $lightness-adjustment);
+// }
 
-// mobile width
+// // Updated container color function to retain more of the original color
+// @function create-container-color($color) {
+//   // First darken slightly to create distinction
+//   $adjust: color.adjust($color, $lightness: 10%);
+//   // Then adjust saturation slightly up to make it more vibrant
+//   @return color.adjust(
+//     $adjust,
+//     $saturation: 10%
+//   );
+// }
+
+// // Function to determine contrasting text color
+// @function get-contrast-color($color) {
+//   $luminance: math.div(
+//     (color.red($color) * 0.299 + color.green($color) * 0.587 + color.blue($color) * 0.114),
+//     255
+//   );
+//   @return if($luminance > 0.5, $dark-color, #ffffff);
+// }
+
+// // Function to create surface variants
+// @function create-surface-variant($base, $adjustment) {
+//   @return color.mix(#ffffff, $base, $adjustment);
+// }
+
+// // Generate primary colors
+// $primary: $bright-color;
+// $primary-container: create-container-color($primary);
+// $on-primary: get-contrast-color($primary);
+// $on-primary-container: get-contrast-color($primary-container);
+
+// // Generate secondary colors
+// $secondary: $brighter-color;
+// $secondary-container: create-container-color($secondary);
+// $on-secondary: get-contrast-color($secondary);
+// $on-secondary-container: get-contrast-color($secondary-container);
+
+// // Generate surface colors
+// $surface: $base-color;
+// $surface-dim: create-surface-variant($base-color, 95%);
+// $surface-bright: create-surface-variant($base-color, 98%);
+// $surface-container: create-surface-variant($base-color, 94%);
+// $surface-container-low: create-surface-variant($base-color, 96%);
+// $surface-container-high: create-surface-variant($base-color, 92%);
+
+// // Generate error colors
+// $error: $red-color;
+// $error-container: create-container-color($error);
+// $on-error: get-contrast-color($error);
+// $on-error-container: get-contrast-color($error-container);
+
+// // Updated dark mode color generation functions
+// @function create-dark-variant($color) {
+//   @return color.adjust(
+//     $color,
+//     $lightness: -30%,
+//     $saturation: -5%
+//   );
+// }
+
+// @function create-dark-container($color) {
+//   $darkened: color.adjust($color, $lightness: -20%);
+//   @return color.adjust(
+//     $darkened,
+//     $saturation: 15%
+//   );
+// }
+
+// @function create-dark-surface-variant($base, $adjustment) {
+//   @return color.mix(#000000, $base, $adjustment);
+// }
+
+// :root {
+//   // Colors
+//   --md-primary: #{$primary};
+//   --md-on-primary: #{$on-primary};
+//   --md-primary-container: #{$primary-container};
+//   --md-on-primary-container: #{$on-primary-container};
+  
+//   --md-secondary: #{$secondary};
+//   --md-on-secondary: #{$on-secondary};
+//   --md-secondary-container: #{$secondary-container};
+//   --md-on-secondary-container: #{$on-secondary-container};
+  
+//   --md-surface: #{$surface};
+//   --md-surface-dim: #{$surface-dim};
+//   --md-surface-bright: #{$surface-bright};
+//   --md-surface-container: #{$surface-container};
+//   --md-surface-container-low: #{$surface-container-low};
+//   --md-surface-container-high: #{$surface-container-high};
+  
+//   --md-error: #{$error};
+//   --md-on-error: #{$on-error};
+//   --md-error-container: #{$error-container};
+//   --md-on-error-container: #{$on-error-container};
+// }
+
+// .dark-mode {
+//   --md-primary: #{create-dark-variant($primary)};
+//   --md-on-primary: #{get-contrast-color(create-dark-variant($primary))};
+//   --md-primary-container: #{create-dark-container($primary)};
+//   --md-on-primary-container: #{get-contrast-color(create-dark-container($primary))};
+  
+//   --md-secondary: #{create-dark-variant($secondary)};
+//   --md-on-secondary: #{get-contrast-color(create-dark-variant($secondary))};
+//   --md-secondary-container: #{create-dark-container($secondary)};
+//   --md-on-secondary-container: #{get-contrast-color(create-dark-container($secondary))};
+  
+//   --md-surface: #{create-dark-surface-variant($base-color, 85%)};
+//   --md-surface-dim: #{create-dark-surface-variant($base-color, 90%)};
+//   --md-surface-bright: #{create-dark-surface-variant($base-color, 80%)};
+//   --md-surface-container: #{create-dark-surface-variant($base-color, 87%)};
+//   --md-surface-container-low: #{create-dark-surface-variant($base-color, 89%)};
+//   --md-surface-container-high: #{create-dark-surface-variant($base-color, 83%)};
+  
+//   --md-error: #{create-dark-variant($error)};
+//   --md-on-error: #{get-contrast-color(create-dark-variant($error))};
+//   --md-error-container: #{create-dark-container($error)};
+//   --md-on-error-container: #{get-contrast-color(create-dark-container($error))};
+// }
+
 $mobile-width: calc(512px + 128px);
-
 $card-radius: 12px;
 $transition-speed: 200ms;
 $shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
 $shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
 $shadow-lg:
-	0 2px 2px hsl(0deg 0% 0% / 0.075),
-	0 4px 4px hsl(0deg 0% 0% / 0.075),
-	0 8px 8px hsl(0deg 0% 0% / 0.075),
-	0 16px 16px hsl(0deg 0% 0% / 0.075);
-
-:root {
-	--base-color: #{$base-color};
-	--bright-color: #{$bright-color};
-	--brighter-color: #{$brighter-color};
-	--dark-color: #{$dark-color};
-	--red-color: #{$red-color};
-	--card-radius: #{$card-radius};
-	--transition-speed: #{$transition-speed};
-}
+  0 2px 2px hsl(0deg 0% 0% / 0.075),
+  0 4px 4px hsl(0deg 0% 0% / 0.075),
+  0 8px 8px hsl(0deg 0% 0% / 0.075),
+  0 16px 16px hsl(0deg 0% 0% / 0.075);

@@ -8,37 +8,6 @@ import NavItem from "@components/NavItem.astro";
 const { classes }: Props = Astro.props;
 ---
 
-<style lang="scss">
-	.navbar {
-		position: sticky;
-		top: 0;
-		bottom: 0;
-
-		display: flex;
-		flex-direction: row;
-		gap: 0.5rem;
-
-		max-width: 100%;
-		word-wrap: break-word;
-
-		justify-content: space-around;
-		align-content: center;
-		flex-wrap: wrap;
-
-		padding: 0.25rem;
-
-		z-index: 10;
-
-		background-color: var(--red-color);
-	}
-
-	.navbar.mobile {
-		max-width: calc(100% + 2rem);
-		width: calc(100% + 2rem);
-		margin-left: -1rem;
-	}
-</style>
-
 <nav class={"navbar shadow " + classes}>
 	<slot />
 	<NavItem href="/#blog">Blog</NavItem>

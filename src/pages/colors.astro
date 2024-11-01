@@ -1,0 +1,7 @@
+---
+import ColorComponent from '@components/Colors.tsx';
+import Empty from '@layouts/Empty.astro';
+---
+<Empty title='Colors' description='Color scheme comparison'>
+    <ColorComponent client:only="react"/>
+</Empty>
