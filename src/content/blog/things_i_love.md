@@ -4,7 +4,7 @@ date: "2023-06-23"
 image: "/images/blog/onfim.jpg"
 
 description: "A comprehensive list of things I love."
-tags: ["Art", "Music", "Movies"]
+tags: ["Personal", "Media", "Games"]
 ---
 
 1. [Eyes as Big as Plates](https://eyesasbigasplates.com/)

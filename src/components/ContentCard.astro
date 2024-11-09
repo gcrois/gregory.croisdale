@@ -6,11 +6,13 @@ import { MdComputer } from "react-icons/md";
 import DynamicImage from "./DynamicImage.astro";
 
 interface Props {
-	post: CollectionEntry<"blog"> | CollectionEntry<"research">;
+	post: CollectionEntry<"blog">;
+	id: string;
 	dateFunc?: (date: Date) => string;
 }
 
 const {
+	id,
 	post,
 	dateFunc = (date: Date) => {
 		const { month, day, year } = dateToParts(date);
@@ -22,7 +24,8 @@ const link =
 	post.data.link == "" ? `${post.collection}/${post.slug}` : post.data.link;
 const domain = post.data.newTab ? new URL(link).hostname : null;
 ---
-<div class="content-card-container">
+
+<div class="content-card-container" id={id}>
 	<a
 		href={link}
 		target={post.data.newTab ? "_blank" : undefined}

@@ -91,19 +91,19 @@
 //   --md-on-primary: #{$on-primary};
 //   --md-primary-container: #{$primary-container};
 //   --md-on-primary-container: #{$on-primary-container};
-  
+
 //   --md-secondary: #{$secondary};
 //   --md-on-secondary: #{$on-secondary};
 //   --md-secondary-container: #{$secondary-container};
 //   --md-on-secondary-container: #{$on-secondary-container};
-  
+
 //   --md-surface: #{$surface};
 //   --md-surface-dim: #{$surface-dim};
 //   --md-surface-bright: #{$surface-bright};
 //   --md-surface-container: #{$surface-container};
 //   --md-surface-container-low: #{$surface-container-low};
 //   --md-surface-container-high: #{$surface-container-high};
-  
+
 //   --md-error: #{$error};
 //   --md-on-error: #{$on-error};
 //   --md-error-container: #{$error-container};
@@ -115,19 +115,19 @@
 //   --md-on-primary: #{get-contrast-color(create-dark-variant($primary))};
 //   --md-primary-container: #{create-dark-container($primary)};
 //   --md-on-primary-container: #{get-contrast-color(create-dark-container($primary))};
-  
+
 //   --md-secondary: #{create-dark-variant($secondary)};
 //   --md-on-secondary: #{get-contrast-color(create-dark-variant($secondary))};
 //   --md-secondary-container: #{create-dark-container($secondary)};
 //   --md-on-secondary-container: #{get-contrast-color(create-dark-container($secondary))};
-  
+
 //   --md-surface: #{create-dark-surface-variant($base-color, 85%)};
 //   --md-surface-dim: #{create-dark-surface-variant($base-color, 90%)};
 //   --md-surface-bright: #{create-dark-surface-variant($base-color, 80%)};
 //   --md-surface-container: #{create-dark-surface-variant($base-color, 87%)};
 //   --md-surface-container-low: #{create-dark-surface-variant($base-color, 89%)};
 //   --md-surface-container-high: #{create-dark-surface-variant($base-color, 83%)};
-  
+
 //   --md-error: #{create-dark-variant($error)};
 //   --md-on-error: #{get-contrast-color(create-dark-variant($error))};
 //   --md-error-container: #{create-dark-container($error)};
@@ -140,7 +140,7 @@ $transition-speed: 200ms;
 $shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
 $shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
 $shadow-lg:
-  0 2px 2px hsl(0deg 0% 0% / 0.075),
-  0 4px 4px hsl(0deg 0% 0% / 0.075),
-  0 8px 8px hsl(0deg 0% 0% / 0.075),
-  0 16px 16px hsl(0deg 0% 0% / 0.075);
+	0 2px 2px hsl(0deg 0% 0% / 0.075),
+	0 4px 4px hsl(0deg 0% 0% / 0.075),
+	0 8px 8px hsl(0deg 0% 0% / 0.075),
+	0 16px 16px hsl(0deg 0% 0% / 0.075);

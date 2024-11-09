@@ -7,5 +7,5 @@ description: "A toy project to compile React components in the browser."
 link: "https://gcrois.github.io/gregsentation/"
 newTab: true
 
-tags: ["Frontend", "React"]
+tags: ["Frontend", "React", "Media"]
 ---

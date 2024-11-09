@@ -5,9 +5,9 @@ import ContentCard from "@components/ContentCard.astro";
 import Section from "@components/Section.astro";
 import { dateToParts } from "src/utils/date";
 import { DevToolsStatus } from "@components/fun/console";
+import BlogSorter from "@components/BlogSorter";
 
 const allBlogPosts = await getCollection("blog");
-const allResearchPosts = await getCollection("research");
 ---
 
 <style lang="scss">
@@ -34,18 +34,40 @@ const allResearchPosts = await getCollection("research");
 			transform: translateY(0);
 		}
 	}
+
+	.controls {
+		margin-bottom: 1rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tags div {
+		display: flex;
+		align-items: center;
+	}
+
+	.tags input {
+		margin-right: 0.25rem;
+	}
 </style>
 
 <Layout
 	title="Home"
-	pageTitle="Gregory | Home"
-	description="Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan studying Human-Computer Interaction."
+	description="Hello! 👋 I'm Gregory Croisdale, a PhD Candidate at the University of Michigan studying Human-Computer Interaction."
 >
 	<main id="main">
 		<DevToolsStatus client:load />
 		<Section id="about">
 			<h1>About</h1>
-			Hello! 👋 I'm Gregory Croisdale, a PhD Student at the University of Michigan
+			Hello! 👋 I'm Gregory Croisdale, a PhD Candidate at the University of Michigan
 			studying Human-Computer Interaction. My research is focused around improving
 			communication mechanisms between Humans and AI to support common good.
 			<br /><br />
@@ -56,44 +78,18 @@ const allResearchPosts = await getCollection("research");
 
 		<hr />
 
+		<BlogSorter posts={allBlogPosts} client:load />
+
 		<Section id="blog">
-			<h1>Blog</h1>
-			<div class="section-grid">
-				{
-					allBlogPosts
-						.sort(
-							(a, b) =>
-								new Date(b.data.date).getTime() -
-								new Date(a.data.date).getTime()
-						)
-						.map((post) => <ContentCard post={post} />)
-				}
-			</div>
-		</Section>
-
-		<hr />
-
-		<Section id="research">
-			<h1>Research</h1>
-			<div class="section-grid">
-				{
-					allResearchPosts
-						.sort(
-							(a, b) =>
-								new Date(b.data.date).getTime() -
-								new Date(a.data.date).getTime()
-						)
-						.map((post) => (
-							<ContentCard
-								dateFunc={(date) => {
-									const { month, year } = dateToParts(date);
-
-									return `${month} ${year}`;
-								}}
-								post={post}
-							/>
-						))
-				}
+			<div class="section-grid" id="blog-grid">
+			{allBlogPosts.map((post) => (
+				<ContentCard
+					post={post}
+					id={`post-${post.slug}`}
+					data-tags={post.data.tags.join(',')}
+					data-date={post.data.date}
+				/>
+			))}
 			</div>
 		</Section>
 	</main>

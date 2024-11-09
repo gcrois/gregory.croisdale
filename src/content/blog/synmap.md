@@ -8,5 +8,5 @@ description: "Programming Languages are optimized for human readability and writ
 link: "https://gcrois.github.io/synmap/"
 newTab: true
 
-tags: ["Programming Languages", "Parsing", "AI"]
+tags: ["PL", "Parsing", "AI", "Frontend", "React"]
 ---

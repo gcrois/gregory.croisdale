@@ -7,6 +7,6 @@ authors: ["Brooks M. Leftwich", "Gregory Croisdale", "Khoa T. Dang"]
 description: "With the CSCTW Group, we explored Game Design choices to encourage perspective changing in study of the Civil Rights movement in Montgomery, Alabama."
 link: "https://trace.tennessee.edu/utk_eureca/2020/winners/25/"
 newTab: true
-tags: ["Research", "Game Design", "Education"]
+tags: ["Research", "Games", "Education", "Media"]
 image: "/images/blog/montgomery.png"
 ---

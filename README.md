@@ -1,6 +1,6 @@
 # gregory.croisdale
 
-Hi! I'm a PhD Student at the University of Michigan. This is my personal website. It's built with [Astro](https://astro.build) and deployed with [GitHub Pages](https://pages.github.com/). WIP!
+Hi! I'm a PhD Candidate at the University of Michigan. This is my personal website. It's built with [Astro](https://astro.build) and deployed with [GitHub Pages](https://pages.github.com/). WIP!
 
 ## 🧞 Commands
 

@@ -12,33 +12,22 @@ interface Cardable {
 	newTab?: boolean;
 }
 
-const schema = {
+const blogSchema = {
 	title: z.string(),
 	description: z.string(),
 	date: z.string(),
 	tags: z.array(z.string()),
-
 	image: z.string().default("/images/me.jpg"),
 	link: z.string().default(""),
 	newTab: z.boolean().default(false),
-};
-
-const blogSchema = { ...schema };
-const researchSchema = {
-	...schema,
-	authors: z.array(z.string()),
-	venue: z.string(),
+	authors: z.array(z.string()).default([]),
+	venue: z.string().default(""),
 };
 
 const blogCollection = defineCollection({
 	schema: z.object(blogSchema),
 });
 
-const researchCollection = defineCollection({
-	schema: z.object(researchSchema),
-});
-
 export const collections = {
 	blog: blogCollection,
-	research: researchCollection,
 };

@@ -7,5 +7,5 @@ description: "A basic pong game with a noise filter to visualize concepts relati
 link: "https://gcrois.github.io/kuiperspong/"
 newTab: true
 
-tags: ["Frontend", "React", "Game"]
+tags: ["Frontend", "React", "Games"]
 ---

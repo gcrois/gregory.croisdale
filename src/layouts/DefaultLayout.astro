@@ -7,15 +7,14 @@ import "@styles/noise.scss";
 interface Props {
 	title: string;
 	description: string;
-	classList?: string;
-	pageTitle?: string;
+	ogImage?: string;
 }
 
-const { title, description, classList, pageTitle } = Astro.props;
+const { title, description, ogImage } = Astro.props;
 ---
 
 <html lang="en">
-	<BaseHead title={title} description={description} />
+	<BaseHead title={title} description={description} ogImage={ogImage} />
 	<body class="main">
 		<Sidebar />
 		<div class="content">

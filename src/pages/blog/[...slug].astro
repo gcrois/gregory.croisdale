@@ -30,8 +30,8 @@ const { Content } = await entry.render();
 
 <Layout
 	title={entry.data.title}
-	pageTitle=`Gregory | ' + ${entry.data.title}`
 	description={entry.data.description}
+	ogImage={entry.data.image}
 >
 	<Content />
 </Layout>

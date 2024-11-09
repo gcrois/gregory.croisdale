@@ -7,5 +7,5 @@ description: "Iterating and evaluating DeckFlow."
 link: "https://gcrois.github.io/vlhcc/"
 newTab: true
 
-tags: ["Frontend", "React"]
+tags: ["Frontend", "React", "Research"]
 ---

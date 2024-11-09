@@ -7,5 +7,5 @@ description: "A client-side RISC-V assembler and emulator built with WebAssembly
 link: "https://gcrois.github.io/CARVE/"
 newTab: true
 
-tags: ["Frontend", "Compiler"]
+tags: ["Frontend", "Compiler", "Assembly"]
 ---

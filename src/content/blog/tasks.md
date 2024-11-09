@@ -7,5 +7,5 @@ description: "An in-progress library to provide flexible backends for compute-in
 link: "https://gcrois.github.io/trask/"
 newTab: true
 
-tags: ["Frontend", "AI", "Distributed"]
+tags: ["Frontend", "AI", "Distributed", "React", "WebAssembly"]
 ---
