@@ -18,9 +18,8 @@ export default defineConfig({
         },
       },
     },
-    ssr: {
-      // If necessary, ensure @jsquash/jxl isn't externalized
-      noExternal: ['@jsquash/jxl', '@jsquash/png']
+    optimizeDeps: {
+        exclude: ["@jsquash/jxl", "@jsquash/png"]
     }
   }
 });

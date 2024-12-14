@@ -1,15 +1,14 @@
 ---
-import UploadPage from "../components/fun/UploadPage"
+import Layout from "@layouts/DefaultLayout.astro";
+import UploadPage from "../components/fun/UploadPage";
 ---
 
-<html lang="en">
-  <head>
-    <title>Upload & Compress</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body>
-    <!-- Render the React component with client:only to ensure it runs client-side -->
-    <UploadPage client:only="react" />
-  </body>
-</html>
+<Layout
+	title="Utils"
+	pageTitle="Gregory | JPEGXL URL Encoder"
+	description="Here is a live QR Code generator and a password generator :)"
+>
+	<main id="main">
+        <UploadPage client:only="react" />
+	</main>
+</Layout>
