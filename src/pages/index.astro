@@ -4,7 +4,7 @@ import Layout from "@layouts/DefaultLayout.astro";
 import ContentCard from "@components/ContentCard.astro";
 import Section from "@components/Section.astro";
 import { dateToParts } from "src/utils/date";
-import { DevToolsStatus } from "../components/fun/Console";
+import { DevToolsStatus } from "@components/fun/Console";
 
 const allBlogPosts = await getCollection("blog");
 const allResearchPosts = await getCollection("research");

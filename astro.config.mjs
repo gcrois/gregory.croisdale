@@ -6,12 +6,21 @@ export default defineConfig({
   base: '',
   integrations: [react()],
   vite: {
-    css: {
-        preprocessorOptions: {
-            scss: {
-                api: "modern-compiler"
-            }
-        }
+    // Force worker to use ES modules instead of iife
+    worker: {
+      format: 'es'
+    },
+    build: {
+      rollupOptions: {
+        // Ensure the main bundle also uses ES modules
+        output: {
+          format: 'es',
+        },
+      },
+    },
+    ssr: {
+      // If necessary, ensure @jsquash/jxl isn't externalized
+      noExternal: ['@jsquash/jxl', '@jsquash/png']
     }
   }
 });
