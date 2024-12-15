@@ -26,23 +26,26 @@ const ImageEncoder: React.FC = () => {
 	const [attempts, setAttempts] = useState<Array<Attempt>>([]);
 	const [finalLink, setFinalLink] = useState<string | null>(null);
 
-	// Display the final decoded images
-	const [finalDecodedImage, setFinalDecodedImage] = useState<string | null>(
-		null
-	);
-	const [finalScaledPreview, setFinalScaledPreview] = useState<string | null>(
-		null
-	);
+	const [finalDecodedImage, setFinalDecodedImage] = useState<string | null>(null);
+	const [finalScaledPreview, setFinalScaledPreview] = useState<string | null>(null);
 
-	// User parameters
-	const [targetBytes, setTargetBytes] = useState<number>(2500);
-	const [effort, setEffort] = useState<number>(8);
-	const [quality, setQuality] = useState<number>(10);
-    const [progressive, setProgressive] = useState<boolean>(true);
-    const [lossyPalette, setLossyPalette] = useState<boolean>(true);
-    const [decodingSpeedTier, setDecodingSpeedTier] = useState<number>(0);
-    const [photonNoiseIso, setPhotonNoiseIso] = useState<number>(0);
-    const [lossyModular, setLossyModular] = useState<boolean>(true);
+	// Use strings for numeric inputs to allow clearing them
+	const [targetBytesInput, setTargetBytesInput] = useState<string>("2500");
+	const [effortInput, setEffortInput] = useState<string>("8");
+	const [qualityInput, setQualityInput] = useState<string>("10");
+	const [decodingSpeedTierInput, setDecodingSpeedTierInput] = useState<string>("0");
+	const [photonNoiseIsoInput, setPhotonNoiseIsoInput] = useState<string>("0");
+
+	// Derived numeric values
+	const targetBytes = parseInt(targetBytesInput, 10) || 0;
+	const effort = parseInt(effortInput, 10) || 0;
+	const quality = parseInt(qualityInput, 10) || 0;
+	const decodingSpeedTier = parseInt(decodingSpeedTierInput, 10) || 0;
+	const photonNoiseIso = parseInt(photonNoiseIsoInput, 10) || 0;
+
+	const [progressive, setProgressive] = useState<boolean>(true);
+	const [lossyPalette, setLossyPalette] = useState<boolean>(true);
+	const [lossyModular, setLossyModular] = useState<boolean>(true);
 	const [generateQR, setGenerateQR] = useState<boolean>(true);
 
 	const qrRef = useRef<SVGSVGElement>(null);
@@ -71,6 +74,24 @@ const ImageEncoder: React.FC = () => {
 		if (!file) return;
 		resetState();
 
+		// Validate numeric inputs before proceeding
+		if (!targetBytes || targetBytes < 100) {
+			setErrorMessage("Invalid target byte length.");
+			return;
+		}
+		if (quality < 1 || quality > 100) {
+			setErrorMessage("Quality must be between 1 and 100.");
+			return;
+		}
+		if (effort < 1 || effort > 9) {
+			setErrorMessage("Effort must be between 1 and 9.");
+			return;
+		}
+		if (decodingSpeedTier < 0 || decodingSpeedTier > 3) {
+			setErrorMessage("Decoding Speed Tier must be between 0 and 3.");
+			return;
+		}
+
 		setStatus("Reading image...");
 		try {
 			const imgData = await loadImageFile(file);
@@ -88,13 +109,13 @@ const ImageEncoder: React.FC = () => {
 			} = await reduceAndEncodeJXLWithLiveUpdates(
 				imgData,
 				targetBytes,
-                effort,
-                quality,
-                progressive,
-                lossyPalette,
-                decodingSpeedTier,
-                photonNoiseIso,
-                lossyModular,
+				effort,
+				quality,
+				progressive,
+				lossyPalette,
+				decodingSpeedTier,
+				photonNoiseIso,
+				lossyModular,
 				(attempt) => setAttempts((prev) => [...prev, attempt])
 			);
 
@@ -107,22 +128,14 @@ const ImageEncoder: React.FC = () => {
 			setFinalDims([width, height]);
 			setStatus("Done!");
 
-			// Now, decode the final JXL back into a PNG for preview
 			const base64Data = extractBase64FromUrl(jxlDataUrl);
 			if (base64Data) {
-				// Decode JXL to raw image data
 				const { data: decodedData, width: decW, height: decH } =
 					await decodeBase64JXL(base64Data);
 
-				// Convert raw image data to PNG blob
-				const decodedPngUrl = imageDataToDataUrl(
-					decodedData,
-					decW,
-					decH
-				);
+				const decodedPngUrl = imageDataToDataUrl(decodedData, decW, decH);
 				setFinalDecodedImage(decodedPngUrl);
 
-				// Generate final scaled preview (PNG of the scaled image)
 				const scaledData = scaleImageData(imgData, width, height);
 				const scaledPngUrl = imageDataToDataUrl(
 					scaledData.data,
@@ -162,13 +175,11 @@ const ImageEncoder: React.FC = () => {
 		const serializer = new XMLSerializer();
 		const svgString = serializer.serializeToString(qrRef.current);
 
-		// Create a temporary container for the SVG
 		const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
 		const url = URL.createObjectURL(svgBlob);
 		const img = new Image();
 		img.src = url;
 
-		// Wait for image to load
 		await new Promise<void>((resolve) => {
 			img.onload = () => resolve();
 		});
@@ -234,12 +245,8 @@ const ImageEncoder: React.FC = () => {
 						Target Byte Length:
 						<input
 							type="number"
-							min={100}
-							step={100}
-							value={targetBytes}
-							onChange={(e) =>
-								setTargetBytes(parseInt(e.target.value) || 2500)
-							}
+							value={targetBytesInput}
+							onChange={(e) => setTargetBytesInput(e.target.value)}
 						/>
 					</label>
 
@@ -247,12 +254,8 @@ const ImageEncoder: React.FC = () => {
 						Quality (1-100):
 						<input
 							type="number"
-							min={1}
-							max={100}
-							value={quality}
-							onChange={(e) =>
-								setQuality(parseInt(e.target.value) || 10)
-							}
+							value={qualityInput}
+							onChange={(e) => setQualityInput(e.target.value)}
 						/>
 					</label>
 
@@ -260,12 +263,8 @@ const ImageEncoder: React.FC = () => {
 						Effort (1-9):
 						<input
 							type="number"
-							min={1}
-							max={9}
-							value={effort}
-							onChange={(e) =>
-								setEffort(parseInt(e.target.value) || 8)
-							}
+							value={effortInput}
+							onChange={(e) => setEffortInput(e.target.value)}
 						/>
 					</label>
 
@@ -312,12 +311,8 @@ const ImageEncoder: React.FC = () => {
 						Decoding Speed Tier (0-3):
 						<input
 							type="number"
-							min={0}
-							max={3}
-							value={decodingSpeedTier}
-							onChange={(e) =>
-								setDecodingSpeedTier(parseInt(e.target.value) || 0)
-							}
+							value={decodingSpeedTierInput}
+							onChange={(e) => setDecodingSpeedTierInput(e.target.value)}
 						/>
 					</label>
 
@@ -325,11 +320,8 @@ const ImageEncoder: React.FC = () => {
 						Photon Noise Iso:
 						<input
 							type="number"
-							min={0}
-							value={photonNoiseIso}
-							onChange={(e) =>
-								setPhotonNoiseIso(parseInt(e.target.value) || 0)
-							}
+							value={photonNoiseIsoInput}
+							onChange={(e) => setPhotonNoiseIsoInput(e.target.value)}
 						/>
 					</label>
 				</fieldset>
@@ -347,6 +339,38 @@ const ImageEncoder: React.FC = () => {
 
 			{status && <p className="status-message">{status}</p>}
 			{errorMessage && <p className="error-message">{errorMessage}</p>}
+
+			{finalLink && (
+				<div className="report-section">
+					<h2>Report</h2>
+					<p>
+						<strong>Iterations:</strong> {iterations}
+					</p>
+					<p>
+						<strong>Time Taken:</strong> {duration.toFixed(2)} ms
+					</p>
+					<p>
+						<strong>Final Scale:</strong> {finalScale.toFixed(4)}
+					</p>
+					<p>
+						<strong>Original Dimensions:</strong> {originalDims[0]}x
+						{originalDims[1]}
+					</p>
+					<p>
+						<strong>Final Dimensions:</strong> {finalDims[0]}x
+						{finalDims[1]}
+					</p>
+					<p>
+						Reduced to{" "}
+						{(
+							((finalDims[0] * finalDims[1]) /
+								(originalDims[0] * originalDims[1])) *
+							100
+						).toFixed(2)}
+						% of original pixel count.
+					</p>
+				</div>
+			)}
 
 			{finalLink && (
 				<div className="result-section">
@@ -392,7 +416,7 @@ const ImageEncoder: React.FC = () => {
 						<div className="qr-section">
 							<h3>QR Code for Decoded Image</h3>
 							<div className="qr-preview">
-								<QRCodeSVG value={finalLink} ref={qrRef} />
+								<QRCodeSVG value={finalLink} marginSize={4} ref={qrRef} />
 							</div>
 							<div className="qr-buttons">
 								<button
@@ -410,38 +434,6 @@ const ImageEncoder: React.FC = () => {
 							</div>
 						</div>
 					)}
-				</div>
-			)}
-
-			{finalLink && (
-				<div className="report-section">
-					<h2>Report</h2>
-					<p>
-						<strong>Iterations:</strong> {iterations}
-					</p>
-					<p>
-						<strong>Time Taken:</strong> {duration.toFixed(2)} ms
-					</p>
-					<p>
-						<strong>Final Scale:</strong> {finalScale.toFixed(4)}
-					</p>
-					<p>
-						<strong>Original Dimensions:</strong> {originalDims[0]}x
-						{originalDims[1]}
-					</p>
-					<p>
-						<strong>Final Dimensions:</strong> {finalDims[0]}x
-						{finalDims[1]}
-					</p>
-					<p>
-						Reduced to{" "}
-						{(
-							((finalDims[0] * finalDims[1]) /
-								(originalDims[0] * originalDims[1])) *
-							100
-						).toFixed(2)}
-						% of original pixel count.
-					</p>
 				</div>
 			)}
 
@@ -479,6 +471,7 @@ const ImageEncoder: React.FC = () => {
 		</div>
 	);
 };
+
 
 // Helper: load uploaded image into ImageData
 async function loadImageFile(file: File): Promise<ImageData> {
