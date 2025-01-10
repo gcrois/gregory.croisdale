@@ -6,7 +6,7 @@
 	color: #333;
 	background: #e5eff2;
 	border-radius: 8px;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .intro-text {
@@ -22,19 +22,22 @@
 	margin-bottom: 1.5rem;
 }
 
-.basic-settings, .advanced-settings {
+.basic-settings,
+.advanced-settings {
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	padding: 1rem;
 	background: #fff;
 }
 
-.basic-settings legend, .advanced-settings legend {
+.basic-settings legend,
+.advanced-settings legend {
 	font-weight: bold;
 	padding: 0 0.5rem;
 }
 
-.encoder-label, .encoder-checkbox-label {
+.encoder-label,
+.encoder-checkbox-label {
 	display: flex;
 	flex-direction: column;
 	font-size: 0.85rem;
@@ -87,7 +90,8 @@
 	}
 }
 
-.status-message, .error-message {
+.status-message,
+.error-message {
 	font-weight: bold;
 	margin-top: 1rem;
 }
@@ -96,7 +100,9 @@
 	color: red;
 }
 
-.result-section, .report-section, .attempts-section {
+.result-section,
+.report-section,
+.attempts-section {
 	margin-top: 2rem;
 	background: #fff;
 	padding: 1rem;
@@ -159,7 +165,7 @@
 		background: #fff;
 		padding: 1rem;
 		border-radius: 8px;
-		box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 		display: inline-block;
 	}
 

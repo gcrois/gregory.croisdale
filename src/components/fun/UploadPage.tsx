@@ -26,14 +26,19 @@ const ImageEncoder: React.FC = () => {
 	const [attempts, setAttempts] = useState<Array<Attempt>>([]);
 	const [finalLink, setFinalLink] = useState<string | null>(null);
 
-	const [finalDecodedImage, setFinalDecodedImage] = useState<string | null>(null);
-	const [finalScaledPreview, setFinalScaledPreview] = useState<string | null>(null);
+	const [finalDecodedImage, setFinalDecodedImage] = useState<string | null>(
+		null
+	);
+	const [finalScaledPreview, setFinalScaledPreview] = useState<string | null>(
+		null
+	);
 
 	// Use strings for numeric inputs to allow clearing them
 	const [targetBytesInput, setTargetBytesInput] = useState<string>("2500");
 	const [effortInput, setEffortInput] = useState<string>("8");
 	const [qualityInput, setQualityInput] = useState<string>("10");
-	const [decodingSpeedTierInput, setDecodingSpeedTierInput] = useState<string>("0");
+	const [decodingSpeedTierInput, setDecodingSpeedTierInput] =
+		useState<string>("0");
 	const [photonNoiseIsoInput, setPhotonNoiseIsoInput] = useState<string>("0");
 
 	// Derived numeric values
@@ -130,10 +135,17 @@ const ImageEncoder: React.FC = () => {
 
 			const base64Data = extractBase64FromUrl(jxlDataUrl);
 			if (base64Data) {
-				const { data: decodedData, width: decW, height: decH } =
-					await decodeBase64JXL(base64Data);
+				const {
+					data: decodedData,
+					width: decW,
+					height: decH,
+				} = await decodeBase64JXL(base64Data);
 
-				const decodedPngUrl = imageDataToDataUrl(decodedData, decW, decH);
+				const decodedPngUrl = imageDataToDataUrl(
+					decodedData,
+					decW,
+					decH
+				);
 				setFinalDecodedImage(decodedPngUrl);
 
 				const scaledData = scaleImageData(imgData, width, height);
@@ -148,6 +160,55 @@ const ImageEncoder: React.FC = () => {
 			console.error(err);
 			setErrorMessage(err.message || "An error occurred.");
 			setStatus(null);
+		}
+	};
+
+	const [copyQRLabel, setCopyQRLabel] = useState("Copy QR as PNG");
+
+	const handleCopyQRPNG = async () => {
+        const qrScale = 4;
+
+		if (!qrRef.current) return;
+
+		try {
+			// Clone and serialize the SVG
+			const clonedSvg = qrRef.current.cloneNode(true) as SVGSVGElement;
+			const serializer = new XMLSerializer();
+			const svgString = serializer.serializeToString(clonedSvg);
+			const blob = new Blob([svgString], { type: "image/svg+xml" });
+			const url = URL.createObjectURL(blob);
+
+			// Draw onto a canvas
+			const img = new Image();
+			await new Promise<void>((resolve) => {
+				img.onload = () => resolve();
+				img.src = url;
+			});
+
+			const canvas = document.createElement("canvas");
+			canvas.width = img.width * qrScale;
+            canvas.height = img.height * qrScale;
+			const ctx = canvas.getContext("2d");
+            ctx?.scale(qrScale, qrScale);
+			if (!ctx) return;
+			ctx.drawImage(img, 0, 0);
+
+			// Convert the canvas to a PNG blob
+			const pngBlob = await new Promise<Blob | null>((resolve) =>
+				canvas.toBlob(resolve, "image/png")
+			);
+			if (!pngBlob) return;
+
+			// Write the PNG blob to clipboard
+			await navigator.clipboard.write([
+				new ClipboardItem({ [pngBlob.type]: pngBlob }),
+			]);
+
+			// Update button text
+			setCopyQRLabel("Copied!");
+			setTimeout(() => setCopyQRLabel("Copy QR as PNG"), 2000);
+		} catch (err) {
+			console.error("Failed to copy QR code PNG:", err);
 		}
 	};
 
@@ -225,8 +286,8 @@ const ImageEncoder: React.FC = () => {
 		<div className="encoder-container">
 			<h1>Image Encoder</h1>
 			<p className="intro-text">
-				Upload an image, adjust parameters, and encode it as a JPEG-XL fitting
-				your target size.
+				Upload an image, adjust parameters, and encode it as a JPEG-XL
+				fitting your target size.
 			</p>
 
 			<div className="encoder-config">
@@ -246,7 +307,9 @@ const ImageEncoder: React.FC = () => {
 						<input
 							type="number"
 							value={targetBytesInput}
-							onChange={(e) => setTargetBytesInput(e.target.value)}
+							onChange={(e) =>
+								setTargetBytesInput(e.target.value)
+							}
 						/>
 					</label>
 
@@ -312,7 +375,9 @@ const ImageEncoder: React.FC = () => {
 						<input
 							type="number"
 							value={decodingSpeedTierInput}
-							onChange={(e) => setDecodingSpeedTierInput(e.target.value)}
+							onChange={(e) =>
+								setDecodingSpeedTierInput(e.target.value)
+							}
 						/>
 					</label>
 
@@ -321,7 +386,9 @@ const ImageEncoder: React.FC = () => {
 						<input
 							type="number"
 							value={photonNoiseIsoInput}
-							onChange={(e) => setPhotonNoiseIsoInput(e.target.value)}
+							onChange={(e) =>
+								setPhotonNoiseIsoInput(e.target.value)
+							}
 						/>
 					</label>
 				</fieldset>
@@ -416,9 +483,19 @@ const ImageEncoder: React.FC = () => {
 						<div className="qr-section">
 							<h3>QR Code for Decoded Image</h3>
 							<div className="qr-preview">
-								<QRCodeSVG value={finalLink} marginSize={4} ref={qrRef} />
+								<QRCodeSVG
+									value={finalLink}
+									marginSize={4}
+									ref={qrRef}
+								/>
 							</div>
 							<div className="qr-buttons">
+								<button
+									onClick={handleCopyQRPNG}
+									className="qr-button"
+								>
+									{copyQRLabel}
+								</button>
 								<button
 									onClick={handleDownloadSVG}
 									className="qr-button"
@@ -452,11 +529,12 @@ const ImageEncoder: React.FC = () => {
 									{attempt.scale.toFixed(4)}
 								</p>
 								<p>
-									<strong>Dimensions:</strong> {attempt.width}x
-									{attempt.height}
+									<strong>Dimensions:</strong> {attempt.width}
+									x{attempt.height}
 								</p>
 								<p>
-									<strong>URL Length:</strong> {attempt.urlLength}
+									<strong>URL Length:</strong>{" "}
+									{attempt.urlLength}
 								</p>
 								<img
 									src={attempt.imageUrl}
@@ -471,7 +549,6 @@ const ImageEncoder: React.FC = () => {
 		</div>
 	);
 };
-
 
 // Helper: load uploaded image into ImageData
 async function loadImageFile(file: File): Promise<ImageData> {
@@ -503,13 +580,13 @@ async function loadImageFile(file: File): Promise<ImageData> {
 async function reduceAndEncodeJXLWithLiveUpdates(
 	data: ImageData,
 	target: number,
-    effort: number,
+	effort: number,
 	quality: number,
-    progressive: boolean,
-    lossyPalette: boolean,
-    decodingSpeedTier: number,
-    photonNoiseIso: number,
-    lossyModular: boolean,
+	progressive: boolean,
+	lossyPalette: boolean,
+	decodingSpeedTier: number,
+	photonNoiseIso: number,
+	lossyModular: boolean,
 	onAttempt: (attempt: Attempt) => void
 ): Promise<{
 	url: string;
@@ -534,13 +611,13 @@ async function reduceAndEncodeJXLWithLiveUpdates(
 		const scaledData = scaleImageData(data, scaledWidth, scaledHeight);
 
 		const jxlBuffer = await encodeJXL(scaledData, {
-            effort,
-            quality,
-            progressive,
-            lossyPalette,
-            decodingSpeedTier,
-            photonNoiseIso,
-            lossyModular,
+			effort,
+			quality,
+			progressive,
+			lossyPalette,
+			decodingSpeedTier,
+			photonNoiseIso,
+			lossyModular,
 		});
 		const base64 = arrayBufferToBase64(jxlBuffer);
 		const fullUrl = `${window.location.origin}/decode?data=${encodeURIComponent(
@@ -633,12 +710,12 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 
 function extractBase64FromUrl(url: string): string | null {
 	const match = url.match(/data=([^&]+)/);
-    console.log(url, match);
-    // unurl the base64
-    if (match) {
-        return decodeURIComponent(match[1]);
-    }
-    return null;
+	console.log(url, match);
+	// unurl the base64
+	if (match) {
+		return decodeURIComponent(match[1]);
+	}
+	return null;
 }
 
 async function decodeBase64JXL(base64Data: string) {
