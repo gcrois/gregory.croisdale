@@ -4,6 +4,8 @@
         the limits of SVG foreign objects (especially animating and interaction)
 
         let me know if you have any questions!
+
+        - greg
     -->
     <style>
         * {
@@ -145,7 +147,7 @@
         }
 
         .typing-demo {
-            width: 34.5ch;
+            width: 37ch;
             animation: typing 2s steps(30), blink .5s step-end infinite alternate;
             white-space: nowrap;
             overflow: hidden;
