@@ -1,5 +1,5 @@
 ---
-title: "Rubikon: Intelligent Tutoring for Rubik's Cube Learning Through AR-enabled Physical Task Reconfiguration"
+title: "DeckFlow: Specification Decomposition on a Multimodal Generative Canvas"
 date: "2025-09-01"
 authors:
     [
