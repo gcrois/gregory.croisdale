@@ -148,10 +148,22 @@
 
         .typing-demo {
             width: 37ch;
-            animation: typing 2s steps(30), blink .5s step-end infinite alternate;
+            animation: typing 1s steps(30), blink .5s step-end infinite alternate;
             white-space: nowrap;
             overflow: hidden;
             border-right: 3px solid;
+            position: relative;
+        }
+
+        .typing-demo::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 2px;
+            background: #333;
+            width: 0;
+            animation: draw-line 0.5s ease-in-out 1s forwards;
         }
 
         @keyframes typing {
@@ -163,6 +175,15 @@
         @keyframes blink {
             50% {
                 border-color: transparent
+            }
+        }
+
+        @keyframes draw-line {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
             }
         }
 

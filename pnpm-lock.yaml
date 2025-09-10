@@ -20,6 +20,9 @@ importers:
       '@jsquash/png':
         specifier: ^3.0.1
         version: 3.0.1
+      '@types/pako':
+        specifier: ^2.0.3
+        version: 2.0.3
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
@@ -32,9 +35,15 @@ importers:
       devtools-detect:
         specifier: ^4.0.2
         version: 4.0.2
+      geometrizer-js:
+        specifier: ^0.0.3
+        version: 0.0.3
       jspdf:
         specifier: ^2.5.2
         version: 2.5.2
+      pako:
+        specifier: ^2.1.0
+        version: 2.1.0
       qrcode.react:
         specifier: ^4.1.0
         version: 4.1.0(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -716,6 +725,9 @@ packages:
   '@types/nlcst@2.0.3':
     resolution: {integrity: sha512-vSYNSDe6Ix3q+6Z7ri9lyWqgGhJTmzRjZRqyq15N0Z/1/UnVsno9G/N40NBijoYx2seFDIl0+B2mgAb9mezUCA==}
 
+  '@types/pako@2.0.3':
+    resolution: {integrity: sha512-bq0hMV9opAcrmE0Byyo0fY3Ew4tgOevJmQ9grUhpXQhYfyLJ1Kqg3P33JT5fdbT2AjeAjR51zqqVjAL/HMkx7Q==}
+
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
 
@@ -1117,6 +1129,9 @@ packages:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
 
+  geometrizer-js@0.0.3:
+    resolution: {integrity: sha512-IwIp1pqYg23M5yuTje85BBJvmO9pOCmqlbLUlmGn9VDb5W9t+dKdeC5WjGOD438qV3PuyC7z9EUtbrbZsRJcMQ==}
+
   get-east-asian-width@1.3.0:
     resolution: {integrity: sha512-vpeMIQKxczTD/0s2CdEWHcb0eeJe6TFjxb+J5xgX7hScxqrGuyjmv4c1D4A/gelKfyox0gJJwIHF+fLjeaM8kQ==}
     engines: {node: '>=18'}
@@ -1486,6 +1501,9 @@ packages:
 
   package-manager-detector@1.0.0:
     resolution: {integrity: sha512-7elnH+9zMsRo7aS72w6MeRugTpdRvInmEB4Kmm9BVvPw/SLG8gXUGQ+4wF0Mys0RSWPz0B9nuBbDe8vFeA2sfg==}
+
+  pako@2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
 
   parse-latin@7.0.0:
     resolution: {integrity: sha512-mhHgobPPua5kZ98EF4HWiH167JWBfl4pvAIXXdbaVohtK7a6YBOy56kvhCqduqyo/f3yrHFWmqmiMg/BkBkYYQ==}
@@ -2677,6 +2695,8 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
+  '@types/pako@2.0.3': {}
+
   '@types/prop-types@15.7.13': {}
 
   '@types/raf@3.4.3':
@@ -3127,6 +3147,8 @@ snapshots:
     optional: true
 
   gensync@1.0.0-beta.2: {}
+
+  geometrizer-js@0.0.3: {}
 
   get-east-asian-width@1.3.0: {}
 
@@ -3722,6 +3744,8 @@ snapshots:
   p-timeout@6.1.3: {}
 
   package-manager-detector@1.0.0: {}
+
+  pako@2.1.0: {}
 
   parse-latin@7.0.0:
     dependencies:
