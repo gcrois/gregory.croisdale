@@ -19,6 +19,6 @@ authors:
 description: "At the University of Tennessee's PAIRS Group, I worked on a project to explore machine learning approaches for ancient greek character recognition with citizen science data."
 link: "https://ieeexplore.ieee.org/abstract/document/9582410/"
 newTab: true
-tags: ["Research", "Citizen Science", "Computer Vision"]
+tags: ["Citizen Science", "Computer Vision"]
 image: "/images/blog/theia.png"
 ---

@@ -18,6 +18,6 @@ authors:
 description: "This is a project I worked on with Stony Brook University at their Data+Computing = Discovery REU in the summer of 2021."
 link: "https://ieeexplore.ieee.org/document/9804588"
 newTab: true
-tags: ["Research", "Transpiler"]
+tags: ["Transpiler"]
 image: "/images/blog/fourst.png"
 ---

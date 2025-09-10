@@ -1,0 +1,14 @@
+---
+import Layout from "@layouts/DefaultLayout.astro";
+import GeometrizeUploadPage from "../components/fun/GeometrizeUploadPage";
+---
+
+<Layout
+	title="Utils"
+	pageTitle="Gregory | Geometrize Image Encoder"
+	description="Encode images as geometric shapes and generate QR codes"
+>
+	<main id="main">
+		<GeometrizeUploadPage client:only="react" />
+	</main>
+</Layout>

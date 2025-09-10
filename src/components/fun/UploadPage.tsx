@@ -4,6 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { jsPDF } from "jspdf";
 import "svg2pdf.js";
 import "../../styles/encode.scss";
+import geometrize from "geometrizer-js";
 
 interface Attempt {
 	scale: number;
