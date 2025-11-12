@@ -27,7 +27,7 @@ const FullscreenQR: React.FC<FullscreenQRProps> = ({
 	background = "#0b0b0b",
 	fgColor = "#000000",
 	bgColor = "#ffffff",
-	level = "M",
+	level = "L",
 	padding = 24,
 	disco = false,
 }) => {
@@ -37,6 +37,7 @@ const FullscreenQR: React.FC<FullscreenQRProps> = ({
 	const [wobble, setWobble] = useState({ x: 0, y: 0, scale: 1, rotate: 0 });
 	const frameRef = useRef(0);
 	const animationRef = useRef<number>();
+	const qrContainerRef = useRef<HTMLDivElement | null>(null);
 
 	// Disco mode detection
 	const discoEnabled = useMemo(() => {
@@ -198,6 +199,7 @@ const FullscreenQR: React.FC<FullscreenQRProps> = ({
 
 			{value ? (
 				<div
+					ref={qrContainerRef}
 					style={{
 						aspectRatio: "1 / 1",
 						width: "min(70vmin, 70%)",
@@ -224,9 +226,10 @@ const FullscreenQR: React.FC<FullscreenQRProps> = ({
 						style={{
 							width: "100%",
 							height: "100%",
-							filter: discoEnabled
-								? `drop-shadow(0 0 20px hsl(${colorPhase}, 100%, 60%))`
-								: "none",
+							// Wobbling, size-aware glow using drop-shadow offsets + blur
+							// filter: discoEnabled
+							// 	? `drop-shadow(${shadowOffsetX}px ${shadowOffsetY}px ${blur}px hsl(${colorPhase}, 100%, 60%))`
+							// 	: "none",
 						}}
 					/>
 				</div>
@@ -267,7 +270,7 @@ const FullscreenQR: React.FC<FullscreenQRProps> = ({
 					width={dimensions.width}
 					height={dimensions.height}
 					recycle={true}
-					numberOfPieces={1000}
+					numberOfPieces={100}
 					gravity={0.03}
 					wind={0.01}
 					opacity={0.8}
