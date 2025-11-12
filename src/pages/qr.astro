@@ -1,0 +1,46 @@
+---
+// src/pages/qr.astro
+// https://chatgpt.com/share/6914f547-e91c-8008-b8f8-34088b46d4d9
+// Full-bleed QR page that reads ?url=... (or ?q=..., ?text=...) from the location.
+// Requires the FullscreenQR React component you created earlier.
+import FullscreenQR from "src/utils/qrpage";
+---
+
+<!-- No site layout: render edge-to-edge -->
+<style>
+	:root,
+	html,
+	body {
+		height: 100dvh;
+        margin: 0;
+        padding: 0;
+	}
+	@page {
+		margin: 0;
+	} /* print full-bleed */
+	@media print {
+		body {
+			-webkit-print-color-adjust: exact;
+			print-color-adjust: exact;
+		}
+	}
+</style>
+
+<div
+    style={{
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    }}
+>
+<FullscreenQR
+	client:only
+	queryKey="url"
+	padding={24}
+	background="#ffffff"
+	fgColor="#000000"
+	bgColor="#ffffff"
+	level="M"
+/>
+</div>
