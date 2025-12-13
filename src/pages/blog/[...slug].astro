@@ -28,7 +28,11 @@ if (entry.data.image && entry.data.image !== "/images/me.jpg") {
 		const path = await import("node:path");
 		const sharp = (await import("sharp")).default;
 
-		const publicDir = path.join(process.cwd(), "public");
+		const isProd = import.meta.env.PROD;
+		// In production, write to 'dist' (or configured outDir) because 'public' is copied earlier.
+		// In development, write to 'public' to be served by Vite.
+		const baseDir = isProd ? "dist" : "public";
+		const publicDir = path.join(process.cwd(), baseDir);
 		const ogDir = path.join(publicDir, "og");
 
 		// Ensure OG directory exists
