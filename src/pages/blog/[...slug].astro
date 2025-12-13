@@ -21,25 +21,60 @@ import { getImage } from "astro:assets";
 let ogImageUrl = entry.data.image;
 if (entry.data.image && entry.data.image !== "/images/me.jpg") {
 	const fullImagePath = `/src/assets${entry.data.image}`;
-	const images = import.meta.glob<{ default: ImageMetadata }>(
-		"/src/assets/images/**/*.{jpeg,jpg,png,gif,svg}"
-	);
 
-	if (images[fullImagePath]) {
-		const imgModule = await images[fullImagePath]();
-		const { width, height } = imgModule.default;
+	// Handle SVG manual conversion
+	if (fullImagePath.endsWith(".svg")) {
+		const fs = await import("node:fs/promises");
+		const path = await import("node:path");
+		const sharp = (await import("sharp")).default;
 
-		let options: any = { src: imgModule.default, format: "png" };
+		const publicDir = path.join(process.cwd(), "public");
+		const ogDir = path.join(publicDir, "og");
 
-		// Upscale if too small (min 256px)
-		if (width < 256 || height < 256) {
-			const scale = 256 / Math.min(width, height);
-			options.width = Math.round(width * scale);
-			options.height = Math.round(height * scale);
+		// Ensure OG directory exists
+		await fs.mkdir(ogDir, { recursive: true });
+
+		const inputPath = path.join(process.cwd(), fullImagePath);
+		const outputFilename = entry.slug.replace(/\//g, "-") + ".png";
+		const outputPath = path.join(ogDir, outputFilename);
+
+		try {
+			// Convert SVG to PNG
+			await sharp(inputPath)
+				.resize(1200, 630, {
+					fit: "contain",
+					background: { r: 255, g: 255, b: 255, alpha: 1 },
+				})
+				.png()
+				.toFile(outputPath);
+
+			ogImageUrl = `/og/${outputFilename}`;
+		} catch (e) {
+			console.error(`Failed to generate OG image for ${entry.slug}:`, e);
+			// Fallback to original SVG URL if conversion fails (though it might not work for OG)
 		}
+	} else {
+		// Existing logic for non-SVG images
+		const images = import.meta.glob<{ default: ImageMetadata }>(
+			"/src/assets/images/**/*.{jpeg,jpg,png,gif,svg}"
+		);
 
-		const optimizedImg = await getImage(options);
-		ogImageUrl = optimizedImg.src;
+		if (images[fullImagePath]) {
+			const imgModule = await images[fullImagePath]();
+			const { width, height } = imgModule.default;
+
+			let options: any = { src: imgModule.default, format: "png" };
+
+			// Upscale if too small (min 256px)
+			if (width < 256 || height < 256) {
+				const scale = 256 / Math.min(width, height);
+				options.width = Math.round(width * scale);
+				options.height = Math.round(height * scale);
+			}
+
+			const optimizedImg = await getImage(options);
+			ogImageUrl = optimizedImg.src;
+		}
 	}
 }
 ---
