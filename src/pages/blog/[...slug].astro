@@ -15,6 +15,33 @@ export async function getStaticPaths() {
 // 2. When it's time to render, you can get the entry directly from the prop
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+import { getImage } from "astro:assets";
+
+// Resolve OG Image
+let ogImageUrl = entry.data.image;
+if (entry.data.image && entry.data.image !== "/images/me.jpg") {
+	const fullImagePath = `/src/assets${entry.data.image}`;
+	const images = import.meta.glob<{ default: ImageMetadata }>(
+		"/src/assets/images/**/*.{jpeg,jpg,png,gif,svg}"
+	);
+
+	if (images[fullImagePath]) {
+		const imgModule = await images[fullImagePath]();
+		const { width, height } = imgModule.default;
+
+		let options: any = { src: imgModule.default, format: "png" };
+
+		// Upscale if too small (min 256px)
+		if (width < 256 || height < 256) {
+			const scale = 256 / Math.min(width, height);
+			options.width = Math.round(width * scale);
+			options.height = Math.round(height * scale);
+		}
+
+		const optimizedImg = await getImage(options);
+		ogImageUrl = optimizedImg.src;
+	}
+}
 ---
 
 <!-- If this has a link set, just redirect to it. Otherwise, render the page normally. -->
@@ -32,6 +59,7 @@ const { Content } = await entry.render();
 	title={entry.data.title}
 	pageTitle=`Gregory | ' + ${entry.data.title}`
 	description={entry.data.description}
+	ogImage={ogImageUrl}
 >
 	<Content />
 </Layout>

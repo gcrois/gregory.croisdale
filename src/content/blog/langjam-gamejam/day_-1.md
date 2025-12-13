@@ -1,10 +1,10 @@
 ---
 title: "LangJam GameJam: Day -1"
-image: "/images/blog/langjam-gamejam/-1.png"
+image: "/images/blog/langjam-gamejam/-1.svg"
 date: "2025-12-13"
-unlisted: true
+# unlisted: true
 
-description: "My plans for LangJam GameJam 2025: Creating a real Spreadsheet Game"
+description: 'My plans for LangJam GameJam 2025: Creating A "Real" Spreadsheet Game'
 tags: ["Game", "Programming Languages", "LangJam GameJam"]
 ---
 
@@ -57,7 +57,12 @@ Some avenues I'd love to explore here:
 5. Shortcuts + automation
 6. Cell permissions, formatting
 7. Controlling AI in a fun and live way (like my project, [DeckFlow](https://deckflow.org/), or my friend Shm's project, [DreamSheets](https://people.eecs.berkeley.edu/~bjoern/papers/almeda-dreamsheets-chi2024.pdf))
+8. What are some unique ways I could embed a narrative?
 
 ## The Game
 
-I hope to update this blog post daily throughout my journey, with live links to playable prototypes. If you are interested in joining this GameJam, do it here: https://langjamgamejam.com! Make sure to join the Discord!
+I hope to update this blog post daily throughout my journey, with live links to playable prototypes.
+
+If you are interested in joining this GameJam, do it here: https://langjamgamejam.com! Make sure to join the Discord!
+
+...also, I am legally obligated to inform you that you have lost [the game](<https://en.wikipedia.org/wiki/The_Game_(mind_game)>). Sorry.
