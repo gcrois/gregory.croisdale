@@ -7,8 +7,12 @@ import { dateToParts } from "src/utils/date";
 import { DevToolsStatus } from "@components/fun/Console";
 import { FaRss } from "react-icons/fa";
 
-const allBlogPosts = await getCollection("blog");
-const allResearchPosts = await getCollection("research");
+const allBlogPosts = (await getCollection("blog")).filter(
+	(post) => !post.data.unlisted
+);
+const allResearchPosts = (await getCollection("research")).filter(
+	(post) => !post.data.unlisted
+);
 ---
 
 <style lang="scss">

@@ -66,7 +66,8 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 		img {
 			width: 100%;
 			height: 100%;
-			object-fit: cover;
+			object-fit: contain;
+			image-rendering: pixelated;
 		}
 
 		.default-icon {

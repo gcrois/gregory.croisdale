@@ -21,6 +21,7 @@ const schema = {
 	image: z.string().default("/images/me.jpg"),
 	link: z.string().default(""),
 	newTab: z.boolean().default(false),
+	unlisted: z.boolean().default(false),
 };
 
 const blogSchema = { ...schema };
