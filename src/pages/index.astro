@@ -5,6 +5,7 @@ import ContentCard from "@components/ContentCard.astro";
 import Section from "@components/Section.astro";
 import { dateToParts } from "src/utils/date";
 import { DevToolsStatus } from "@components/fun/Console";
+import { FaRss } from "react-icons/fa";
 
 const allBlogPosts = await getCollection("blog");
 const allResearchPosts = await getCollection("research");
@@ -34,32 +35,161 @@ const allResearchPosts = await getCollection("research");
 			transform: translateY(0);
 		}
 	}
+
+	.controls-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 2rem;
+		gap: 1rem;
+		background: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(10px);
+		padding: 0.75rem 1rem;
+		border-radius: 12px;
+		border: 1px solid var(--bg-border);
+	}
+
+	.filter-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.filter-tag {
+		background: transparent;
+		border: none;
+		padding: 0.4rem 0.8rem;
+		border-radius: 6px;
+		font-size: 0.85rem;
+		font-weight: 500;
+		cursor: pointer;
+		color: var(--text-secondary);
+		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+
+		&:hover {
+			color: var(--text-main);
+			background: rgba(0, 0, 0, 0.05);
+		}
+
+		&.active {
+			color: var(--primary);
+			background: rgba(37, 99, 235, 0.1);
+			font-weight: 600;
+		}
+	}
+
+	.rss-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-size: 0.9rem;
+		font-weight: 500;
+		padding: 0.4rem 0.8rem;
+		border-radius: 6px;
+		transition: all 0.2s ease;
+
+		&:hover {
+			background: rgba(219, 39, 119, 0.1); // Rose tint
+			color: var(--secondary);
+		}
+	}
 </style>
+
+<script>
+	const filterButtons = document.querySelectorAll(".filter-tag");
+	const blogGrid = document.getElementById("blog-grid");
+
+	if (blogGrid) {
+		const cards = blogGrid.querySelectorAll(".content-card");
+
+		filterButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				// Remove active class from all buttons
+				filterButtons.forEach((btn) => btn.classList.remove("active"));
+				// Add active class to clicked button
+				button.classList.add("active");
+
+				const filter = button.getAttribute("data-filter");
+
+				cards.forEach((card) => {
+					// Cast card to HTMLElement to access dataset
+					const cardEl = card as HTMLElement;
+					const tags = cardEl.dataset.tags?.split(",") || [];
+					// Find the parent container to hide
+					const container = cardEl.closest(
+						".content-card-container"
+					) as HTMLElement;
+
+					if (filter === "all" || tags.includes(filter || "")) {
+						if (container) container.style.display = "flex";
+						// Re-trigger animation if needed, or just let it show
+					} else {
+						if (container) container.style.display = "none";
+					}
+				});
+			});
+		});
+	}
+</script>
 
 <Layout
 	title="Home"
 	pageTitle="Gregory | Home"
 	description="Hello! 👋 I'm Gregory Croisdale, the founding engineer at Khaki."
 >
-	<main id="main">
+	<main id="main" class="sections-container">
 		<DevToolsStatus client:load />
 		<Section id="about">
 			<h1>About</h1>
-			Hello! 👋 I'm Gregory Croisdale, the founding engineer at <a href="https://khaki.email" target="_blank">Khaki</a>.
-            Previously, I was a PhD candidate at the University of Michigan
-			studying Human-Computer Interaction. My research was focused around improving
-			communication mechanisms between Humans and AI to support common good, but have since become disenchanted with academia.
+			Hello! 👋 I'm Gregory Croisdale, the founding engineer at <a
+				href="https://khaki.email"
+				target="_blank">Khaki</a
+			>. Previously, I was a PhD candidate at the University of Michigan
+			studying Human-Computer Interaction. My research was focused around
+			improving communication mechanisms between Humans and AI to support
+			common good, but have since become disenchanted with academia.
 			<br /><br />
 			I'm also a huge philosophy, art, music, and food nerd. I dabble in 3d
 			Modeling (<a href="https://www.blender.org/">Blender</a> is my all-time
 			favorite piece of software), violin, ukulele, and overambituous book-purchasing.
 		</Section>
 
-		<hr />
-
 		<Section id="blog">
 			<h1>Blog</h1>
-			<div class="section-grid">
+			<div class="controls-container">
+				<div class="filter-container">
+					<button class="filter-tag active" data-filter="all"
+						>All</button
+					>
+					{
+						Array.from(
+							new Set(
+								allBlogPosts.flatMap((post) => post.data.tags)
+							)
+						).map((tag) => (
+							<button class="filter-tag" data-filter={tag}>
+								{tag}
+							</button>
+						))
+					}
+				</div>
+				<a
+					href="/rss.xml"
+					target="_blank"
+					class="rss-link"
+					aria-label="RSS Feed"
+					title="Subscribe to RSS Feed"
+				>
+					<FaRss />
+					<span>RSS</span>
+				</a>
+			</div>
+
+			<div class="section-grid" id="blog-grid">
 				{
 					allBlogPosts
 						.sort(
@@ -71,8 +201,6 @@ const allResearchPosts = await getCollection("research");
 				}
 			</div>
 		</Section>
-
-		<hr />
 
 		<Section id="research">
 			<h1>Research</h1>

@@ -62,12 +62,12 @@ const PasswordGenerator = () => {
 		}
 	};
 
-	const handleRegexChange = (e) => {
+	const handleRegexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setCurrentRegex(e.target.value);
 		setSelectedOption("custom");
 	};
 
-	const handleOptionChange = (e) => {
+	const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const selected = regexOptions.find(
 			(option) => option.value === e.target.value
 		);
@@ -76,24 +76,24 @@ const PasswordGenerator = () => {
 	};
 
 	return (
-		<div>
+		<div className="util-card glass-panel">
 			<h2>Password Generator</h2>
 
-			<div style={{ marginBottom: "20px" }}>
+			<div className="input-group">
 				<label htmlFor="regexInput">Custom Regex Pattern:</label>
 				<input
 					id="regexInput"
+					className="util-input"
 					type="text"
 					value={currentRegex}
 					onChange={handleRegexChange}
-					style={{ width: "100%", padding: "5px", marginTop: "5px" }}
 				/>
 			</div>
 
-			<div style={{ marginBottom: "20px" }}>
+			<div className="options-group">
 				<h3>Preset Patterns:</h3>
 				{regexOptions.map((option) => (
-					<div key={option.value} style={{ marginBottom: "10px" }}>
+					<div key={option.value} className="radio-option">
 						<input
 							type="radio"
 							id={option.value}
@@ -102,48 +102,33 @@ const PasswordGenerator = () => {
 							checked={selectedOption === option.value}
 							onChange={handleOptionChange}
 						/>
-						<label
-							htmlFor={option.value}
-							style={{ marginLeft: "10px" }}
-						>
+						<label htmlFor={option.value}>
 							<strong>{option.label}</strong>
-							<p
-								style={{
-									margin: "5px 0 0 0",
-									fontSize: "0.9em",
-								}}
-							>
-								{option.description}
-							</p>
+							<p className="option-desc">{option.description}</p>
 						</label>
 					</div>
 				))}
 			</div>
 
-			<button
-				onClick={generatePassword}
-				style={{
-					padding: "10px 20px",
-					fontSize: "1em",
-					cursor: "pointer",
-				}}
-			>
+			<button className="util-btn primary" onClick={generatePassword}>
 				Generate Password
 			</button>
 
 			{password && (
-				<div style={{ marginTop: "20px" }}>
+				<div className="result-container">
 					<h3>Generated Password:</h3>
-					<p
-						style={{
-							backgroundColor: "#f0f0f0",
-							padding: "10px",
-							borderRadius: "5px",
-							wordBreak: "break-all",
-						}}
-					>
-						{password}
-					</p>
+					<div className="result-row">
+						<p className="result-text">{password}</p>
+						<button
+							className="util-btn secondary small"
+							onClick={() => {
+								navigator.clipboard.writeText(password);
+							}}
+							title="Copy to clipboard"
+						>
+							Copy
+						</button>
+					</div>
 				</div>
 			)}
 		</div>

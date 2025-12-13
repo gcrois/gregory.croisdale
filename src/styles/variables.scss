@@ -1,39 +1,63 @@
 @use "sass:color";
 
-$base-color: #d8e6ea;
-$bright-color: #c1dbe3;
-$brighter-color: #f6feaa;
-$dark-color: #373737;
-$red-color: #fcb495;
+// Modern Modern Palette
+$white: #ffffff;
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-600: #4b5563;
+$gray-700: #374151; // Added for contrast
+$gray-800: #1f2937;
+$gray-900: #111827;
 
-// transparent versions:
-$transparent: rgba(0, 0, 0, 0);
-$t-amount: 50%;
-$base-color-t: color.mix($transparent, $base-color, $t-amount);
-$bright-color-t: color.mix($transparent, $bright-color, $t-amount);
-$brighter-color-t: color.mix($transparent, $brighter-color, $t-amount);
-$dark-color-t: color.mix($transparent, $dark-color, $t-amount);
-$red-color-t: color.mix($transparent, $red-color, $t-amount);
+$primary-color: #2563eb; // Royal Blue
+$secondary-color: #db2777; // Pink/Rose for accents
 
-// mobile width
-$mobile-width: calc(512px + 128px);
+// Semantic mappings
+$bg-body: $gray-50;
+$bg-surface: rgba(255, 255, 255, 0.85); // Frosted glass
+$bg-sidebar: rgba(255, 255, 255, 0.7); // Slightly more opaque
+$bg-border: rgba(0, 0, 0, 0.1); // Darker border for visibility on light bg
 
-$card-radius: 12px;
-$transition-speed: 200ms;
-$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$text-main: $gray-900;
+$text-secondary: $gray-700; // Darker for better contrast (was 600)
+
+$mobile-width: 800px; // Slightly larger break point
+$radius-lg: 24px;
+$radius-md: 16px;
+$transition-base: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Shadows (Tailwind-inspired)
+$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+$shadow-md:
+	0 4px 6px -1px rgb(0 0 0 / 0.1),
+	0 2px 4px -2px rgb(0 0 0 / 0.1);
 $shadow-lg:
-	0 2px 2px hsl(0deg 0% 0% / 0.075),
-	0 4px 4px hsl(0deg 0% 0% / 0.075),
-	0 8px 8px hsl(0deg 0% 0% / 0.075),
-	0 16px 16px hsl(0deg 0% 0% / 0.075);
+	0 10px 15px -3px rgb(0 0 0 / 0.1),
+	0 4px 6px -4px rgb(0 0 0 / 0.1);
+$shadow-xl:
+	0 20px 25px -5px rgb(0 0 0 / 0.1),
+	0 8px 10px -6px rgb(0 0 0 / 0.1);
 
 :root {
-	--base-color: #{$base-color};
-	--bright-color: #{$bright-color};
-	--brighter-color: #{$brighter-color};
-	--dark-color: #{$dark-color};
-	--red-color: #{$red-color};
-	--card-radius: #{$card-radius};
-	--transition-speed: #{$transition-speed};
+	--bg-body: #{$bg-body};
+	--bg-surface: #{$bg-surface};
+	--bg-sidebar: #{$bg-sidebar};
+	--bg-border: #{$bg-border};
+
+	--text-main: #{$text-main};
+	--text-secondary: #{$text-secondary};
+
+	--primary: #{$primary-color};
+	--secondary: #{$secondary-color};
+
+	--radius-lg: #{$radius-lg};
+	--radius-md: #{$radius-md};
+
+	--transition: #{$transition-base};
+
+	--shadow-sm: #{$shadow-sm};
+	--shadow-md: #{$shadow-md};
+	--shadow-lg: #{$shadow-lg};
+	--shadow-xl: #{$shadow-xl};
 }

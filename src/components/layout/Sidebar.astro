@@ -14,14 +14,49 @@ import Navbar from "@components/Navbar.astro";
 	.sidebar {
 		display: flex;
 		flex-direction: column;
+		width: 100%;
+		max-width: 300px;
+		height: fit-content;
+		padding: 2rem;
+		gap: 1.5rem;
+
+		background-color: var(--bg-sidebar);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid var(--bg-border);
+		box-shadow: var(--shadow-lg);
+		border-radius: var(--radius-lg);
+
+		position: sticky;
+		top: 2rem;
+
+		@media (max-width: 800px) {
+			position: relative;
+			top: 0;
+			max-width: 100%;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
 	}
 
 	.profile-container {
-		padding: 1rem;
+		width: 100%;
+		display: flex;
+		justify-content: center;
 	}
 
 	hr {
-		margin: 0 1rem;
+		border: 0;
+		height: 1px;
+		background: linear-gradient(
+			to right,
+			transparent,
+			var(--bg-border),
+			transparent
+		); // Need to define bg-border or use generic
+		margin: 1.5rem 0;
+		opacity: 0.5;
 	}
 </style>
 
@@ -36,7 +71,11 @@ import Navbar from "@components/Navbar.astro";
 	<div class="sidebar-content">
 		<H1>Gregory Croisdale</H1>
 		<H2>He / Him / His</H2>
-		<H2>Founding Engineer @ <a href="https://khaki.email" target="_blank">Khaki</a></H2>
+		<H2
+			>Founding Engineer @ <a href="https://khaki.email" target="_blank"
+				>Khaki</a
+			></H2
+		>
 		<H2>Prev HCI and PL @ UMich</H2>
 	</div>
 	<Navbar classes="desktop" />

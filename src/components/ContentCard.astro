@@ -25,148 +25,132 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 
 <style lang="scss">
 	.content-card-container {
-		justify-self: stretch;
+		width: 100%;
 		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		min-width: 100%;
 	}
 
 	.content-card {
 		display: flex;
 		flex-direction: column;
-		border-radius: 16px;
 		width: 100%;
-		text-decoration: none;
-		background: white;
-		transition: all 0.2s ease;
-		position: relative;
+		border-radius: var(--radius-md);
+		background-color: rgba(255, 255, 255, 0.8); // More opaque
+		backdrop-filter: blur(8px);
+		border: 1px solid var(--bg-border);
+		box-shadow: var(--shadow-sm);
+		transition: all var(--transition);
 		overflow: hidden;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+		text-decoration: none;
 
 		&:hover {
-			transform: translateY(-2px);
+			transform: translateY(-4px);
 			box-shadow: var(--shadow-lg);
-		}
-	}
+			background-color: rgba(255, 255, 255, 0.9);
 
-	.external-icon {
-		position: absolute;
-		top: 0.6rem;
-		right: 0.6rem;
-		background: rgba(255, 255, 255, 0.9);
-		border: 2px solid var(--dark-color);
-		padding: 0.2rem;
-		border-radius: 4px;
-		color: var(--dark-color);
-		backdrop-filter: blur(4px);
-		z-index: 1;
-		height: 1rem;
+			.read-more::after {
+				transform: translateX(4px);
+			}
+		}
 	}
 
 	.image-container {
 		width: 100%;
-		height: 260px;
-		background-color: var(--dark-color);
-		overflow: hidden;
+		height: 200px;
+		background: linear-gradient(to bottom right, #f3f4f6, #e5e7eb);
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		overflow: hidden;
 
 		img {
 			width: 100%;
 			height: 100%;
-			object-fit: contain;
+			object-fit: cover;
 		}
 
 		.default-icon {
-			color: var(--bright-color);
-			opacity: 0.2;
-			width: 96px;
-			height: 96px;
+			font-size: 4rem;
+			color: #9ca3af;
 		}
 	}
+
 	.card-desc {
 		display: flex;
 		flex-direction: column;
-		padding: 1rem; // Reduced padding
-		height: 100%;
-		background: linear-gradient(
-			to bottom,
-			rgba(255, 255, 255, 0.95),
-			white
-		);
+		padding: 1.5rem;
+		flex: 1;
 	}
 
 	.tags {
 		display: flex;
 		gap: 0.5rem;
 		flex-wrap: wrap;
-		margin-bottom: 0.5rem;
+		margin-bottom: 1rem;
 	}
 
 	.tag {
-		color: var(--dark-color);
 		font-size: 0.75rem;
-		font-weight: 500;
-		background-color: var(--bright-color);
-		padding: 0.25rem 0.75rem;
-		border-radius: 1rem;
-		transition: all 0.2s ease;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--primary);
+		background-color: rgba(37, 99, 235, 0.1); // Primary with opacity
+		padding: 0.25rem 0.5rem;
+		border-radius: 4px;
 	}
 
 	.card-title {
-		font-size: 1.2rem; // Slightly smaller
+		font-size: 1.25rem;
+		font-weight: 700;
 		line-height: 1.4;
-		margin: 0 0 0.25rem 0; // Reduced margin
-		font-weight: 600;
-		color: var(--dark-color);
+		margin: 0 0 0.5rem 0;
+		color: var(--text-main);
 	}
 
 	.meta-row {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		font-size: 0.8rem;
-		color: var(--dark-color);
-		opacity: 0.8;
-		margin-bottom: 0.5rem;
-		flex-wrap: wrap; // Allow wrapping for long author lists
+		font-size: 0.875rem;
+		color: var(--text-secondary);
+		margin-bottom: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.meta-separator {
+		opacity: 0.5;
 	}
 
 	.authors {
 		display: flex;
-		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.5rem;
+		flex-wrap: wrap;
+		gap: 0.3rem;
 	}
 
 	.author {
-		color: var(--dark-color);
-		opacity: 0.8;
-
-		&.author-greg {
-			// emphasize my name!
-			font-weight: 600;
-			display: inline-block;
-			opacity: 1;
-		}
+		font-weight: 500;
+		color: var(--text-main);
+		background: rgba(0, 0, 0, 0.05);
+		padding: 0 0.4rem;
+		border-radius: 4px;
+		font-size: 0.85rem;
 	}
 
-	.meta-separator {
-		color: var(--dark-color);
-		opacity: 0.5;
+	.author-greg {
+		font-weight: 700;
+		color: var(--primary);
+		background: rgba(37, 99, 235, 0.1);
 	}
 
 	.card-description {
-		font-size: 0.9rem; // Slightly smaller
-		line-height: 1.4;
-		color: var(--dark-color);
-		opacity: 0.9;
-		margin-bottom: 0.75rem; // Reduced margin
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: var(--text-secondary);
+		margin-bottom: 1.5rem;
 		display: -webkit-box;
-		-webkit-line-clamp: 3; // Limit to 3 lines
+		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
@@ -174,14 +158,16 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 	.card-footer {
 		margin-top: auto;
 		display: flex;
-		flex-direction: column;
-		gap: 0.25rem; // Reduced gap
+		align-items: center;
+		justify-content: space-between;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(0, 0, 0, 0.05);
 	}
 
 	.read-more {
-		color: #0066ff;
-		font-size: 0.8rem;
-		font-weight: 500;
+		color: var(--primary);
+		font-weight: 600;
+		font-size: 0.875rem;
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
@@ -192,29 +178,19 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 		}
 	}
 
-	.content-card:hover .read-more::after {
-		transform: translateX(4px);
-	}
-
-	.heads-up {
-		font-size: 0.7rem; // Smaller
-		color: var(--dark-color);
-		opacity: 0.7;
+	.external-icon {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background: white;
+		padding: 0.5rem;
+		border-radius: 50%;
+		box-shadow: var(--shadow-md);
+		color: var(--text-main);
+		z-index: 10;
 		display: flex;
 		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.external-link-icon {
-		color: var(--dark-color);
-		opacity: 0.7;
-		margin-right: 0.25rem;
-	}
-
-	.card-image {
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
+		justify-content: center;
 	}
 </style>
 
@@ -224,6 +200,7 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 		target={post.data.newTab ? "_blank" : undefined}
 		rel={post.data.newTab ? "noopener noreferrer" : undefined}
 		class="content-card"
+		data-tags={post.data.tags.join(",")}
 	>
 		{
 			post.data.newTab && (
@@ -261,7 +238,7 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 					/></time
 				>
 				{
-					post.data.venue && (
+					"venue" in post.data && (
 						<>
 							<span class="meta-separator">|</span>
 							<span>
@@ -271,7 +248,7 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 					)
 				}
 				{
-					post.data.authors && (
+					"authors" in post.data && (
 						<div class="authors">
 							{post.data.authors.map(
 								(author: string, index: number) => (

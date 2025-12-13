@@ -6,23 +6,19 @@ interface Props extends HTMLAttributes<"section"> {
 	id: string;
 }
 
-// @ts-ignore
-const passedProps = { id: undefined, ...Astro.props };
+const { id, ...passedProps } = Astro.props;
 
 import "@styles/main.scss";
 ---
 
 <style>
-	[id]::before {
-		content: "";
-		display: block;
-		height: 0;
-		margin-top: 0;
-		visibility: hidden;
+	section {
+		scroll-margin-top: 80px; /* Offset for sticky header */
 	}
+
+	/* Remove margin from the last section if needed, or let it be */
 </style>
 
-<section {...passedProps}>
-	<a class="section-anchor" id={Astro.props.id}></a>
+<section id={id} {...passedProps}>
 	<slot />
 </section>
