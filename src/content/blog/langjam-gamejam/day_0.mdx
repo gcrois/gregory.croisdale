@@ -1,0 +1,98 @@
+---
+title: "LangJam GameJam: Day 0"
+image: "/images/blog/langjam-gamejam/0/0.svg"
+date: "2025-12-14"
+unlisted: true
+
+description: 'Finalizing my stack, rendering a grid, and tracking user interactions'
+tags: ["Game", "Programming Languages", "LangJam GameJam"]
+
+---
+
+(If you haven't already, check out my [Day -1 post](./day_-1) for context on this project!)
+
+# LangJam GameJam 2025: Day 0
+
+The moment of truth: a time for me to actually do something that I've been thinking about.
+
+In the past, I've been burned by a uniquely cruel combination of overambition and techno-masochism: ideas that work in beautifully in my head often find their resting place in implementation hell.
+
+For this project in particular, I am making deliberate effort to make visible, usable progress after every working day.
+
+Behind the scenes, I am on the tail end of a trip to Germany, and have been hacking away on a high-speed train from Berlin to Stuttgart, something my American brain can barely concieve of.
+
+![Photo of me on the train](../../../assets/images/blog/langjam-gamejam/0/train.jpg)
+
+## My stack
+
+Yesterday, I had mentioned that I intended to use the WGPU Rust library. After thinking it over and doing a couple of experiments, I have decided instead to use Bevy, due to greater community support and infrastructure -- which uses WGPU in its rendering pipeline anyways.
+
+This decision is not one I take lightly -- there are an alarming number of blog posts (find examples) of dedicated developers who have fallen prey to the allure of a not-yet-quite-ready Rust framework.
+
+For the time being, I have convinced myself that if I'm just writing a shader to be displayed on a single polygon, but manipulate my world model and user interactions through Bevy's ECS, I should be able to avoid the worst pitfalls<sup><a href="https://xkcd.com/285/">[citation needed]</a></sup>.
+
+## Milestones
+
+#### Rendering grid + basic mouse interaction ([c6d718b](https://github.com/gcrois/gregsheet/commit/c6d718bcca62c15b1908a33d187dc3c6af180602))
+
+![LangJam GameJam Day 0 Screenshot of a grid rendering](../../../assets/images/blog/langjam-gamejam/0/shot_0.png)
+We're rendering a grid, and tracking mouse position and clicks! I used Claude Code to help me adapt some Bevy examples that are now out-of-date.
+
+#### Grid content + keyboard interactions ([ee27bf1](https://github.com/gcrois/gregsheet/commit/ee27bf17e6e78e9dfd1c1d5984e7d14dc322d4c5))
+
+![LangJam GameJam Day 0 Screenshot of a user interacting with a grid](../../../assets/images/blog/langjam-gamejam/0/shot_1.webp)
+I had some difficulties aligning the coordinate system from the shader and the Bevy world space. To debug, I used [a bitmap font](https://www.csh.rit.edu/~gman/PersonalWebpage/bittext.html) to display the position of each cell in the grid. Claude was able to give me an impressively small implementation!
+
+```wgsl
+var<private> FONT: array<u32, 10> = array<u32, 10>(
+    0x69f99u, // 0
+    0x26227u, // 1
+    0x6924fu, // 2
+    0x69296u, // 3
+    0x99f11u, // 4
+    0xf8e1eu, // 5
+    0x68eb6u, // 6
+    0xf1222u, // 7
+    0x69696u, // 8
+    0x69f16u  // 9
+);
+```
+
+#### Cell formulas + evaluation
+
+Because we're a game and not Excel, I want cycles to exist. I have decided to utilize a tick-based computational model. This adds to the theoretical chaos of the system (that will only be magnified by the introduction of side-effects), but makes implementation much easier.
+
+#### Technically, a playable spreadsheet game!
+
+## What's in store for tomorrow
+
+#### Formula Improvements
+Right now, we have a plug-and-play formula language. I want to give it access to the world state, allow for static limitations, etc.
+
+#### Real Mouse Interactions
+I am _very_ picky about my mouse navigation UI, after having built several versions of DeckFlow. Right now, I've resigned to pretty much have none. I want to add some basic navigation -- panning, trackpad zooming. I have experience doing this in React (using a library like [useGesture](https://github.com/pmndrs/use-gesture)), but I have no idea how robust the Rust ecosystem is in this regard.
+
+#### Cell Model + Serialization
+My language needs test-cases ([the community agrees](https://discord.com/channels/1444829575283605576/1449786262163554507/1449796488040550602)). I need to come up with a flexible cell model, a way to serialize it, and a way to load those test cases.
+
+## Anticipated Challenges
+
+#### Web target
+I _love_ having my artifacts accessible on the web. This gets a little tricky with Bevy, as there is no trivial way to run a WASM application -- especially one that uses a canvas -- on the web. [I have done it once before](https://github.com/gcrois/rust-canvas/), but not without signification complications.
+
+#### Dynamic grid sizing
+With fixed cell dimensions, calculating a cell's pixel position is a trivial $O(1)$ multiplication:
+
+$$x = col \cdot width, \quad y = row \cdot height$$
+
+However, supporting variable row heights and column widths breaks this optimization. A cell's position becomes the sum of all preceding cells, turning a simple lookup into an expensive $O(N)$ operation:
+
+$$x = \sum_{k=0}^{col-1} width_k$$
+
+To maintain performance without iterating through the grid every frame, I will likely need to implement some caching logic.
+
+I will not entertain baseless accusations that the before LaTeX was an excuse to add math rendering to my website...
+
+---
+
+I might be in a castle tomorrow, but if 5G can give me Covid, I hope it can at least travel through stone walls.

@@ -1,6 +1,6 @@
 ---
 title: "LangJam GameJam: Day -1"
-image: "/images/blog/langjam-gamejam/-1.svg"
+image: "/images/blog/langjam-gamejam/-1/-1.svg"
 date: "2025-12-13"
 # unlisted: true
 
@@ -66,3 +66,7 @@ I hope to update this blog post daily throughout my journey, with live links to 
 If you are interested in joining this GameJam, do it here: https://langjamgamejam.com! Make sure to join the Discord!
 
 ...also, I am legally obligated to inform you that you have lost [the game](<https://en.wikipedia.org/wiki/The_Game_(mind_game)>). Sorry.
+
+---
+
+Update! I didn't immediately abandon this project. See my [Day 0 post](./day_0).
