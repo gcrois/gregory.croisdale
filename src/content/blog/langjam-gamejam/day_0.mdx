@@ -9,17 +9,17 @@ tags: ["Game", "Programming Languages", "LangJam GameJam"]
 
 ---
 
-(If you haven't already, check out my [Day -1 post](day_-1) for context on this project!)
+(If you haven't already, check out my [Day -1 post](/blog/langjam-gamejam/day_-1) for context on this project!)
 
 # LangJam GameJam 2025: Day 0
 
 The moment of truth: a time for me to actually do something that I've been thinking about.
 
-In the past, I've been burned by a uniquely cruel combination of overambition and techno-masochism: ideas that work in beautifully in my head often find their resting place in implementation hell.
+In the past, I've been burned by a uniquely cruel combination of overambition and techno-masochism: ideas that work beautifully in my head often find their resting place in implementation hell.
 
 For this project in particular, I am making deliberate effort to make visible, usable progress after every working day.
 
-Behind the scenes, I am on the tail end of a trip to Germany, and have been hacking away on a high-speed train from Berlin to Stuttgart, something my American brain can barely concieve of.
+Behind the scenes, I am on the tail end of a trip to Germany, and have been hacking away on a high-speed train from Berlin to Stuttgart, something my American brain can barely conceive of.
 
 ![Photo of me on the train](../../../assets/images/blog/langjam-gamejam/0/train.jpg)
 
@@ -109,7 +109,7 @@ pub fn setup_demo_data(grid: &mut GridState) {
         }
     }
 
-    // show all numbers numbers from 0 to 9 row 5 / 6
+    // show all numbers from 0 to 9 row 5 / 6
     for i in 0..10 {
         if let Some(cell) = grid.get_cell_mut(i % 5, 5 + (i / 5)) {
             cell.set_raw(i.to_string());
@@ -129,7 +129,7 @@ My language needs test-cases ([the community agrees](https://discord.com/channel
 Also, right now, I'm passing everything to the GPU on every tick, and the app state only defines state of the bottom right cells...
 
 #### Rendering + Text Input
-My bitmap font will not cut it for long. I want to render text properly in cells, and allow for text input. I'm considering adding in [Blitz](https://github.com/DioxusLabs/blitz) or something similar as a dependency to render complicated scenes inside of cells.
+My bitmap font will not cut it for long. I want to render text properly in cells, and allow for text input. I'm considering adding in [Blitz](https://github.com/DioxusLabs/blitz) or something similar to render complicated scenes inside of cells.
 
 We definitely need to be able to change the value of a cell during runtime.
 
@@ -142,7 +142,7 @@ I want to make some stupid game. At this point, tic-tac-toe -- mental math -- an
 ## Anticipated Challenges
 
 #### Web target
-I _love_ having my artifacts accessible on the web. This gets a little tricky with Bevy, as there is no trivial way to run a WASM application -- especially one that uses a canvas -- on the web. [I have done it once before](https://github.com/gcrois/rust-canvas/), but not without signification complications.
+I _love_ having my artifacts accessible on the web. This gets a little tricky with Bevy, as there is no trivial way to run a WASM application -- especially one that uses a canvas -- on anything other than the main thread. [I have done it once before](https://github.com/gcrois/rust-canvas/), but not without significant complications.
 
 #### Dynamic grid sizing
 With fixed cell dimensions, calculating a cell's pixel position is a trivial $O(1)$ multiplication:
@@ -155,7 +155,7 @@ $$x = \sum_{k=0}^{col-1} width_k$$
 
 To maintain performance without iterating through the grid every frame, I will likely need to implement some caching logic.
 
-I will not entertain baseless accusations that the before LaTeX was an excuse to add math rendering to my website...
+I will not entertain baseless accusations that the previous LaTeX was an excuse to add math rendering to my website...
 
 #### Multi-ticks
 I think I've already decided to break the law of purity and allow for side-effects, but will I be so tempted as to make it possible to tick only certain cells?

@@ -69,4 +69,4 @@ If you are interested in joining this GameJam, do it here: https://langjamgameja
 
 ---
 
-Update! I didn't immediately abandon this project. See my [Day 0 post](day_0).
+Update! I didn't immediately abandon this project. See my [Day 0 post](/blog/langjam-gamejam/day_0).
