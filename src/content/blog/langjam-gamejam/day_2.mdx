@@ -1,0 +1,32 @@
+---
+title: "LangJam GameJam: Day 2"
+image: "/images/blog/langjam-gamejam/2/2.svg"
+date: "2025-12-16"
+# unlisted: true
+
+description: 'Writing my textual language'
+tags: ["Game", "Programming Languages", "LangJam GameJam"]
+
+---
+
+(If you haven't already, check out my [Day -1 post](/blog/langjam-gamejam/day_-1) for context on this project!)
+
+# LangJam GameJam 2025: Day 2
+
+This, I hope, will be my laziest post of the series.
+
+I made the language on the train today! It's fun to play with in text, excited to hook it up to my GUI.
+
+You can try it here: https://sheetlang.pages.dev
+
+<iframe src="https://sheetlang.pages.dev" style="width: 100%; min-height: 500px; border: none;"></iframe>
+
+Source is available here: https://github.com/gcrois/sheetlang
+
+I'm working on making classic Excel selections, like A1:B2, synthesize to an array of cell references. That way, it should be very easy to write formulas that operate over ranges of cells -- and finally make the game of life.
+
+I wasted a _ton_ of time today trying to get Bevy to run in a worker thread. It looks like it isn't working except the WebGPU backend, which my daily-driver browser doesn't support.
+
+I think I might abadon Bevy and just use egui. It should help a lot with text input, too.
+
+I leave Germany tomorrow, so we shall see how plane days compare to train days.
