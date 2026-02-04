@@ -1,0 +1,37 @@
+---
+title: "LangJam GameJam: Days 3 - 52"
+image: "/images/blog/langjam-gamejam/3/3.svg"
+date: "2026-2-4"
+# unlisted: true
+
+description: 'The long journey home'
+tags: ["Game", "Programming Languages", "LangJam GameJam"]
+
+---
+
+(If you haven't already, check out my [Day -1 post](/blog/langjam-gamejam/day_-1) for context on this project!)
+
+# LangJam GameJam 2025: Days 3 - 52
+
+"This, I hope, will be my laziest post of the series."
+- Me, [50 days before never working on the project again](/blog/langjam-gamejam/day_2)
+
+The plane days were certainly worse than the train days... and things have been incredibly busy with work... and maybe I just lack gumption --- but I missed the LangJam GameJam deadline.
+
+But, I miss this project! So I want to go ahead and finish it anyways.
+
+### Random Infinite Canvas GUI
+
+I got bored (and nostalgic for [DeckFlow](https://deckflow.org/) today), so I built an infinite canvas in Rust that I want to hook up to SheetLang.
+
+<iframe src="https://cancan.regory.dev" style="width: 100%; min-height: 500px; border: none;"></iframe>
+
+Time will tell if it ever happens...
+
+### SheetLang Improvements
+
+I also added numpy-style array slicing to SheetLang. It needs a GUI, but is fun to play with in my brain.
+
+<iframe src="https://sheetlang.regory.dev/?code=Z1%20%3D%20(n%2C%20c)%20%3D%3E%20(((c%20%3D%3D%201)%20%26%26%20(n%20%3D%3D%202%20%7C%7C%20n%20%3D%3D%203))%20%26%26%201)%20%7C%7C%20((n%20%3D%3D%203)%20%26%26%201)%20%7C%7C%200%0AA1%3AC3%20%3D%200%0AB1%3AB3%20%3D%201%0Atick%0Abshow%20A1%3AC3%0AA1%3AC3%20%3D%20Z1((%40%5B-1%2C-1%5D%7C%7C0)%20%2B%20(%40%5B0%2C-1%5D%7C%7C0)%20%2B%20(%40%5B1%2C-1%5D%7C%7C0)%20%2B%20(%40%5B-1%2C0%5D%7C%7C0)%20%2B%20(%40%5B1%2C0%5D%7C%7C0)%20%2B%20(%40%5B-1%2C1%5D%7C%7C0)%20%2B%20(%40%5B0%2C1%5D%7C%7C0)%20%2B%20(%40%5B1%2C1%5D%7C%7C0)%2C%20%40%5B0%2C0%5D%7C%7C0)%0Atick%0Abshow%20A1%3AC3%0Atick%0Abshow%20A1%3AC3%0Atick%0Abshow%20A1%3AC3%0Atick%0Abshow%20A1%3AC3" style="width: 100%; min-height: 500px; border: none;"></iframe>
+
+I've also been obsessed with Tofu and IoC lately (shoutout https://unhexium.net/!), so I've replaced much of my personal project deployments with [fancy, more repeatable workflows](https://github.com/gcrois/sheetlang/blob/main/infra/main.tofu). 
