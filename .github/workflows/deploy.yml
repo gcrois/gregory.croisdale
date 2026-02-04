@@ -1,0 +1,45 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+          with:
+            lfs: true
+            fetch-depth: 0
+
+        - name: Install pnpm
+          uses: pnpm/action-setup@v4
+          with:
+            run_install: false
+            version: 9.6.0
+        
+        - uses: actions/setup-node@v4
+          with:
+            node-version: 21
+
+        - name: Install dependencies
+          run: pnpm install
+
+        - name: Build
+          run: pnpm run build
+
+        - name: Deploy to Cloudflare Pages
+          uses: cloudflare/wrangler-action@v3
+          with:
+            apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+            command: >
+              pages deploy ${{ vars.CLOUDFLARE_OUTPUT_DIR }}
+              --project-name ${{ vars.CLOUDFLARE_PROJECT_NAME }}
+              --branch main
