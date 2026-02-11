@@ -8,6 +8,17 @@ const QRCodeGenerator: React.FC = () => {
 	const [isTransparent, setIsTransparent] = useState<boolean>(false);
 	const canvasRef = React.useRef<HTMLCanvasElement>(null);
 	const svgRef = React.useRef<SVGSVGElement>(null);
+	// Keep URL-shaped values readable while preserving query safety.
+	const qrParamValue = encodeURIComponent(text)
+		.replace(/%3A/gi, ":")
+		.replace(/%2F/gi, "/")
+		.replace(/%3F/gi, "?")
+		.replace(/%3D/gi, "=");
+	const qrRoutePath = `/qr/?url=${qrParamValue}`;
+	const qrRouteUrl =
+		typeof window === "undefined"
+			? qrRoutePath
+			: `${window.location.origin}${qrRoutePath}`;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setText(e.target.value);
@@ -94,6 +105,42 @@ const QRCodeGenerator: React.FC = () => {
 					ref={canvasRef}
 					style={{ width: "100%", height: "auto", maxWidth: "256px" }}
 				/>
+			</div>
+			<div className="result-container">
+				<h3>Fullscreen QR Route</h3>
+				<p
+					className="result-text"
+					style={{
+						fontSize: "0.95em",
+						color: "var(--text-secondary)",
+					}}
+				>
+					{qrRouteUrl}
+				</p>
+				<div className="button-group">
+					<a
+						className="util-btn secondary"
+						href={qrRoutePath}
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{
+							display: "inline-flex",
+							alignItems: "center",
+							justifyContent: "center",
+							textDecoration: "none",
+						}}
+					>
+						Open /qr Route
+					</a>
+					<button
+						className="util-btn secondary"
+						onClick={() => {
+							navigator.clipboard.writeText(qrRouteUrl);
+						}}
+					>
+						Copy Link
+					</button>
+				</div>
 			</div>
 
 			{/* Hidden SVG for download purposes */}

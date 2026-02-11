@@ -17,6 +17,13 @@ const schema = {
 	description: z.string(),
 	date: z.string(),
 	tags: z.array(z.string()),
+	series: z
+		.object({
+			id: z.string(),
+			title: z.string(),
+			order: z.number(),
+		})
+		.optional(),
 
 	image: z.string().default("/images/me.jpg"),
 	link: z.string().default(""),

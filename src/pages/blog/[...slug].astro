@@ -14,6 +14,42 @@ export async function getStaticPaths() {
 }
 // 2. When it's time to render, you can get the entry directly from the prop
 const { entry } = Astro.props;
+const allBlogEntries = await getCollection("blog");
+const seriesInfo = entry.data.series;
+const seriesEntries = seriesInfo
+	? allBlogEntries
+			.filter((candidate) => {
+				const candidateSeries = candidate.data.series;
+				if (!candidateSeries || candidateSeries.id !== seriesInfo.id) {
+					return false;
+				}
+
+				return (
+					candidate.slug === entry.slug || !candidate.data.unlisted
+				);
+			})
+			.sort((a, b) => {
+				const orderDiff =
+					(a.data.series?.order ?? 0) - (b.data.series?.order ?? 0);
+				if (orderDiff !== 0) {
+					return orderDiff;
+				}
+
+				return (
+					new Date(a.data.date).getTime() -
+					new Date(b.data.date).getTime()
+				);
+			})
+	: [];
+const currentSeriesIndex = seriesEntries.findIndex(
+	(candidate) => candidate.slug === entry.slug
+);
+const previousSeriesEntry =
+	currentSeriesIndex > 0 ? seriesEntries[currentSeriesIndex - 1] : null;
+const nextSeriesEntry =
+	currentSeriesIndex >= 0 && currentSeriesIndex < seriesEntries.length - 1
+		? seriesEntries[currentSeriesIndex + 1]
+		: null;
 const { Content } = await entry.render();
 import { getImage } from "astro:assets";
 
@@ -91,8 +127,41 @@ if (entry.data.image && entry.data.image !== "/images/me.jpg") {
         http-equiv="Refresh"
         content="0;
         URL=${entry.data.link}
-      "/>`}
+	      "/>`}
 />
+
+<style lang="scss">
+	.series-nav {
+		margin-top: 3rem;
+		padding: 1rem 1.2rem;
+		border-radius: 10px;
+		border: 1px solid var(--bg-border);
+		background: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(8px);
+	}
+
+	.series-title {
+		margin: 0 0 0.75rem 0;
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: var(--text-main);
+	}
+
+	.series-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.series-link {
+		font-weight: 600;
+	}
+
+	.series-link-disabled {
+		color: var(--text-secondary);
+	}
+</style>
 
 <Layout
 	title={entry.data.title}
@@ -101,4 +170,44 @@ if (entry.data.image && entry.data.image !== "/images/me.jpg") {
 	ogImage={ogImageUrl}
 >
 	<Content />
+	{
+		seriesInfo && seriesEntries.length > 1 && (
+			<nav
+				class="series-nav"
+				aria-label={`${seriesInfo.title} navigation`}
+			>
+				<p class="series-title">
+					<Fragment set:html={seriesInfo.title} /> (
+					{currentSeriesIndex + 1}/{seriesEntries.length})
+				</p>
+				<div class="series-links">
+					{previousSeriesEntry ? (
+						<a
+							class="series-link"
+							href={`/blog/${previousSeriesEntry.slug}/`}
+						>
+							←{" "}
+							<Fragment
+								set:html={previousSeriesEntry.data.title}
+							/>
+						</a>
+					) : (
+						<span class="series-link-disabled">
+							Start of series
+						</span>
+					)}
+					{nextSeriesEntry ? (
+						<a
+							class="series-link"
+							href={`/blog/${nextSeriesEntry.slug}/`}
+						>
+							<Fragment set:html={nextSeriesEntry.data.title} /> →
+						</a>
+					) : (
+						<span class="series-link-disabled">End of series</span>
+					)}
+				</div>
+			</nav>
+		)
+	}
 </Layout>

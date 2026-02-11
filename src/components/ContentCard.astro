@@ -8,6 +8,10 @@ import DynamicImage from "./DynamicImage.astro";
 interface Props {
 	post: CollectionEntry<"blog"> | CollectionEntry<"research">;
 	dateFunc?: (date: Date) => string;
+	series?: {
+		title: string;
+		count: number;
+	};
 }
 
 const {
@@ -17,6 +21,7 @@ const {
 		const dayStr = day.toString().replace(/^0+/, "");
 		return `${month} ${dayStr}, ${year}`;
 	},
+	series,
 }: Props = Astro.props;
 const link =
 	post.data.link == "" ? `${post.collection}/${post.slug}` : post.data.link;
@@ -87,6 +92,22 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 		display: flex;
 		gap: 0.5rem;
 		flex-wrap: wrap;
+		margin-bottom: 1rem;
+	}
+
+	.series-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--text-secondary);
+		background-color: rgba(37, 99, 235, 0.08);
+		border: 1px solid rgba(37, 99, 235, 0.2);
+		padding: 0.3rem 0.5rem;
+		border-radius: 999px;
 		margin-bottom: 1rem;
 	}
 
@@ -224,6 +245,15 @@ const domain = post.data.newTab ? new URL(link).hostname : null;
 			}
 		</div>
 		<span class="card-desc">
+			{
+				series && (
+					<div class="series-chip">
+						<span>{series.title}</span>
+						<span>·</span>
+						<span>{series.count} posts</span>
+					</div>
+				)
+			}
 			<div class="tags">
 				{
 					post.data.tags.map((tag: string) => (

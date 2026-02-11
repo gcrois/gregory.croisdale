@@ -6,6 +6,10 @@ date: "2025-12-13"
 
 description: 'My plans for LangJam GameJam 2025: Creating A "Real" Spreadsheet Game'
 tags: ["Game", "Programming Languages", "LangJam GameJam"]
+series:
+    id: "langjam-gamejam-2025"
+    title: "LangJam GameJam"
+    order: -1
 ---
 
 # LangJam GameJam 2025: Day -1

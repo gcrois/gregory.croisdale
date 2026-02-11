@@ -133,11 +133,21 @@ import PasswordGenerator from "src/utils/password";
 		</Section>
 
 		<Section id="qrcode">
-			<QRCodeGenerator client:only="react" />
+			<QRCodeGenerator client:only="react">
+				<div class="util-card">
+					<h2>QR Code Generator</h2>
+					<p>Loading QR widget...</p>
+				</div>
+			</QRCodeGenerator>
 		</Section>
 
 		<Section id="password">
-			<PasswordGenerator client:only="react" />
+			<PasswordGenerator client:only="react">
+				<div class="util-card">
+					<h2>Password Generator</h2>
+					<p>Loading password widget...</p>
+				</div>
+			</PasswordGenerator>
 		</Section>
 	</main>
 </Layout>

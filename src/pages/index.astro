@@ -13,6 +13,57 @@ const allBlogPosts = (await getCollection("blog")).filter(
 const allResearchPosts = (await getCollection("research")).filter(
 	(post) => !post.data.unlisted
 );
+const sortedBlogPosts = [...allBlogPosts].sort(
+	(a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const seriesPostCountById = new Map<string, number>();
+const latestSeriesPostById = new Map<string, (typeof allBlogPosts)[number]>();
+const standaloneBlogPosts: (typeof allBlogPosts)[number][] = [];
+
+for (const post of sortedBlogPosts) {
+	const series = post.data.series;
+	if (!series) {
+		standaloneBlogPosts.push(post);
+		continue;
+	}
+
+	seriesPostCountById.set(
+		series.id,
+		(seriesPostCountById.get(series.id) ?? 0) + 1
+	);
+	if (!latestSeriesPostById.has(series.id)) {
+		latestSeriesPostById.set(series.id, post);
+	}
+}
+
+const visibleBlogPosts = [
+	...standaloneBlogPosts,
+	...Array.from(latestSeriesPostById.values()),
+].sort(
+	(a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const visibleBlogTags = Array.from(
+	new Set(visibleBlogPosts.flatMap((post) => post.data.tags))
+).sort((a, b) => a.localeCompare(b));
+const blogCards = visibleBlogPosts.map((post) => {
+	const series = post.data.series;
+	if (!series) {
+		return { post };
+	}
+
+	const seriesCount = seriesPostCountById.get(series.id) ?? 1;
+	if (seriesCount <= 1) {
+		return { post };
+	}
+
+	return {
+		post,
+		series: {
+			title: series.title,
+			count: seriesCount,
+		},
+	};
+});
 ---
 
 <style lang="scss">
@@ -154,8 +205,7 @@ const allResearchPosts = (await getCollection("research")).filter(
 				target="_blank">Khaki</a
 			>. Previously, I was a PhD candidate at the University of Michigan
 			studying Human-Computer Interaction. My research was focused around
-			improving communication mechanisms between Humans and AI to support
-			common good, but have since become disenchanted with academia.
+			improving communication between Humans and AI.
 			<br /><br />
 			I'm also a huge philosophy, art, music, and food nerd. I dabble in 3d
 			Modeling (<a href="https://www.blender.org/">Blender</a> is my all-time
@@ -170,11 +220,7 @@ const allResearchPosts = (await getCollection("research")).filter(
 						>All</button
 					>
 					{
-						Array.from(
-							new Set(
-								allBlogPosts.flatMap((post) => post.data.tags)
-							)
-						).map((tag) => (
+						visibleBlogTags.map((tag) => (
 							<button class="filter-tag" data-filter={tag}>
 								{tag}
 							</button>
@@ -195,13 +241,9 @@ const allResearchPosts = (await getCollection("research")).filter(
 
 			<div class="section-grid" id="blog-grid">
 				{
-					allBlogPosts
-						.sort(
-							(a, b) =>
-								new Date(b.data.date).getTime() -
-								new Date(a.data.date).getTime()
-						)
-						.map((post) => <ContentCard post={post} />)
+					blogCards.map((card) => (
+						<ContentCard post={card.post} series={card.series} />
+					))
 				}
 			</div>
 		</Section>
