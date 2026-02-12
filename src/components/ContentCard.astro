@@ -9,6 +9,7 @@ interface Props {
 	post: CollectionEntry<"blog"> | CollectionEntry<"research">;
 	dateFunc?: (date: Date) => string;
 	series?: {
+		id: string;
 		title: string;
 		count: number;
 	};
@@ -24,7 +25,11 @@ const {
 	series,
 }: Props = Astro.props;
 const link =
-	post.data.link == "" ? `${post.collection}/${post.slug}` : post.data.link;
+	post.data.link == ""
+		? series
+			? `/blog/series/${series.id}/`
+			: `${post.collection}/${post.slug}`
+		: post.data.link;
 const domain = post.data.newTab ? new URL(link).hostname : null;
 ---
 

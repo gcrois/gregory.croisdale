@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Redirect from "@layouts/Redirect.astro";
+
+export async function getStaticPaths() {
+	const blogEntries = (await getCollection("blog")).filter(
+		(entry) => !entry.data.unlisted && entry.data.series
+	);
+	const latestSeriesEntryById = new Map<string, (typeof blogEntries)[number]>();
+
+	for (const entry of blogEntries) {
+		const seriesId = entry.data.series!.id;
+		const existingEntry = latestSeriesEntryById.get(seriesId);
+		if (!existingEntry) {
+			latestSeriesEntryById.set(seriesId, entry);
+			continue;
+		}
+
+		if (
+			new Date(entry.data.date).getTime() >
+			new Date(existingEntry.data.date).getTime()
+		) {
+			latestSeriesEntryById.set(seriesId, entry);
+		}
+	}
+
+	return Array.from(latestSeriesEntryById.entries()).map(
+		([seriesId, latestEntry]) => ({
+			params: { id: seriesId },
+			props: {
+				target: `/blog/${latestEntry.slug}/`,
+			},
+		})
+	);
+}
+
+const { target } = Astro.props;
+---
+
+<Redirect target={target} />
