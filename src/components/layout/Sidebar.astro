@@ -4,6 +4,7 @@ interface Props {}
 import Profile from "@components/Profile.astro";
 import H1 from "@components/HeaderText.astro";
 import H2 from "@components/SubheaderText.astro";
+import { FaGithub } from "react-icons/fa";
 
 import "@styles/main.scss";
 import "@styles/variables.scss";
@@ -58,6 +59,28 @@ import Navbar from "@components/Navbar.astro";
 		margin: 1.5rem 0;
 		opacity: 0.5;
 	}
+
+    .divider {
+        width: 100%;
+        height: 1px;
+        margin: 0.5rem 0;
+        opacity: 0.5;
+    }
+
+	.github-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+		font-size: 0.9rem;
+		font-weight: 500;
+		transition: color var(--transition);
+
+		&:hover {
+			color: var(--text-main);
+		}
+	}
 </style>
 
 <div class="sidebar">
@@ -77,6 +100,11 @@ import Navbar from "@components/Navbar.astro";
 			></H2
 		>
 		<H2>Prev HCI and PL @ UMich</H2>
+        <div class="divider"/>
+		<a href="https://github.com/gcrois" target="_blank" rel="noopener noreferrer" class="github-link">
+			<FaGithub />
+			github.com/gcrois
+		</a>
 	</div>
 	<Navbar classes="desktop" />
 </div>
