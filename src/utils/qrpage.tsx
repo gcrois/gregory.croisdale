@@ -154,7 +154,9 @@ const FullscreenQR: React.FC<FullscreenQRProps> = ({
 		for (const k of keys) {
 			const v = sp.get(k);
 			if (v && v.trim().length > 0)
-				return v.replace(/\$SNAKE/g, window.location.href).trim();
+				return k === "text"
+					? v
+					: v.replace(/\$SNAKE/g, window.location.href).trim();
 		}
 		return "";
 	}, [queryKey]);
@@ -216,6 +218,7 @@ const FullscreenQR: React.FC<FullscreenQRProps> = ({
 				>
 					<QRCodeSVG
 						value={value}
+						marginSize={4}
 						level={level}
 						bgColor="transparent"
 						fgColor={
@@ -236,7 +239,7 @@ const FullscreenQR: React.FC<FullscreenQRProps> = ({
 			) : (
 				<div
 					style={{
-						color: "#ffffff",
+						color: fgColor,
 						fontFamily:
 							"ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
 						textAlign: "center",

@@ -47,7 +47,111 @@ import PasswordGenerator from "src/utils/password";
 
 	:global(.button-group) {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 1rem;
+	}
+
+	:global(.qr-field),
+	:global(.qr-fields) {
+		display: grid;
+		gap: 0.65rem;
+		min-width: 0;
+	}
+
+	:global(.qr-fields) {
+		gap: 1rem;
+	}
+
+	:global(.qr-field > label) {
+		font-weight: 600;
+	}
+
+	:global(.qr-description) {
+		margin: 0;
+		font-size: 0.95rem;
+		color: var(--text-secondary);
+	}
+
+	:global(textarea.util-input) {
+		font-family: inherit;
+		resize: vertical;
+	}
+
+	:global(.qr-heading) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	:global(.qr-heading h2) {
+		margin: 0;
+	}
+
+	:global(.qr-heading + .qr-description) {
+		margin-top: 0.5rem;
+	}
+
+	:global(.qr-type) {
+		padding: 0.3rem 0.4rem;
+		border: 1px solid var(--bg-border);
+		border-radius: 6px;
+		background: transparent;
+		color: var(--text-secondary);
+		font: inherit;
+		font-size: 0.875rem;
+		cursor: pointer;
+	}
+
+	:global(.qr-type:focus-visible) {
+		outline: 2px solid var(--primary);
+		outline-offset: 2px;
+	}
+
+	:global(.qr-resolution) {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	:global(.qr-resolution input[type="range"]) {
+		flex: 1;
+		min-width: 0;
+		accent-color: var(--primary);
+	}
+
+	:global(.qr-resolution input[type="number"]) {
+		width: 6rem;
+	}
+
+	:global(.qr-empty) {
+		margin: 0;
+		padding: 2rem 1rem;
+		text-align: center;
+		background: var(--bg-body);
+		border: 1px dashed var(--bg-border);
+		border-radius: 8px;
+		color: var(--text-secondary);
+	}
+
+	:global(.qr-route) {
+		font-size: 0.9rem;
+		color: var(--text-secondary);
+		margin-bottom: 1rem;
+		max-height: 6rem;
+		overflow: auto;
+	}
+
+	:global(.util-btn:disabled) {
+		opacity: 0.45;
+		cursor: not-allowed;
+	}
+
+	@media (max-width: 600px) {
+		:global(.util-card) {
+			padding: 1rem;
+		}
 	}
 
 	:global(.util-btn) {

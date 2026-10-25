@@ -1,6 +1,6 @@
 # gregory.croisdale
 
-Hi! I'm the founding engineer at [Khaki](https://khaki.email). Previously, I was a PhD Candidate at the University of Michigan studying Human-Computer Interaction and Programming Languages. This is my personal website. It's built with [Astro](https://astro.build) and deployed with [GitHub Pages](https://pages.github.com/). WIP!
+Hi! I'm a voice agent engineer at [Deepgram](https://deepgram.com). Previously, I was a PhD Candidate at the University of Michigan studying Human-Computer Interaction and Programming Languages. This is my personal website. It's built with [Astro](https://astro.build) and deployed with [GitHub Pages](https://pages.github.com/). WIP!
 
 ## 🧞 Commands
 
