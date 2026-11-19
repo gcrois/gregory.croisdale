@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@layouts/DefaultLayout.astro";
+import DraftHistory from "@components/DraftHistory.astro";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -169,7 +170,7 @@ if (entry.data.image && entry.data.image !== "/images/me.jpg") {
 	description={entry.data.description}
 	ogImage={ogImageUrl}
 >
-	<Content />
+	<div data-draft-body><Content /></div>
 	{
 		seriesInfo && seriesEntries.length > 1 && (
 			<nav
@@ -210,4 +211,5 @@ if (entry.data.image && entry.data.image !== "/images/me.jpg") {
 			</nav>
 		)
 	}
+	<DraftHistory id={entry.id} slug={entry.slug} />
 </Layout>

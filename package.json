@@ -26,6 +26,7 @@
     "devtools-detect": "^4.0.2",
     "geometrizer-js": "^0.0.3",
     "jspdf": "^2.5.2",
+    "marked": "^18.2.1",
     "pako": "^2.1.0",
     "qrcode.react": "^4.1.0",
     "randexp": "^0.5.3",

@@ -1,0 +1,317 @@
+---
+// The post's drafting history, pinned to the bottom of the post card: dragging the scrubber
+// rewinds the article above, edit by edit. Sessions mark where each stretch of writing (or
+// an agent's pass) began, with its date, goal and sources. Needs the body in [data-draft-body].
+import { draftHistory } from "../utils/draft-history";
+import { parseDraftLog, sessionAt, sessions, type Milestone } from "../utils/draft-log";
+
+interface Props {
+	id: string;
+	slug: string;
+}
+const { id, slug } = Astro.props;
+const log = draftHistory(id);
+const parsed = log ? parseDraftLog(log) : { edits: [], milestones: [] };
+const total = parsed.edits.length;
+const list = sessions(parsed.edits, parsed.milestones);
+const current = sessionAt(list, total);
+const stamp = (m: Milestone) => new Date(m.t).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+// Where clicking a session's mark lands: the end of an agent pass shows what it did.
+const target = (m: Milestone) => (m.by ? (m.end ?? m.at) : m.at);
+---
+
+{
+	total > 0 && (
+		<div class="draft-history" data-draft-history data-src={`/history/${slug}.jsonl`} data-sessions={JSON.stringify(list)}>
+			<div class="draft-row">
+				<button type="button" data-draft-play class="draft-play" aria-label="Play how this post was written">
+					▶
+				</button>
+				<div class="draft-track">
+					<input
+						type="range"
+						data-draft-scrub
+						min="0"
+						max={total}
+						value={total}
+						step="1"
+						aria-label="Drag to see how this post was written"
+						title="Drag to see how this post was written"
+					/>
+					{list.map((m) => (
+						<button
+							type="button"
+							class:list={["draft-tick", { agent: m.by, current: m === current }]}
+							data-draft-tick={target(m)}
+							style={`left: ${(100 * m.at) / total}%`}
+							title={`${stamp(m)}${m.by ? ` · ${m.by}` : ""}${m.goal ? `: ${m.goal}` : ""}`}
+							aria-label={`Jump to session: ${m.goal || stamp(m)}`}
+						/>
+					))}
+				</div>
+			</div>
+			<div class="draft-session" data-draft-session />
+		</div>
+	)
+}
+
+<style>
+	/* The card holding a post with a history fills the viewport, so the bar sits at its foot. */
+	:global(.content:has(> [data-draft-history])) {
+		display: flex;
+		flex-direction: column;
+		min-height: calc(100dvh - 4rem);
+	}
+	.draft-history {
+		position: sticky;
+		bottom: 0;
+		z-index: 5;
+		margin-top: auto;
+		padding: 1.5rem 0 0.25rem;
+		font-size: 0.8rem;
+		color: var(--text-secondary);
+		background: linear-gradient(to bottom, transparent, var(--bg-body) 40%);
+	}
+	.draft-row {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.draft-play {
+		all: unset;
+		cursor: pointer;
+		width: 1rem;
+		text-align: center;
+		color: var(--primary);
+	}
+	.draft-track {
+		position: relative;
+		flex: 1;
+		display: flex;
+		align-items: center;
+		padding-bottom: 0.7rem;
+	}
+	.draft-track input {
+		width: 100%;
+		margin: 0;
+		accent-color: var(--primary);
+		cursor: pointer;
+	}
+	/* Session marks hang below the track so the thumb never hides them. */
+	.draft-tick {
+		position: absolute;
+		bottom: 0;
+		width: 0.5rem;
+		height: 0.5rem;
+		padding: 0;
+		border: 0;
+		border-radius: 1px;
+		transform: translateX(-50%) rotate(45deg);
+		background: var(--secondary);
+		opacity: 0.45;
+		cursor: pointer;
+	}
+	.draft-tick.agent {
+		border-radius: 50%;
+		transform: translateX(-50%);
+		background: var(--primary);
+	}
+	.draft-tick.current,
+	.draft-tick:hover {
+		opacity: 1;
+	}
+	.draft-session {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.1rem 0.6rem;
+		margin: 0.15rem 0 0 1.6rem;
+	}
+	.draft-session :global(.date) {
+		color: var(--secondary);
+		font-variant-numeric: tabular-nums;
+	}
+	.draft-session :global(.by) {
+		color: var(--primary);
+	}
+	.draft-session :global(.goal) {
+		color: var(--text-main);
+	}
+	.draft-session :global(a::before) {
+		content: "↗ ";
+	}
+	.draft-session :global(details) {
+		flex-basis: 100%;
+	}
+	.draft-session :global(summary) {
+		cursor: pointer;
+		width: fit-content;
+	}
+	.draft-session :global(pre) {
+		margin: 0.3rem 0 0;
+		padding: 0.5rem 0.7rem;
+		max-height: 30vh;
+		overflow: auto;
+		white-space: pre-wrap;
+		border-left: 2px solid var(--primary);
+		background: var(--bg-surface);
+		font-size: 0.8rem;
+	}
+
+	:global(.draft-caret) {
+		display: inline-block;
+		width: 2px;
+		height: 1.1em;
+		margin: 0 -1px;
+		vertical-align: text-bottom;
+		background: var(--secondary);
+		animation: draft-blink 1s steps(1) infinite;
+	}
+	:global(.draft-caret.agent) {
+		background: var(--primary);
+	}
+	@keyframes draft-blink {
+		50% {
+			opacity: 0;
+		}
+	}
+</style>
+
+<script>
+	import { sessionAt, type Draft, type Milestone } from "../utils/draft-log";
+
+	// A character that never appears in prose: marks the caret through Markdown rendering.
+	const CARET = "⁣";
+	// Playback steps through edits in order at a fixed pace; real gaps aren't replayed.
+	const EDITS_PER_SECOND = 30;
+
+	const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls: string, text: string) =>
+		Object.assign(document.createElement(tag), { className: cls, textContent: text });
+
+	for (const root of document.querySelectorAll<HTMLElement>("[data-draft-history]")) {
+		const body = document.querySelector<HTMLElement>("[data-draft-body]");
+		if (!body) continue;
+		const $ = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
+		const scrub = $<HTMLInputElement>("[data-draft-scrub]");
+		const playBtn = $<HTMLButtonElement>("[data-draft-play]");
+		const sessionEl = $<HTMLElement>("[data-draft-session]");
+		const ticks = [...root.querySelectorAll<HTMLButtonElement>("[data-draft-tick]")];
+		const list = JSON.parse(root.dataset.sessions ?? "[]") as Milestone[];
+		const finalHtml = body.innerHTML;
+		const total = Number(scrub.max);
+
+		// The log and the Markdown renderer load on first use, not with the page.
+		type Loaded = { draft: Draft; render: (md: string) => string };
+		let loading: Promise<Loaded> | null = null;
+		const load = () =>
+			(loading ??= Promise.all([
+				fetch(root.dataset.src!).then((r) => r.text()),
+				import("marked"),
+				import("../utils/draft-log"),
+			]).then(([log, { marked }, { Draft, parseDraftLog }]) => ({
+				draft: new Draft(parseDraftLog(log).edits),
+				render: (md: string) => marked.parse(md, { async: false }),
+			})));
+
+		let shownSession: Milestone | null | undefined;
+		const showSession = (n: number) => {
+			const m = sessionAt(list, n);
+			if (m === shownSession) return;
+			shownSession = m;
+			ticks.forEach((t, i) => t.classList.toggle("current", list[i] === m));
+			if (!m) return sessionEl.replaceChildren();
+			const parts: Node[] = [el("span", "date", new Date(m.t).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }))];
+			if (m.by) parts.push(el("span", "by", m.by));
+			parts.push(el("span", "goal", m.goal || (m.by ? "" : "untitled session")));
+			for (const s of m.sources) {
+				const a = Object.assign(el("a", "", s.title ?? new URL(s.url, location.href).hostname.replace(/^www\./, "")), {
+					href: s.url,
+					target: "_blank",
+					rel: "noopener noreferrer",
+				});
+				parts.push(a);
+			}
+			if (m.prompt) {
+				const details = document.createElement("details");
+				details.append(el("summary", "", "prompt"), el("pre", "", m.prompt));
+				parts.push(details);
+			}
+			sessionEl.replaceChildren(...parts);
+		};
+		showSession(total);
+
+		const placeCaret = (agent: boolean): HTMLElement | null => {
+			const walk = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+			for (let node = walk.nextNode() as Text | null; node; node = walk.nextNode() as Text | null) {
+				const i = node.data.indexOf(CARET);
+				if (i < 0) continue;
+				const after = node.splitText(i);
+				after.data = after.data.slice(1);
+				const caret = el("span", agent ? "draft-caret agent" : "draft-caret", "");
+				node.after(caret);
+				return caret;
+			}
+			return null;
+		};
+
+		let shown = total;
+		const show = async (n: number) => {
+			if (n === shown) return;
+			shown = n;
+			showSession(n);
+			// At the end, put back the published render rather than the approximation.
+			if (n === total) {
+				body.innerHTML = finalHtml;
+				return;
+			}
+			const { draft, render } = await load();
+			if (n !== shown) return;
+			let md = draft.at(n);
+			const e = n > 0 ? draft.edits[n - 1]! : null;
+			if (e) {
+				const at = e.from + e.insert.length;
+				md = md.slice(0, at) + CARET + md.slice(at);
+			}
+			// Frontmatter isn't part of the post; while it's still being typed, show nothing.
+			md = md.startsWith("---") ? (md.match(/^---\n[\s\S]*?\n---\n?([\s\S]*)$/)?.[1] ?? "") : md;
+			body.innerHTML = render(md).replaceAll("%E2%81%A3", "");
+			const caret = placeCaret(e?.o === "agent");
+			if (caret) {
+				const r = caret.getBoundingClientRect();
+				if (r.top < 80 || r.bottom > innerHeight - 140) caret.scrollIntoView({ block: "center" });
+			}
+		};
+
+		let playing = false;
+		let pos = total;
+		let last = 0;
+		const tick = (now: number) => {
+			if (!playing) return;
+			pos = Math.min(pos + ((now - last) / 1000) * EDITS_PER_SECOND, total);
+			last = now;
+			scrub.value = String(Math.floor(pos));
+			void show(Math.floor(pos));
+			if (pos >= total) setPlaying(false);
+			else requestAnimationFrame(tick);
+		};
+		const setPlaying = (on: boolean) => {
+			playing = on;
+			playBtn.textContent = on ? "❚❚" : "▶";
+			if (!on) return;
+			void load();
+			if (pos >= total) pos = 0;
+			last = performance.now();
+			requestAnimationFrame(tick);
+		};
+		const seek = (n: number) => {
+			pos = n;
+			scrub.value = String(n);
+			void show(n);
+		};
+
+		scrub.addEventListener("pointerdown", () => void load(), { once: true });
+		scrub.addEventListener("input", () => seek(Number(scrub.value)));
+		playBtn.addEventListener("click", () => setPlaying(!playing));
+		for (const t of ticks) t.addEventListener("click", () => seek(Number(t.dataset.draftTick)));
+	}
+</script>
